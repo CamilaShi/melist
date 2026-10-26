@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ME-List - Login</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#7C8F6E">
+  <script>
+    if (localStorage.getItem('checklist_tema') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+  <link rel="stylesheet" href="style.css?v=17">
+</head>
+<body class="tela-login">
+
+  <canvas id="sakura-canvas"></canvas>
+
+  <button class="botao-tema-login" id="botaoTemaLogin" onclick="alternarTemaLogin()" aria-label="Alternar tema">&#9789;</button>
+
+  <div class="cartao">
+    <h1>ME-List</h1>
+    <p id="subtituloLogin">Entre com seu e-mail e senha para começar</p>
+
+    <form id="formLogin" class="campo-login" onsubmit="entrar(event)">
+      <label>E-mail
+        <input type="email" id="campoEmail" autocomplete="email" required>
+      </label>
+      <label>Senha
+        <input type="password" id="campoSenha" autocomplete="current-password" required>
+      </label>
+      <button type="submit" class="botao-principal" id="botaoEntrar">Entrar</button>
+      <button type="button" class="botao-link" onclick="esqueciSenha()">Esqueci minha senha</button>
+    </form>
+
+    <form id="formNovaSenha" class="campo-login" style="display:none;" onsubmit="salvarNovaSenha(event)">
+      <label>Nova senha (mínimo 10 caracteres)
+        <input type="password" id="campoNovaSenha" autocomplete="new-password" minlength="10" required>
+      </label>
+      <label>Repita a nova senha
+        <input type="password" id="campoNovaSenha2" autocomplete="new-password" minlength="10" required>
+      </label>
+      <button type="submit" class="botao-principal">Salvar senha e entrar</button>
+    </form>
+
+    <div class="mensagem" id="mensagem"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    // ----- alternar tema na tela de login -----
+    function atualizarBotaoTemaLogin() {
+      const tema = document.documentElement.getAttribute('data-theme');
+      const botao = document.getElementById('botaoTemaLogin');
+      botao.innerHTML = tema === 'dark' ? '&#9728;' : '&#9789;';
+      botao.setAttribute('aria-label', tema === 'dark' ? 'Mudar para modo claro' : 'Mudar para modo escuro');
+    }
+    function alternarTemaLogin() {
+      const raiz = document.documentElement;
+      const atual = raiz.getAttribute('data-theme');
+      const novo = atual === 'dark' ? 'light' : 'dark';
+      raiz.setAttribute('data-theme', novo);
+      localStorage.setItem('checklist_tema', novo);
+      atualizarBotaoTemaLogin();
+    }
+    atualizarBotaoTemaLogin();
+
+    // ----- sakura: pétalas caindo, leve e discreta, atrás do cartão -----
+    (function () {
+      const raiz = document.documentElement;
+      const canvas = document.getElementById('sakura-canvas');
+      const ctx = canvas.getContext('2d');
+      let largura, altura, petalas = [], animando = true, frame = null;
+
+      function corPetala() {
+        const escuro = raiz.getAttribute('data-theme') === 'dark';
+        // rosa-sakura, puxado um pouco pro dourado no tema escuro pra
+        // conversar com a paleta --classico/--brilho já existente.
+        return escuro
+          ? ['rgba(255,205,214,', 'rgba(240,212,138,']
+          : ['rgba(205,120,142,', 'rgba(184,130,87,'];
+      }
+
+      function redimensionar() {
+        largura = canvas.width = window.innerWidth;
+        altura = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', redimensionar);
+      redimensionar();
+
+      function criarPetala() {
+        return {
+          x: Math.random() * largura,
+          y: -20 - Math.random() * altura,
+          tamanho: 8 + Math.random() * 8,
+          velocidadeY: 0.25 + Math.random() * 0.4,
+          velocidadeX: 0.15 + Math.random() * 0.3,
+          fase: Math.random() * Math.PI * 2,
+          rotacao: Math.random() * Math.PI * 2,
+          velocidadeRotacao: (Math.random() - 0.5) * 0.015,
+          opacidade: 0.2 + Math.random() * 0.25,
+          dourada: Math.random() < 0.3,
+        };
+      }
+
+      // Menos pétalas e mais discretas -- era um teto de 36, agora 16.
+      const QUANTIDADE = Math.min(16, Math.round((window.innerWidth * window.innerHeight) / 60000));
+      for (let i = 0; i < QUANTIDADE; i++) petalas.push(criarPetala());
+
+      // Desenha uma pétala de verdade (gota arredondada numa ponta, com
+      // um leve recorte na outra) em vez de uma elipse lisa -- em canvas,
+      // nunca com path SVG escrito à mão.
+      function tracarPetala(tamanho) {
+        const s = tamanho;
+        ctx.beginPath();
+        ctx.moveTo(0, -s);
+        ctx.bezierCurveTo(s * 0.75, -s * 0.55, s * 0.68, s * 0.55, s * 0.1, s * 0.92);
+        ctx.quadraticCurveTo(0, s * 1.08, -s * 0.1, s * 0.92);
+        ctx.bezierCurveTo(-s * 0.68, s * 0.55, -s * 0.75, -s * 0.55, 0, -s);
+        ctx.closePath();
+      }
+
+      function desenharPetala(p) {
+        const [rosa, dourado] = corPetala();
+        const escuro = raiz.getAttribute('data-theme') === 'dark';
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotacao);
+        if (escuro) {
+          ctx.shadowColor = (p.dourada ? dourado : rosa) + '0.9)';
+          ctx.shadowBlur = p.tamanho * 0.8;
+        }
+        tracarPetala(p.tamanho);
+        ctx.fillStyle = (p.dourada ? dourado : rosa) + p.opacidade + ')';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function tick() {
+        ctx.clearRect(0, 0, largura, altura);
+        petalas.forEach(p => {
+          p.fase += 0.012;
+          p.y += p.velocidadeY;
+          p.x += p.velocidadeX * Math.sin(p.fase);
+          p.rotacao += p.velocidadeRotacao;
+          if (p.y > altura + 20) {
+            p.y = -20;
+            p.x = Math.random() * largura;
+          }
+          desenharPetala(p);
+        });
+        if (animando) frame = requestAnimationFrame(tick);
+      }
+
+      const prefereReduzido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefereReduzido) {
+        tick();
+      }
+    })();
+
+    const veioDeLink = /type=(invite|recovery)/.test(window.location.hash);
+    const linkComErro = /error_code=/.test(window.location.hash);
+    const paginaBase = new URL('./', window.location.href).href;
+
+    function mostrarMensagem(texto, tipo) {
+      const el = document.getElementById('mensagem');
+      el.textContent = texto;
+      el.className = 'mensagem ' + (tipo || '');
+    }
+
+    async function irParaApp() {
+      const { data } = await db.auth.getSession();
+      if (!data.session) return;
+      const ass = await db.from('assinaturas').select('status, valido_ate').eq('user_id', data.session.user.id).maybeSingle();
+      if (acessoAtivo(ass.data)) {
+        window.location.replace('index.html');
+        return;
+      }
+      await db.auth.signOut();
+      mostrarMensagem('Sua conta ainda não tem acesso liberado. Se você já pagou, aguarde alguns minutos e tente de novo.', 'erro');
+    }
+
+    window.onload = async function () {
+      const { data } = await db.auth.getSession();
+
+      if (linkComErro) {
+        mostrarMensagem('O link expirou ou já foi usado. Use "Esqueci minha senha" para receber um novo.', 'erro');
+        return;
+      }
+      if (veioDeLink && data.session) {
+        document.getElementById('formLogin').style.display = 'none';
+        document.getElementById('formNovaSenha').style.display = 'flex';
+        document.getElementById('subtituloLogin').textContent = 'Crie sua senha para continuar';
+        return;
+      }
+      if (data.session) {
+        await irParaApp();
+        return;
+      }
+      if (new URLSearchParams(window.location.search).get('motivo') === 'sem-acesso') {
+        mostrarMensagem('Sua conta ainda não tem acesso liberado. Se você já pagou, aguarde alguns minutos e tente de novo.', 'erro');
+      }
+    };
+
+    async function entrar(ev) {
+      ev.preventDefault();
+      const botao = document.getElementById('botaoEntrar');
+      botao.disabled = true;
+      mostrarMensagem('Entrando...', 'info');
+      const { error } = await db.auth.signInWithPassword({
+        email: document.getElementById('campoEmail').value.trim(),
+        password: document.getElementById('campoSenha').value
+      });
+      botao.disabled = false;
+      if (error) {
+        mostrarMensagem('E-mail ou senha incorretos.', 'erro');
+        return;
+      }
+      await irParaApp();
+    }
+
+    async function esqueciSenha() {
+      const email = document.getElementById('campoEmail').value.trim();
+      if (!email) {
+        mostrarMensagem('Digite seu e-mail no campo acima e clique de novo.', 'erro');
+        return;
+      }
+      await db.auth.resetPasswordForEmail(email, { redirectTo: paginaBase });
+      mostrarMensagem('Se este e-mail estiver cadastrado, você receberá um link para criar uma nova senha.', 'info');
+    }
+
+    async function salvarNovaSenha(ev) {
+      ev.preventDefault();
+      const a = document.getElementById('campoNovaSenha').value;
+      const b = document.getElementById('campoNovaSenha2').value;
+      if (a !== b) {
+        mostrarMensagem('As senhas não são iguais.', 'erro');
+        return;
+      }
+      const { error } = await db.auth.updateUser({ password: a });
+      if (error) {
+        mostrarMensagem(error.message, 'erro');
+        return;
+      }
+      history.replaceState(null, '', window.location.pathname);
+      await irParaApp();
+    }
+  </script>
+</body>
+</html>

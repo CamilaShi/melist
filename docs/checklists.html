@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if (/type=(invite|recovery)/.test(location.hash) || /error_code=/.test(location.hash)) {
+      location.replace("login.html" + location.hash);
+    }
+  </script>
+  <title>Meus Checklists - Checklist Melissa</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#7C8F6E">
+  <script>
+    if (localStorage.getItem('checklist_tema') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+  <link rel="stylesheet" href="style.css?v=17">
+</head>
+<body>
+
+  <div class="particulas" id="particulas"></div>
+
+  <div class="app">
+    <aside class="barra-lateral">
+      <div class="marca-menu">
+        <img src="icons/icon-192.png" alt="">
+        <span>ME-LIST</span>
+      </div>
+      <div class="saudacao-menu" id="saudacaoMenu">Oi! &#128075;</div>
+
+      <nav class="nav-lista">
+        <button class="nav-item" onclick="irPara('index.html')">
+          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 5"></polyline><polyline points="15 5 21 5 21 11"></polyline></svg></span> Dashboard
+        </button>
+        <button class="nav-item ativo" id="navMeusChecklists" onclick="mostrarListaPrincipal()">
+          <span class="nav-icone">&#10003;</span> Meus Checklists
+        </button>
+        <button class="nav-item" id="navHistorico" onclick="abrirHistorico()">
+          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v5l3.5 2"></path></svg></span> Histórico
+        </button>
+        <button class="nav-item" onclick="irPara('configuracoes.html')">
+          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span> Configurações
+        </button>
+      </nav>
+
+      <div class="nav-rodape">
+        <div class="linha-sair">
+          <button class="nav-item" onclick="sair()">
+            <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span> Sair
+          </button>
+          <label class="interruptor-tema" aria-label="Alternar tema">
+            <input type="checkbox" id="toggleTemaRodape" onchange="alternarTema()">
+            <span class="interruptor-tema-trilho">
+              <span class="interruptor-tema-bola"></span>
+              <span class="interruptor-tema-icone" id="iconeTemaRodape">&#9790;</span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <main class="conteudo">
+
+      <!-- VISTA: lista de checklists -->
+      <div id="vistaLista">
+        <div class="topo">
+          <div class="selo-topo">Painel</div>
+          <h1>Meus Checklists</h1>
+        </div>
+        <div class="grade-checklists" id="gradeChecklists">
+          <div class="estado-vazio">Carregando...</div>
+        </div>
+      </div>
+
+      <!-- VISTA: Histórico (quando cada checklist foi salvo/feito) -->
+      <div id="vistaHistorico" style="display:none;">
+        <div class="topo">
+          <div class="selo-topo">Painel</div>
+          <h1>Histórico</h1>
+        </div>
+        <div class="cartao-historico" id="listaHistorico">
+          <div class="estado-vazio">Carregando...</div>
+        </div>
+      </div>
+
+      <!-- VISTA: itens de um checklist -->
+      <div id="vistaItens" style="display:none;">
+        <button class="botao-voltar" onclick="voltarParaLista()">&#8592; Voltar para Meus Checklists</button>
+        <div class="painel-itens">
+          <div class="painel-itens-topo">
+            <h2 id="tituloChecklist">Checklist</h2>
+            <div class="topo-direita">
+              <span class="icones-titulo" id="iconesTituloChecklist">
+                <button class="icone-config" onclick="abrirConfigChecklist()" title="Configurações do checklist">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <circle cx="9" cy="6" r="2.3" fill="currentColor"></circle>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <circle cx="16" cy="12" r="2.3" fill="currentColor"></circle>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                    <circle cx="11" cy="18" r="2.3" fill="currentColor"></circle>
+                  </svg>
+                </button>
+                <button class="icone-pdf" onclick="salvarChecklistEmPdf()" title="Salvar em PDF">
+                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="faixaIconePdf" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" style="stop-color: var(--pdf-faixa-ini);"/>
+                        <stop offset="1" style="stop-color: var(--pdf-faixa-fim);"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M10 4 H30 L38 12 V40 Q38 42 36 42 H10 Q8 42 8 40 V6 Q8 4 10 4 Z" style="fill: var(--pdf-doc-fundo); stroke: var(--pdf-doc-traco);" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M30 4 V10 Q30 12 32 12 H38 Z" style="fill: var(--pdf-doc-fundo); stroke: var(--pdf-doc-traco);" stroke-width="2" stroke-linejoin="round"/>
+                    <line x1="13" y1="16" x2="30" y2="16" style="stroke: var(--pdf-doc-traco);" stroke-width="2" stroke-linecap="round"/>
+                    <g transform="rotate(-9 24 33)">
+                      <rect x="-6.5" y="23.5" width="61" height="20" rx="4" fill="url(#faixaIconePdf)" style="stroke: var(--pdf-doc-traco);" stroke-width="1"/>
+                      <text x="24" y="39" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="800" style="fill: var(--pdf-faixa-texto);">PDF</text>
+                    </g>
+                  </svg>
+                </button>
+                <button class="icone-duplicar" id="botaoDuplicarChecklist" onclick="duplicarChecklistAtual()" title="Duplicar checklist (copia tudo pra uma lista nova)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="8" y="8" width="13" height="13" rx="2"></rect>
+                    <path d="M4 16V4a2 2 0 0 1 2-2h10"></path>
+                  </svg>
+                </button>
+                <button class="icone-renomear" id="botaoEditarLista" onclick="alternarEdicaoLista()" title="Habilitar edição">&#9999;</button>
+                <button class="icone-lixeira" onclick="excluirChecklistAtual()" title="Excluir checklist">&#128465;</button>
+              </span>
+              <span class="widget-tag" id="dataAtual"></span>
+            </div>
+          </div>
+          <div class="progresso-painel" id="progressoPainel">
+            <div class="progresso-texto">
+              <span id="progressoTexto">0 de 0 concluídos</span>
+              <span class="progresso-percentual" id="progressoPercentual">0%</span>
+            </div>
+            <div class="progresso-trilha"><span id="progressoBarra" style="width:0%"></span></div>
+          </div>
+
+          <div class="acoes-itens" id="acoesNormais">
+            <div class="acoes-itens-esquerda">
+              <button class="botao-mini" onclick="marcarTodos(true)">Marcar tudo</button>
+              <button class="botao-mini" onclick="marcarTodos(false)">Limpar tudo</button>
+              <div class="bloco-botao-historico">
+                <button class="botao-mini botao-historico" id="botaoSalvarHistorico" onclick="salvarNoHistorico()">
+                  <svg class="icone-salvar-historico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+                    <path d="M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"></path>
+                    <path d="M8 4v5h7V4"></path>
+                    <rect x="7.5" y="13" width="9" height="6"></rect>
+                  </svg>
+                  Salvar no histórico
+                </button>
+                <span class="info-ultimo-historico" id="infoUltimoHistorico"></span>
+              </div>
+            </div>
+          </div>
+          <div class="lista-itens" id="listaItens">
+            <div class="estado-vazio">Carregando...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Área só usada para gerar o PDF via window.print(); fica oculta na tela normal. -->
+      <div id="areaImpressaoPdf"></div>
+
+    </main>
+  </div>
+
+  <div class="janela-overlay" id="janelaConfigChecklist" style="display:none;">
+    <div class="janela-config">
+      <h2 id="tituloConfigChecklist">Configurações</h2>
+      <p class="subtitulo">Só valem pra este checklist.</p>
+
+      <div class="linha-opcao">
+        <div class="opcao-texto">
+          <strong>Registrar no histórico</strong>
+          <span>Guarda uma linha no Histórico com data, hora e o que estava marcado.</span>
+        </div>
+        <label class="interruptor">
+          <input type="checkbox" id="toggleRegistrarHistorico">
+          <span class="interruptor-trilho"><span class="interruptor-bola"></span></span>
+        </label>
+      </div>
+
+      <div class="linha-opcao">
+        <div class="opcao-texto">
+          <strong>Zerar os itens todo dia</strong>
+          <span>De madrugada, desmarca tudo sozinho — pra checklists que você refaz todo dia, como o Dia a Dia. Desligado, o item continua marcado nos dias seguintes até você desmarcar ou clicar em "Limpar tudo" — pra checklists como o de Viagem.</span>
+        </div>
+        <label class="interruptor">
+          <input type="checkbox" id="toggleZerarDiario">
+          <span class="interruptor-trilho"><span class="interruptor-bola"></span></span>
+        </label>
+      </div>
+
+      <div class="janela-botoes">
+        <button class="botao-fechar" onclick="fecharConfigChecklist()">Cancelar</button>
+        <button class="botao-salvar" onclick="salvarConfigChecklist()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="janela-overlay" id="janelaFotosItem" style="display:none;">
+    <div class="janela-config janela-fotos">
+      <h2 id="tituloFotosItem">Fotos do item</h2>
+      <p class="subtitulo">Ficam guardadas com segurança — só quem está logada vê essas fotos.</p>
+
+      <div class="grade-fotos-item" id="gradeFotosItem"></div>
+
+      <label class="botao-add-foto" id="botaoAddFoto">
+        <input type="file" accept="image/*" id="inputFotoItem" style="display:none;" onchange="onAdicionarFotoSelecionada(event)">
+        + Adicionar foto
+      </label>
+
+      <div class="janela-botoes">
+        <button class="botao-fechar" onclick="fecharGaleriaItem()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="janela-overlay" id="janelaCopiarSecao" style="display:none;">
+    <div class="janela-config">
+      <h2 id="tituloCopiarSecao">Copiar lista</h2>
+      <p class="subtitulo" id="subtituloCopiarSecao">Copia os itens desta lista pra outro checklist — a lista original continua aqui do mesmo jeito.</p>
+
+      <div class="linha-destino">
+        <label class="opcao-radio">
+          <input type="radio" name="destinoCopiarSecao" id="radioDestinoExistente" checked onchange="atualizarDestinoCopiarSecao()">
+          Checklist existente
+        </label>
+        <select id="selectChecklistDestino" class="select-hora"></select>
+      </div>
+
+      <div class="linha-destino">
+        <label class="opcao-radio">
+          <input type="radio" name="destinoCopiarSecao" id="radioDestinoNovo" onchange="atualizarDestinoCopiarSecao()">
+          Criar um checklist novo
+        </label>
+        <input type="text" id="campoNomeNovoChecklistDestino" class="campo-nova-secao" placeholder="Nome do novo checklist..." disabled>
+      </div>
+
+      <div class="linha-destino">
+        <label class="opcao-radio">
+          <input type="radio" name="destinoCopiarSecao" id="radioDestinoTexto" onchange="atualizarDestinoCopiarSecao()">
+          Copiar como texto (pra colar no WhatsApp, bloco de notas...)
+        </label>
+      </div>
+
+      <div class="janela-botoes">
+        <button class="botao-fechar" onclick="fecharCopiarSecao()">Cancelar</button>
+        <button class="botao-salvar" id="botaoConfirmarCopiarSecao" onclick="confirmarCopiarSecao()">Copiar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    let idPlanilha = null;
+    let painel = { checklists: [] };
+    let checklistAtual = null;
+    let itensAtuais = [];
+    let idArrastado = null;
+    let idSecaoArrastada = null;
+    let listaEditando = false;
+    let criandoSecao = false;
+    const secoesRecolhidas = new Set();
+    const dataHoje = agoraLocal().data;
+
+    const SVG_SOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"></circle><line x1="12" y1="2.5" x2="12" y2="4.8"></line><line x1="12" y1="19.2" x2="12" y2="21.5"></line><line x1="2.5" y1="12" x2="4.8" y2="12"></line><line x1="19.2" y1="12" x2="21.5" y2="12"></line><line x1="5.4" y1="5.4" x2="7" y2="7"></line><line x1="17" y1="17" x2="18.6" y2="18.6"></line><line x1="5.4" y1="18.6" x2="7" y2="17"></line><line x1="17" y1="7" x2="18.6" y2="5.4"></line></svg>';
+    const SVG_AVIAO = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.5L2.3 10.1a.6.6 0 0 0 .04 1.12l7.1 2.4 2.4 7.1a.6.6 0 0 0 1.12.04L21 2.5z"></path></svg>';
+    const SVG_CARRINHO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="20.5" r="1.1"></circle><circle cx="18" cy="20.5" r="1.1"></circle><path d="M2 2.5h2.6l2.2 12.3a2 2 0 0 0 2 1.65h8.3a2 2 0 0 0 2-1.6L20.8 7H5.8"></path></svg>';
+    const SVG_LIVRO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.2A2.3 2.3 0 0 1 6.3 17H20"></path><path d="M6.3 2.5H20v19H6.3A2.3 2.3 0 0 1 4 19.2V4.8a2.3 2.3 0 0 1 2.3-2.3z"></path></svg>';
+    const SVG_MALETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7.2" width="19" height="13.3" rx="2"></rect><path d="M16 20.5V5.3a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v15.2"></path><line x1="2.5" y1="12.8" x2="21.5" y2="12.8"></line></svg>';
+    const SVG_CASA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 3.5l9 8"></path><path d="M5.2 10v10.5h5V15h3.6v5.5h5V10"></path></svg>';
+    const SVG_BRILHO = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2 6.2 6.2 2-6.2 2-2 6.2-2-6.2-6.2-2 6.2-2z"></path></svg>';
+
+    const ICONES = [
+      { chaves: ['dia a dia', 'diario', 'rotina'], icone: SVG_SOL },
+      { chaves: ['viagem', 'mala'], icone: SVG_AVIAO },
+      { chaves: ['compra', 'mercado'], icone: SVG_CARRINHO },
+      { chaves: ['estudo', 'estudar', 'curso'], icone: SVG_LIVRO },
+      { chaves: ['trabalho', 'reuniao'], icone: SVG_MALETA },
+      { chaves: ['casa', 'limpeza'], icone: SVG_CASA }
+    ];
+
+    function escolherIcone(nome) {
+      const alvo = nome.toLowerCase();
+      for (const item of ICONES) {
+        if (item.chaves.some(c => alvo.indexOf(c) !== -1)) return item.icone;
+      }
+      return SVG_BRILHO;
+    }
+
+    document.addEventListener('click', fecharTodosMenusItem);
+
+    window.onload = async function () {
+      const usuario = await exigirLogin();
+      if (!usuario) return;
+
+      document.getElementById('saudacaoMenu').textContent = 'Oi, ' + usuario.primeiroNome + '! \u{1F44B}';
+      document.getElementById('dataAtual').textContent = dataHoje.split('-').reverse().join('/');
+
+      const temaAtual = document.documentElement.getAttribute('data-theme');
+      document.getElementById('toggleTemaRodape').checked = temaAtual === 'dark';
+      document.getElementById('iconeTemaRodape').innerHTML = temaAtual === 'dark' ? '&#9728;' : '&#9790;';
+
+      criarParticulas();
+      await carregarChecklists();
+      if (window.location.hash === '#historico') abrirHistorico();
+    };
+
+
+    function irPara(pagina) {
+      window.location.href = pagina;
+    }
+    // Fotos dos itens: diferente da agenda, isso NÃO passa mais por
+    // autorização do Google no navegador (era isso que travava em
+    // "Enviando..." — o pop-up de permissão do Drive ficava preso, às
+    // vezes sem nem avisar erro). Agora a foto é comprimida aqui, mandada
+    // como base64 pro mesmo backend (Apps Script) que já cuida do resto do
+    // checklist, e é o próprio backend quem guarda no Drive e devolve os
+    // bytes depois — igual já funciona no Checklist Nanya. Continua
+    // restrito a quem está logada: só o backend acessa esses arquivos, e
+    // ele só entrega a foto de um item quando é esse mesmo app pedindo.
+
+    // Reduz o tamanho da foto antes de mandar pro backend (evita arquivo
+    // gigante de celular e deixa o envio bem mais rápido). Redimensiona pro
+    // lado maior caber em 1600px, salva como JPEG e devolve em base64.
+    function comprimirFoto(arquivo) {
+      return new Promise(function (resolver, rejeitar) {
+        const leitor = new FileReader();
+        leitor.onerror = () => rejeitar(new Error('Não foi possível ler a foto.'));
+        leitor.onload = function () {
+          const imagem = new Image();
+          imagem.onerror = () => rejeitar(new Error('Não foi possível abrir a foto.'));
+          imagem.onload = function () {
+            const ladoMax = 1600;
+            let largura = imagem.width;
+            let altura = imagem.height;
+            if (largura > ladoMax || altura > ladoMax) {
+              if (largura > altura) {
+                altura = Math.round(altura * (ladoMax / largura));
+                largura = ladoMax;
+              } else {
+                largura = Math.round(largura * (ladoMax / altura));
+                altura = ladoMax;
+              }
+            }
+            const tela = document.createElement('canvas');
+            tela.width = largura;
+            tela.height = altura;
+            tela.getContext('2d').drawImage(imagem, 0, 0, largura, altura);
+            const dataUrl = tela.toDataURL('image/jpeg', 0.75);
+            resolver({ base64: dataUrl.split(',')[1], tipoMime: 'image/jpeg' });
+          };
+          imagem.src = leitor.result;
+        };
+        leitor.readAsDataURL(arquivo);
+      });
+    }
+
+    // ===== Galeria de fotos do item =====
+
+    let itemGaleriaAtual = null;
+
+    function abrirGaleriaItem(item) {
+      itemGaleriaAtual = item;
+      document.getElementById('tituloFotosItem').textContent = 'Fotos — ' + item.descricao;
+      document.getElementById('janelaFotosItem').style.display = 'flex';
+      renderizarGaleriaFotos();
+    }
+
+    function fecharGaleriaItem() {
+      document.getElementById('janelaFotosItem').style.display = 'none';
+      itemGaleriaAtual = null;
+    }
+
+    function renderizarGaleriaFotos() {
+      const grade = document.getElementById('gradeFotosItem');
+      const fotos = (itemGaleriaAtual && itemGaleriaAtual.fotos) || [];
+
+      if (!fotos.length) {
+        grade.innerHTML = '<div class="estado-vazio estado-vazio-fotos">Nenhuma foto ainda.</div>';
+        return;
+      }
+
+      grade.innerHTML = '';
+      for (const foto of fotos) {
+        const miniatura = document.createElement('div');
+        miniatura.className = 'miniatura-foto';
+        miniatura.innerHTML = '<div class="miniatura-carregando">...</div>';
+        grade.appendChild(miniatura);
+
+        chamarBackend('obterFotoItem', { idArquivo: foto.id }).then(function (resposta) {
+          if (!resposta.ok) throw new Error(resposta.erro || 'Falha ao carregar a foto.');
+          const url = 'data:' + (resposta.tipoMime || 'image/jpeg') + ';base64,' + resposta.dadosBase64;
+          miniatura.innerHTML =
+            '<img src="' + url + '" alt="">' +
+            '<button class="botao-apagar-foto" title="Apagar foto">&times;</button>';
+          miniatura.querySelector('.botao-apagar-foto').onclick = function (ev) {
+            ev.stopPropagation();
+            apagarFotoItem(foto.id);
+          };
+        }).catch(function () {
+          miniatura.innerHTML = '<div class="miniatura-erro">Não carregou</div>';
+        });
+      }
+    }
+
+    async function onAdicionarFotoSelecionada(event) {
+      const arquivo = event.target.files && event.target.files[0];
+      event.target.value = '';
+      if (!arquivo || !itemGaleriaAtual) return;
+
+      const botaoAdd = document.getElementById('botaoAddFoto');
+      const textoOriginal = botaoAdd.textContent;
+      botaoAdd.textContent = 'Enviando...';
+
+      try {
+        const comprimida = await comprimirFoto(arquivo);
+        const resposta = await chamarBackend('adicionarFotoItem', {
+          idPlanilha: idPlanilha,
+          idItem: itemGaleriaAtual.id,
+          dadosBase64: comprimida.base64,
+          tipoMime: comprimida.tipoMime,
+          nomeArquivo: arquivo.name || 'foto.jpg'
+        });
+        if (!resposta.ok) throw new Error(resposta.erro || 'Não foi possível salvar a foto.');
+        itemGaleriaAtual.fotos = resposta.fotos || (itemGaleriaAtual.fotos || []).concat([{ id: resposta.id, nome: arquivo.name || 'foto.jpg' }]);
+        renderizarGaleriaFotos();
+        renderizarItens();
+      } catch (erro) {
+        const detalhe = (erro && erro.message) ? erro.message : '';
+        alert('Não foi possível adicionar a foto agora.' + (detalhe ? ' Detalhe técnico: ' + detalhe : '') + ' Tente de novo.');
+      } finally {
+        botaoAdd.textContent = textoOriginal;
+      }
+    }
+
+    function apagarFotoItem(idArquivo) {
+      if (!itemGaleriaAtual) return;
+      if (!confirm('Apagar essa foto?')) return;
+
+      chamarBackend('apagarFotoItem', { idPlanilha: idPlanilha, idItem: itemGaleriaAtual.id, idArquivo: idArquivo }).then(function (resposta) {
+        if (!resposta.ok) {
+          alert(resposta.erro || 'Não foi possível apagar a foto agora. Tente de novo.');
+          return;
+        }
+        itemGaleriaAtual.fotos = resposta.fotos || (itemGaleriaAtual.fotos || []).filter(function (f) { return f.id !== idArquivo; });
+        renderizarGaleriaFotos();
+        renderizarItens();
+      }).catch(function () {
+        alert('Não foi possível apagar a foto agora. Tente de novo.');
+      });
+    }
+
+    function alternarTema() {
+      const raiz = document.documentElement;
+      const atual = raiz.getAttribute('data-theme');
+      const novo = atual === 'dark' ? 'light' : 'dark';
+      raiz.setAttribute('data-theme', novo);
+      localStorage.setItem('checklist_tema', novo);
+      document.getElementById('toggleTemaRodape').checked = novo === 'dark';
+      document.getElementById('iconeTemaRodape').innerHTML = novo === 'dark' ? '&#9728;' : '&#9790;';
+    }
+
+    function criarParticulas() {
+      const container = document.getElementById('particulas');
+      const tema = document.documentElement.getAttribute('data-theme');
+      const total = tema === 'light' ? 29 : 22;
+      const faixas = 4;
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement('div');
+        p.className = 'particula';
+        const faixa = i % faixas;
+        const altoMin = faixa * (100 / faixas);
+        const altoMax = altoMin + (100 / faixas);
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = (altoMin + Math.random() * (altoMax - altoMin)) + 'vh';
+        p.style.animationDelay = (Math.random() * 9) + 's';
+        p.style.animationDuration = (7 + Math.random() * 5) + 's';
+        container.appendChild(p);
+      }
+    }
+
+    // Dispara a chamada ao backend sem bloquear a tela. Se falhar, roda "aoFalhar"
+    // para desfazer a mudança otimista que já foi mostrada.
+    function chamarBackendEmSegundoPlano(acao, dadosExtras, aoFalhar) {
+      chamarBackend(acao, dadosExtras).then(function (resultado) {
+        if (!resultado.ok && aoFalhar) aoFalhar(resultado.erro || 'Falha ao salvar');
+      }).catch(function () {
+        if (aoFalhar) aoFalhar('Falha de conexão');
+      });
+    }
+
+    async function carregarChecklists() {
+      const grade = document.getElementById('gradeChecklists');
+      const dados = await chamarBackend('obterPainel', { idPlanilha: idPlanilha, data: dataHoje });
+
+      if (!dados.ok) {
+        grade.innerHTML = '<div class="estado-vazio">' + dados.erro + '</div>';
+        return;
+      }
+
+      painel.checklists = dados.checklists;
+      renderizarGrade();
+    }
+
+    function renderizarGrade() {
+      const grade = document.getElementById('gradeChecklists');
+      grade.innerHTML = '';
+
+      for (const cl of painel.checklists) {
+        const total = cl.itens.length;
+        const feitos = cl.itens.filter(i => i.marcado).length;
+        const pct = total ? Math.round((feitos / total) * 100) : 0;
+
+        const card = document.createElement('div');
+        card.className = 'card-checklist';
+        card.onclick = () => abrirChecklist(cl.id);
+        card.innerHTML =
+          '<div class="widget-titulo"><span class="icone-widget">' + escolherIcone(cl.nome) + '</span> ' + cl.nome + '</div>' +
+          '<div class="card-checklist-progresso"><span style="width:' + pct + '%"></span></div>' +
+          '<div class="card-checklist-rodape"><span>' + feitos + '/' + total + ' feitos</span><span>' + pct + '%</span></div>';
+        grade.appendChild(card);
+      }
+
+      const cardNovo = document.createElement('div');
+      cardNovo.className = 'card-checklist card-novo';
+      cardNovo.onclick = criarChecklist;
+      cardNovo.innerHTML = '<span class="simbolo-novo">+</span>Novo checklist';
+      grade.appendChild(cardNovo);
+    }
+
+    function criarChecklist() {
+      const nome = prompt('Nome do novo checklist:');
+      if (!nome || !nome.trim()) return;
+
+      const idTemporario = 'tmp-' + Date.now();
+      const novoChecklist = { id: idTemporario, nome: nome.trim(), itens: [] };
+      painel.checklists.push(novoChecklist);
+      renderizarGrade();
+
+      chamarBackend('criarChecklist', { idPlanilha: idPlanilha, nome: novoChecklist.nome }).then(function (resultado) {
+        if (!resultado.ok) {
+          painel.checklists = painel.checklists.filter(c => c.id !== idTemporario);
+          renderizarGrade();
+          alert(resultado.erro);
+          return;
+        }
+        novoChecklist.id = resultado.id;
+      }).catch(function () {
+        painel.checklists = painel.checklists.filter(c => c.id !== idTemporario);
+        renderizarGrade();
+        alert('Falha de conexão ao criar o checklist.');
+      });
+    }
+
+    function abrirChecklist(id) {
+      checklistAtual = painel.checklists.find(c => c.id === id);
+      if (!checklistAtual) return;
+      itensAtuais = checklistAtual.itens;
+      listaEditando = false;
+      criandoSecao = false;
+
+      document.getElementById('tituloChecklist').textContent = checklistAtual.nome;
+      document.getElementById('botaoEditarLista').classList.remove('ativo');
+      document.getElementById('vistaLista').style.display = 'none';
+      document.getElementById('vistaHistorico').style.display = 'none';
+      document.getElementById('vistaItens').style.display = 'block';
+      atualizarNavAtiva('navMeusChecklists');
+      renderizarItens();
+      atualizarInfoUltimoHistorico();
+    }
+
+    function atualizarNavAtiva(idAtivo) {
+      document.getElementById('navMeusChecklists').classList.toggle('ativo', idAtivo === 'navMeusChecklists');
+      document.getElementById('navHistorico').classList.toggle('ativo', idAtivo === 'navHistorico');
+    }
+
+    function mostrarListaPrincipal() {
+      document.getElementById('vistaItens').style.display = 'none';
+      document.getElementById('vistaHistorico').style.display = 'none';
+      document.getElementById('vistaLista').style.display = 'block';
+      atualizarNavAtiva('navMeusChecklists');
+      renderizarGrade();
+    }
+
+    // ===== Histórico (registros manuais de "Salvar no histórico") =====
+
+    async function abrirHistorico() {
+      document.getElementById('vistaLista').style.display = 'none';
+      document.getElementById('vistaItens').style.display = 'none';
+      document.getElementById('vistaHistorico').style.display = 'block';
+      atualizarNavAtiva('navHistorico');
+
+      const lista = document.getElementById('listaHistorico');
+      lista.innerHTML = '<div class="estado-vazio">Carregando...</div>';
+
+      const dados = await chamarBackend('obterHistorico', { idPlanilha: idPlanilha });
+      if (!dados.ok) {
+        lista.innerHTML = '<div class="estado-vazio">' + dados.erro + '</div>';
+        return;
+      }
+      renderizarHistorico(dados.entradas);
+    }
+
+    function renderizarHistorico(entradas) {
+      const lista = document.getElementById('listaHistorico');
+
+      if (!entradas.length) {
+        lista.innerHTML = '<div class="estado-vazio">Ainda não há nada salvo no histórico. Abra um checklist e use o botão "Salvar no histórico".</div>';
+        return;
+      }
+
+      let html = '<table class="tabela-historico"><thead><tr>' +
+        '<th>Checklist</th><th>Itens</th><th>Data e hora</th>' +
+        '</tr></thead><tbody>';
+
+      for (const linha of entradas) {
+        const completo = linha.itensTotal > 0 && linha.itensMarcados === linha.itensTotal;
+        const classePill = completo ? 'pill-concluido' : 'pill-parcial';
+        const textoPill = completo
+          ? '&#10003; Concluído'
+          : linha.itensMarcados + '/' + linha.itensTotal + ' itens';
+        const dataHora = linha.data.split('-').reverse().join('/') + ' - ' + linha.hora;
+
+        html += '<tr>' +
+          '<td class="td-nome">' + linha.nomeChecklist + '</td>' +
+          '<td><span class="pill-status ' + classePill + '">' + textoPill + '</span></td>' +
+          '<td class="td-horario">' + dataHora + '</td>' +
+          '</tr>';
+      }
+
+      html += '</tbody></table>';
+      lista.innerHTML = html;
+    }
+
+    // ===== Configurações do checklist (Registrar no histórico / Zerar diário) =====
+
+    function abrirConfigChecklist() {
+      document.getElementById('tituloConfigChecklist').textContent = 'Configurações — ' + checklistAtual.nome;
+      document.getElementById('toggleRegistrarHistorico').checked = checklistAtual.registrarHistorico !== false;
+      document.getElementById('toggleZerarDiario').checked = checklistAtual.zerarDiario !== false;
+      document.getElementById('janelaConfigChecklist').style.display = 'flex';
+    }
+
+    function fecharConfigChecklist() {
+      document.getElementById('janelaConfigChecklist').style.display = 'none';
+    }
+
+    function salvarConfigChecklist() {
+      const registrarHistorico = document.getElementById('toggleRegistrarHistorico').checked;
+      const zerarDiario = document.getElementById('toggleZerarDiario').checked;
+
+      checklistAtual.registrarHistorico = registrarHistorico;
+      checklistAtual.zerarDiario = zerarDiario;
+      fecharConfigChecklist();
+
+      chamarBackendEmSegundoPlano('definirConfigChecklist', {
+        idPlanilha: idPlanilha,
+        idChecklist: checklistAtual.id,
+        registrarHistorico: registrarHistorico,
+        zerarDiario: zerarDiario
+      }, function (mensagem) {
+        alert('Não foi possível salvar as configurações: ' + mensagem);
+      });
+    }
+
+    // Guarda (no navegador, por checklist) a data/hora do último "Salvar no
+    // histórico", só pra mostrar esse informativo sem precisar de uma nova
+    // chamada ao backend toda vez que o checklist é aberto.
+    function chaveUltimoHistorico(idChecklist) {
+      return 'checklist_ultimoHistorico_' + idChecklist;
+    }
+
+    function formatarDataExibicao(data) {
+      const partes = (data || '').split('-');
+      return partes.length === 3 ? partes[2] + '/' + partes[1] : '';
+    }
+
+    function atualizarInfoUltimoHistorico() {
+      const info = document.getElementById('infoUltimoHistorico');
+      let salvo = null;
+      try { salvo = JSON.parse(localStorage.getItem(chaveUltimoHistorico(checklistAtual.id)) || 'null'); } catch (e) { salvo = null; }
+
+      info.textContent = salvo ? ('Último salvo: ' + formatarDataExibicao(salvo.data) + ' às ' + salvo.hora) : '';
+    }
+
+    // Ação manual e deliberada: registra no Histórico a data/hora de agora e
+    // quantos itens estão marcados neste momento, SEM mexer nos itens. Existe
+    // justamente pra quando o checklist nunca fica 100% (ex.: Viagem), mas a
+    // usuária já fez o que dava pra fazer hoje e quer deixar isso registrado.
+    function salvarNoHistorico() {
+      const botao = document.getElementById('botaoSalvarHistorico');
+      const textoOriginal = botao.innerHTML;
+      botao.disabled = true;
+
+      chamarBackend('salvarHistorico', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id }).then(function (resultado) {
+        botao.disabled = false;
+        if (!resultado.ok) {
+          alert(resultado.erro || 'Não foi possível salvar no histórico.');
+          return;
+        }
+        botao.textContent = '✓ Salvo às ' + resultado.hora;
+        setTimeout(function () { botao.innerHTML = textoOriginal; }, 2500);
+
+        try {
+          localStorage.setItem(chaveUltimoHistorico(checklistAtual.id), JSON.stringify({ data: resultado.data, hora: resultado.hora }));
+        } catch (e) { /* localStorage indisponível: só não mostra o informativo */ }
+        atualizarInfoUltimoHistorico();
+      }).catch(function () {
+        botao.disabled = false;
+        alert('Falha de conexão ao salvar no histórico.');
+      });
+    }
+
+    function voltarParaLista() {
+      document.getElementById('vistaItens').style.display = 'none';
+      document.getElementById('vistaLista').style.display = 'block';
+      atualizarNavAtiva('navMeusChecklists');
+      renderizarGrade();
+    }
+
+    // O lápis ao lado do título funciona como interruptor: liga a edição
+    // (abre o nome pra digitar na hora e libera texto/lixeira dos itens
+    // soltos) e, clicado de novo, desliga, voltando tudo limpo.
+    function alternarEdicaoLista() {
+      listaEditando = !listaEditando;
+      document.getElementById('botaoEditarLista').classList.toggle('ativo', listaEditando);
+      if (listaEditando) {
+        iniciarEdicaoTituloChecklist();
+      }
+      renderizarItens();
+    }
+
+    // Edição direta do título do checklist (estilo Trello): troca o <h2>
+    // por um campo editável ao clicar no lápis, sem prompt.
+    function iniciarEdicaoTituloChecklist() {
+      const h2 = document.getElementById('tituloChecklist');
+      const valorAntigo = checklistAtual.nome;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'titulo-checklist-input';
+      input.value = valorAntigo;
+      h2.replaceWith(input);
+      input.focus();
+      input.select();
+
+      let cancelado = false;
+
+      function salvar() {
+        if (cancelado) return;
+        const novoValor = input.value.trim();
+        if (!novoValor || novoValor === valorAntigo) {
+          restaurarTitulo(valorAntigo);
+          return;
+        }
+        checklistAtual.nome = novoValor;
+        restaurarTitulo(novoValor);
+
+        function enviar(token) {
+          chamarBackendEmSegundoPlano('renomearChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: novoValor, tokenAgenda: token }, function (erro) {
+            checklistAtual.nome = valorAntigo;
+            restaurarTitulo(valorAntigo);
+            alert(erro);
+          });
+        }
+        if (checklistAtual.notificarAgenda) {
+          obterTokenAgenda(enviar);
+        } else {
+          enviar(null);
+        }
+      }
+
+      function restaurarTitulo(nome) {
+        const novoH2 = document.createElement('h2');
+        novoH2.id = 'tituloChecklist';
+        novoH2.textContent = nome;
+        input.replaceWith(novoH2);
+      }
+
+      input.addEventListener('blur', salvar);
+      input.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') {
+          input.blur();
+        } else if (ev.key === 'Escape') {
+          cancelado = true;
+          restaurarTitulo(valorAntigo);
+        }
+      });
+      input.addEventListener('click', (ev) => ev.stopPropagation());
+    }
+
+    // Monta a linha de um item: caixa marca/desmarca, texto edita direto
+    // ao clicar (sem botão/pergunta) e lixeira exclui — tudo sempre
+    // disponível, sem precisar de um "modo edição" separado. Reaproveitada
+    // tanto para itens soltos quanto para itens dentro de uma seção.
+    // editavel = true quando o lápis do subtítulo (ou da lista, pros itens
+    // soltos) está habilitado: aí sim o texto fica clicável pra editar e
+    // aparece a lixeira. Sem isso, a linha fica limpa (igual Trello) e o
+    // clique só marca/desmarca o item.
+    function fecharTodosMenusItem() {
+      document.querySelectorAll('.menu-item-dropdown.aberto').forEach(el => el.classList.remove('aberto'));
+      document.querySelectorAll('.icone-menu-item.aberto').forEach(el => el.classList.remove('aberto'));
+    }
+
+    function criarLinhaItem(item, editavel) {
+      const linha = document.createElement('div');
+      linha.className = 'item-check' + (item.marcado ? ' marcado' : '');
+      linha.dataset.itemId = item.id;
+      linha.onclick = () => alternarItem(item.id);
+
+      const alca = document.createElement('span');
+      alca.className = 'alca-arrastar';
+      alca.innerHTML = '&#10287;';
+      ativarArrasto(linha, alca, item);
+
+      const caixa = document.createElement('div');
+      caixa.className = 'caixa-check';
+      caixa.innerHTML = item.marcado ? '&#10003;' : '';
+      caixa.onclick = (ev) => { ev.stopPropagation(); alternarItem(item.id); };
+
+      const texto = document.createElement('span');
+      texto.className = 'texto-item texto-item-editavel';
+      texto.textContent = item.descricao;
+      texto.onclick = (ev) => {
+        ev.stopPropagation();
+        fecharTodosMenusItem();
+        iniciarEdicaoInline(texto, item);
+      };
+
+      linha.appendChild(alca);
+      linha.appendChild(caixa);
+      linha.appendChild(texto);
+
+      const qtdFotos = (item.fotos || []).length;
+      if (qtdFotos) {
+        const indicadorFotos = document.createElement('button');
+        indicadorFotos.className = 'icone-indicador-fotos';
+        indicadorFotos.innerHTML = '&#128247;<span class="qtd-indicador-fotos">' + qtdFotos + '</span>';
+        indicadorFotos.title = qtdFotos === 1 ? '1 foto anexada' : qtdFotos + ' fotos anexadas';
+        indicadorFotos.onclick = (ev) => { ev.stopPropagation(); fecharTodosMenusItem(); abrirGaleriaItem(item); };
+        linha.appendChild(indicadorFotos);
+      }
+
+      const dropdown = document.createElement('div');
+      dropdown.className = 'menu-item-dropdown';
+
+      const btnFotos = document.createElement('button');
+      btnFotos.className = 'opcao-fotos';
+      btnFotos.innerHTML = '&#128247; Fotos' + (qtdFotos ? ' (' + qtdFotos + ')' : '');
+      btnFotos.onclick = (ev) => { ev.stopPropagation(); fecharTodosMenusItem(); abrirGaleriaItem(item); };
+
+      const btnExcluir = document.createElement('button');
+      btnExcluir.className = 'opcao-excluir';
+      btnExcluir.innerHTML = '&#128465; Excluir';
+      btnExcluir.onclick = (ev) => { ev.stopPropagation(); excluirItemUnico(item.id); };
+
+      dropdown.appendChild(btnFotos);
+      dropdown.appendChild(btnExcluir);
+
+      const menuBtn = document.createElement('button');
+      menuBtn.className = 'icone-menu-item';
+      menuBtn.innerHTML = '&#8942;';
+      menuBtn.title = 'Mais opções';
+      menuBtn.onclick = (ev) => {
+        ev.stopPropagation();
+        const estavaAberto = dropdown.classList.contains('aberto');
+        fecharTodosMenusItem();
+        if (!estavaAberto) {
+          dropdown.classList.add('aberto');
+          menuBtn.classList.add('aberto');
+        }
+      };
+
+      linha.appendChild(menuBtn);
+      linha.appendChild(dropdown);
+
+      return linha;
+    }
+
+    // Monta o bloco de uma seção: título em negrito, progresso próprio
+    // (itens marcados / total da seção), botão Excluir e, dentro, os
+    // itens dela + um campo para adicionar um novo item só ali.
+    function criarBlocoSecao(secao, itensDaSecao) {
+      const bloco = document.createElement('div');
+      bloco.className = 'bloco-secao';
+      bloco.dataset.secaoId = secao.id;
+
+      const total = itensDaSecao.length;
+      const feitos = itensDaSecao.filter(i => i.marcado).length;
+      const pct = total ? Math.round((feitos / total) * 100) : 0;
+
+      const cabecalho = document.createElement('div');
+      cabecalho.className = 'secao-cabecalho';
+
+      const alcaSecao = document.createElement('span');
+      alcaSecao.className = 'alca-arrastar alca-secao';
+      alcaSecao.innerHTML = '&#10287;';
+      alcaSecao.title = 'Arrastar para reordenar esta lista';
+
+      const titulo = document.createElement('span');
+      titulo.className = 'secao-titulo secao-titulo-editavel';
+      titulo.textContent = secao.nome;
+      titulo.onclick = (ev) => { ev.stopPropagation(); iniciarEdicaoTituloSecao(titulo, secao); };
+
+      const iconeMarcar = document.createElement('button');
+      iconeMarcar.className = 'icone-marcar-secao';
+      iconeMarcar.innerHTML = '&#9745;';
+      iconeMarcar.title = 'Marcar tudo nesta seção';
+      iconeMarcar.onclick = (ev) => { ev.stopPropagation(); marcarTodosSecao(secao.id, true); };
+
+      const iconeLimpar = document.createElement('button');
+      iconeLimpar.className = 'icone-limpar-secao';
+      iconeLimpar.innerHTML = '&#9744;';
+      iconeLimpar.title = 'Limpar tudo nesta seção';
+      iconeLimpar.onclick = (ev) => { ev.stopPropagation(); marcarTodosSecao(secao.id, false); };
+
+      const iconeCopiar = document.createElement('button');
+      iconeCopiar.className = 'icone-copiar-secao';
+      iconeCopiar.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="8" y="8" width="13" height="13" rx="2"></rect><path d="M4 16V4a2 2 0 0 1 2-2h10"></path></svg>';
+      iconeCopiar.title = 'Copiar esta lista pra outro checklist';
+      iconeCopiar.onclick = (ev) => { ev.stopPropagation(); abrirCopiarSecao(secao); };
+
+      const iconeExcluir = document.createElement('button');
+      iconeExcluir.className = 'icone-lixeira icone-secao';
+      iconeExcluir.innerHTML = '&#128465;';
+      iconeExcluir.title = 'Excluir seção';
+      iconeExcluir.onclick = (ev) => { ev.stopPropagation(); excluirSecaoAtual(secao.id); };
+
+      const contagem = document.createElement('span');
+      contagem.className = 'secao-contagem';
+      contagem.textContent = feitos + '/' + total;
+
+      const recolhida = secoesRecolhidas.has(secao.id);
+      const iconeSeta = document.createElement('button');
+      iconeSeta.className = 'icone-seta-secao';
+      iconeSeta.innerHTML = recolhida ? '&#9661;' : '&#9651;';
+      iconeSeta.title = recolhida ? 'Mostrar itens desta lista' : 'Recolher itens desta lista';
+      iconeSeta.onclick = (ev) => {
+        ev.stopPropagation();
+        if (secoesRecolhidas.has(secao.id)) secoesRecolhidas.delete(secao.id);
+        else secoesRecolhidas.add(secao.id);
+        renderizarItens();
+      };
+
+      cabecalho.appendChild(alcaSecao);
+      cabecalho.appendChild(titulo);
+      cabecalho.appendChild(iconeSeta);
+      cabecalho.appendChild(iconeMarcar);
+      cabecalho.appendChild(iconeLimpar);
+      cabecalho.appendChild(iconeCopiar);
+      cabecalho.appendChild(iconeExcluir);
+      cabecalho.appendChild(contagem);
+      bloco.appendChild(cabecalho);
+
+      ativarArrastoSecao(bloco, alcaSecao, secao);
+
+      const linhaProgresso = document.createElement('div');
+      linhaProgresso.className = 'secao-progresso-linha';
+
+      const percentual = document.createElement('span');
+      percentual.className = 'secao-percentual';
+      percentual.textContent = pct + '%';
+      linhaProgresso.appendChild(percentual);
+
+      const trilha = document.createElement('div');
+      trilha.className = 'secao-progresso-trilha';
+      trilha.innerHTML = '<span style="width:' + pct + '%"></span>';
+      linhaProgresso.appendChild(trilha);
+
+      bloco.appendChild(linhaProgresso);
+
+      // A barra de progresso acima fica sempre visível; só os itens e o
+      // campo de novo item somem quando a seção está recolhida.
+      if (!recolhida) {
+        const listaSecao = document.createElement('div');
+        listaSecao.className = 'secao-itens';
+        if (!itensDaSecao.length) {
+          listaSecao.innerHTML = '<div class="estado-vazio estado-vazio-secao">Nenhum item nesta seção ainda.</div>';
+        } else {
+          for (const item of itensDaSecao) listaSecao.appendChild(criarLinhaItem(item));
+        }
+        bloco.appendChild(listaSecao);
+
+        const linhaNovo = document.createElement('div');
+        linhaNovo.className = 'linha-novo-item linha-novo-item-secao';
+        const campo = document.createElement('textarea');
+        campo.rows = 1;
+        campo.placeholder = 'Novo item (ou pode colar uma lista com vários itens)';
+        campo.dataset.secaoId = secao.id;
+        campo.onkeydown = (ev) => { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); adicionarItem(secao.id, campo); } };
+        campo.addEventListener('input', () => processarPossivelColagemMultilinha(secao.id, campo));
+        const botao = document.createElement('button');
+        botao.className = 'botao-mini';
+        botao.textContent = '+ Adicionar';
+        botao.onclick = () => adicionarItem(secao.id, campo);
+        linhaNovo.appendChild(campo);
+        linhaNovo.appendChild(botao);
+        bloco.appendChild(linhaNovo);
+      }
+
+      return bloco;
+    }
+
+    function renderizarItens() {
+      const lista = document.getElementById('listaItens');
+      atualizarProgresso();
+      lista.innerHTML = '';
+
+      const secoes = checklistAtual.secoes || [];
+      const itensSemSecao = itensAtuais.filter(i => !i.idSecao);
+      const itensPorSecao = {};
+      for (const secao of secoes) itensPorSecao[secao.id] = [];
+      for (const item of itensAtuais) {
+        if (item.idSecao && itensPorSecao[item.idSecao]) itensPorSecao[item.idSecao].push(item);
+      }
+
+      if (!itensAtuais.length && !secoes.length) {
+        lista.innerHTML = '<div class="estado-vazio">Nenhuma lista ainda. Crie uma lista abaixo para começar a adicionar itens.</div>';
+      }
+
+      for (const item of itensSemSecao) {
+        lista.appendChild(criarLinhaItem(item, listaEditando));
+      }
+
+      for (const secao of secoes) {
+        lista.appendChild(criarBlocoSecao(secao, itensPorSecao[secao.id] || []));
+      }
+
+      if (criandoSecao) {
+        const linhaNova = document.createElement('div');
+        linhaNova.className = 'linha-novo-item linha-nova-secao';
+
+        const campoSecao = document.createElement('input');
+        campoSecao.type = 'text';
+        campoSecao.className = 'campo-nova-secao';
+        campoSecao.placeholder = 'Nome da nova lista...';
+
+        let feito = false;
+        const confirmar = () => {
+          if (feito) return;
+          feito = true;
+          const nome = campoSecao.value.trim();
+          criandoSecao = false;
+          if (!nome) { renderizarItens(); return; }
+          criarSecao(nome);
+        };
+        const cancelar = () => {
+          if (feito) return;
+          feito = true;
+          criandoSecao = false;
+          renderizarItens();
+        };
+        campoSecao.onkeydown = (ev) => {
+          if (ev.key === 'Enter') { ev.preventDefault(); confirmar(); }
+          else if (ev.key === 'Escape') { ev.preventDefault(); cancelar(); }
+        };
+        campoSecao.onblur = confirmar;
+
+        linhaNova.appendChild(campoSecao);
+        lista.appendChild(linhaNova);
+        setTimeout(() => campoSecao.focus(), 0);
+      } else {
+        const botaoNovaSecao = document.createElement('button');
+        botaoNovaSecao.className = 'botao-mini botao-nova-secao';
+        botaoNovaSecao.textContent = '+ Nova lista';
+        botaoNovaSecao.onclick = () => { criandoSecao = true; renderizarItens(); };
+        lista.appendChild(botaoNovaSecao);
+      }
+    }
+
+const LOGO_PDF_BASE64 = "data:image/png;base64,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";
+    // Monta a área oculta de impressão com todas as seções (listas) e
+    // itens do checklist atual, no mesmo estado de check da tela, e
+    // chama window.print() para o usuário escolher "Salvar como PDF".
+    async function salvarChecklistEmPdf() {
+      // Garante que as fontes da web (Inter/Cormorant Garamond) já estejam
+      // totalmente carregadas antes de medir qualquer altura. Sem isso, se a
+      // fonte ainda não tiver chegado no momento da medição, o texto é
+      // medido com a fonte alternativa do navegador (geralmente mais baixa)
+      // e só troca para a fonte definitiva depois — já com o layout todo
+      // calculado — fazendo cada página parecer "encolhida", com um vão
+      // em branco entre o conteúdo e o rodapé.
+      if (document.fonts && document.fonts.ready) {
+        try { await document.fonts.ready; } catch (erro) { /* segue mesmo assim */ }
+      }
+
+      const area = document.getElementById('areaImpressaoPdf');
+      const secoes = checklistAtual.secoes || [];
+      const itensSemSecao = itensAtuais.filter(i => !i.idSecao);
+      const itensPorSecao = {};
+      for (const secao of secoes) itensPorSecao[secao.id] = [];
+      for (const item of itensAtuais) {
+        if (item.idSecao && itensPorSecao[item.idSecao]) itensPorSecao[item.idSecao].push(item);
+      }
+
+      const escapar = (texto) => String(texto || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+      const montarItem = (item) =>
+        '<div class="pdf-item' + (item.marcado ? ' marcado' : '') + '">' +
+          '<div class="pdf-caixa">' + (item.marcado ? '&#10003;' : '') + '</div>' +
+          '<span class="pdf-texto">' + escapar(item.descricao) + '</span>' +
+        '</div>';
+
+      const cabecalhoHtml = '<div class="pdf-cabecalho">' +
+        '<img class="pdf-logo" src="' + LOGO_PDF_BASE64 + '">' +
+        '<h1 class="pdf-titulo">ME-List - ' + escapar(checklistAtual.nome) + '</h1>' +
+        '<span class="pdf-data">' + dataHoje.split('-').reverse().join('/') + '</span>' +
+      '</div>';
+
+      // Fluxo "estilo jornal": cada lista preenche a coluna 1 de cima a
+      // baixo; quando não cabe mais nada na coluna 1, continua na coluna 2,
+      // depois na coluna 3, e só então passa pra página seguinte. Quando uma
+      // lista não cabe inteira na coluna atual, ela é dividida item a item,
+      // continuando na coluna seguinte com o título marcado "(continuação)".
+      const grupos = secoes.map((secao) => ({ nome: secao.nome, itens: itensPorSecao[secao.id] || [] }));
+      if (itensSemSecao.length) grupos.push({ nome: 'Itens sem lista', itens: itensSemSecao });
+
+      // O cabeçalho (logo + nome) se repete fixo em toda página, e cada
+      // página ganha o número "Pág X de Y" no rodapé. Como o navegador
+      // não dá pra consultar quantas páginas vai ter a impressão, a
+      // gente mesma mede a altura real de cada título/item numa área
+      // escondida e decide à mão em qual página/coluna cada um entra.
+      const mmParaPx = 96 / 25.4;
+      const GAP_COLUNA = 22;
+      const larguraConteudoPx = 198 * mmParaPx; // A4 (210mm) menos 6mm de margem de cada lado
+      const larguraColunaPx = (larguraConteudoPx - GAP_COLUNA * 2) / 3;
+      const alturaConteudoPx = 289 * mmParaPx;  // A4 (297mm) menos 6mm de margem de cima e 2mm embaixo
+
+      const estiloOriginal = area.getAttribute('style') || '';
+      area.setAttribute(
+        'style',
+        estiloOriginal + ';display:block !important;position:fixed;left:-9999px;top:0;' +
+        'visibility:hidden;width:' + larguraColunaPx + 'px;padding:0;margin:0;'
+      );
+
+      let medidorHtml = '';
+      grupos.forEach((grupo, gi) => {
+        medidorHtml += '<div class="pdf-grupo-medida" data-gi="' + gi + '">';
+        medidorHtml += '<div class="pdf-secao-titulo">' + escapar(grupo.nome) + '</div>';
+        grupo.itens.forEach((item) => { medidorHtml += montarItem(item); });
+        medidorHtml += '</div>';
+      });
+      area.innerHTML = cabecalhoHtml + medidorHtml + '<div class="pdf-rodape-pagina">Pág 1 de 1</div>';
+
+      const headerEl = area.querySelector('.pdf-cabecalho');
+      const alturaCabecalho = headerEl ? headerEl.offsetHeight : 0;
+      const rodapeEl = area.querySelector('.pdf-rodape-pagina');
+      const alturaRodape = rodapeEl ? rodapeEl.offsetHeight : 0;
+
+      // offsetHeight não inclui a margem própria do elemento (apenas
+      // borda+padding+conteúdo); como o título da seção tem margin-bottom,
+      // é preciso somar essa margem manualmente, senão a soma acumulada
+      // de várias seções fica menor do que a altura real ocupada e o
+      // empacotamento acaba derramando uma página extra quase em branco.
+      const gruposMedidos = grupos.map((grupo, gi) => {
+        const wrapper = area.querySelector('.pdf-grupo-medida[data-gi="' + gi + '"]');
+        const tituloEl = wrapper.querySelector('.pdf-secao-titulo');
+        const itemEls = Array.from(wrapper.querySelectorAll('.pdf-item'));
+        const margemTitulo = parseFloat(getComputedStyle(tituloEl).marginBottom) || 0;
+        return {
+          nome: grupo.nome,
+          alturaTitulo: tituloEl.offsetHeight + margemTitulo,
+          itens: grupo.itens.map((item, ii) => ({ html: montarItem(item), altura: itemEls[ii].offsetHeight }))
+        };
+      });
+
+      area.setAttribute('style', estiloOriginal);
+
+      const GAP_CABECALHO = 0;
+      const GAP_ENTRE_SECOES = 40;
+      const MARGEM_SEGURANCA = 24;
+      const alturaDisponivelPorPagina = alturaConteudoPx - alturaCabecalho - GAP_CABECALHO - alturaRodape - MARGEM_SEGURANCA;
+
+      // Empacota título+itens nas 3 colunas de cada página, no estilo
+      // jornal, dividindo uma lista no meio (por item) quando necessário.
+      const paginas = [];
+      let paginaAtual = [[], [], []];
+      let col = 0;
+      let colH = 0;
+      const novaColuna = () => {
+        col++;
+        colH = 0;
+        if (col > 2) {
+          paginas.push(paginaAtual);
+          paginaAtual = [[], [], []];
+          col = 0;
+        }
+      };
+
+      gruposMedidos.forEach((grupo) => {
+        if (grupo.itens.length === 0) {
+          const gap = colH > 0 ? GAP_ENTRE_SECOES : 0;
+          if (colH > 0 && colH + gap + grupo.alturaTitulo > alturaDisponivelPorPagina) {
+            novaColuna();
+          }
+          const gapFinal = colH > 0 ? GAP_ENTRE_SECOES : 0;
+          const estiloGap = gapFinal ? ' style="margin-top:' + gapFinal + 'px"' : '';
+          paginaAtual[col].push('<div class="pdf-secao-titulo"' + estiloGap + '>' + escapar(grupo.nome) + '</div>');
+          colH += grupo.alturaTitulo + gapFinal;
+          return;
+        }
+
+        let i = 0;
+        let primeiraVez = true;
+        while (i < grupo.itens.length) {
+          const alturaTituloNecessaria = primeiraVez ? grupo.alturaTitulo : 0;
+          const gapNecessario = colH > 0 ? GAP_ENTRE_SECOES : 0;
+          const espacoParaTituloEPrimeiroItem = alturaTituloNecessaria + gapNecessario + grupo.itens[i].altura;
+          if (colH > 0 && colH + espacoParaTituloEPrimeiroItem > alturaDisponivelPorPagina) {
+            novaColuna();
+            continue;
+          }
+          // O título só é impresso no início da lista; quando a lista
+          // continua numa coluna seguinte, os itens seguem direto, sem
+          // repetir o título.
+          if (primeiraVez) {
+            const gapFinal = colH > 0 ? GAP_ENTRE_SECOES : 0;
+            const estiloGap = gapFinal ? ' style="margin-top:' + gapFinal + 'px"' : '';
+            paginaAtual[col].push('<div class="pdf-secao-titulo"' + estiloGap + '>' + escapar(grupo.nome) + '</div>');
+            colH += grupo.alturaTitulo + gapFinal;
+            primeiraVez = false;
+          }
+
+          let colocouAlgum = false;
+          while (i < grupo.itens.length) {
+            const item = grupo.itens[i];
+            if (colH + item.altura > alturaDisponivelPorPagina) {
+              if (!colocouAlgum) {
+                paginaAtual[col].push(item.html);
+                colH += item.altura;
+                i++;
+                colocouAlgum = true;
+              }
+              break;
+            }
+            paginaAtual[col].push(item.html);
+            colH += item.altura;
+            i++;
+            colocouAlgum = true;
+          }
+
+          if (i < grupo.itens.length) {
+            novaColuna();
+          }
+        }
+      });
+      paginas.push(paginaAtual);
+
+      const totalPaginas = paginas.length;
+
+      let htmlFinal = cabecalhoHtml;
+      paginas.forEach((colunasDaPagina, idxPagina) => {
+        htmlFinal += '<div class="pdf-pagina" style="height:' + alturaDisponivelPorPagina + 'px; padding-top:' +
+          (alturaCabecalho + GAP_CABECALHO) + 'px;">';
+        htmlFinal += '<div class="pdf-colunas">';
+        colunasDaPagina.forEach((blocosDaColuna) => {
+          htmlFinal += '<div class="pdf-coluna" style="width:' + larguraColunaPx + 'px">' + blocosDaColuna.join('') + '</div>';
+        });
+        htmlFinal += '</div>';
+        htmlFinal += '<div class="pdf-rodape-pagina">Pág ' + (idxPagina + 1) + ' de ' + totalPaginas + '</div>';
+        htmlFinal += '</div>';
+      });
+
+      area.innerHTML = htmlFinal;
+
+      // Garante que a logo (imagem base64) já esteja decodificada antes
+      // de chamar a impressão — sem isso, às vezes o navegador abre o
+      // diálogo de impressão antes da imagem terminar de carregar, e
+      // ela sai em branco/quebrada no PDF.
+      const logoPdf = area.querySelector('img.pdf-logo');
+      if (logoPdf) {
+        try {
+          if (logoPdf.decode) {
+            await logoPdf.decode();
+          } else if (!logoPdf.complete) {
+            await new Promise((resolve) => {
+              logoPdf.onload = resolve;
+              logoPdf.onerror = resolve;
+            });
+          }
+        } catch (erro) {
+          // Segue mesmo se a logo não carregar, para não travar a impressão.
+        }
+      }
+
+      window.print();
+    }
+
+    function criarSecao(nome) {
+      if (!checklistAtual.secoes) checklistAtual.secoes = [];
+      const idTemporario = 'tmp-' + Date.now();
+      const novaSecao = { id: idTemporario, nome: nome };
+      checklistAtual.secoes.push(novaSecao);
+      renderizarItens();
+
+      chamarBackend('criarSecao', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: novaSecao.nome }).then(function (resultado) {
+        if (!resultado.ok) {
+          checklistAtual.secoes = checklistAtual.secoes.filter(s => s.id !== idTemporario);
+          renderizarItens();
+          alert(resultado.erro);
+          return;
+        }
+        novaSecao.id = resultado.id;
+      }).catch(function () {
+        checklistAtual.secoes = checklistAtual.secoes.filter(s => s.id !== idTemporario);
+        renderizarItens();
+        alert('Falha de conexão ao criar a seção.');
+      });
+    }
+
+    // Edição direta do título da seção (estilo Trello): troca o texto por
+    // um campo editável ao clicar no lápis, sem prompt.
+    function iniciarEdicaoTituloSecao(spanEl, secao) {
+      const valorAntigo = secao.nome;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'secao-titulo-input';
+      input.value = valorAntigo;
+      spanEl.replaceWith(input);
+      input.focus();
+      input.select();
+
+      let cancelado = false;
+
+      function salvar() {
+        if (cancelado) return;
+        const novoValor = input.value.trim();
+        if (!novoValor || novoValor === valorAntigo) {
+          renderizarItens();
+          return;
+        }
+        secao.nome = novoValor;
+        renderizarItens();
+        chamarBackendEmSegundoPlano('renomearSecao', { idPlanilha: idPlanilha, idSecao: secao.id, nome: novoValor }, function (erro) {
+          secao.nome = valorAntigo;
+          renderizarItens();
+          alert(erro);
+        });
+      }
+
+      input.addEventListener('blur', salvar);
+      input.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') {
+          input.blur();
+        } else if (ev.key === 'Escape') {
+          cancelado = true;
+          renderizarItens();
+        }
+      });
+      input.addEventListener('click', (ev) => ev.stopPropagation());
+    }
+
+    function excluirSecaoAtual(idSecao) {
+      const secao = (checklistAtual.secoes || []).find(s => s.id === idSecao);
+      if (!secao) return;
+      if (!confirm('Excluir a seção "' + secao.nome + '" e todos os itens dela?')) return;
+
+      const secoesAntigas = checklistAtual.secoes.slice();
+      const itensAntigos = itensAtuais.slice();
+
+      checklistAtual.secoes = checklistAtual.secoes.filter(s => s.id !== idSecao);
+      itensAtuais.splice(0, itensAtuais.length, ...itensAtuais.filter(i => i.idSecao !== idSecao));
+      renderizarItens();
+
+      chamarBackendEmSegundoPlano('excluirSecao', { idPlanilha: idPlanilha, idSecao: idSecao }, function (erro) {
+        checklistAtual.secoes = secoesAntigas;
+        itensAtuais.splice(0, itensAtuais.length, ...itensAntigos);
+        renderizarItens();
+        alert(erro || 'Não foi possível excluir a seção.');
+      });
+    }
+
+    // Copia os itens de uma seção/lista pra outro checklist (existente ou
+    // novo), sem tirar nada daqui — a seção original continua intacta
+    // neste checklist.
+    let secaoCopiandoAtual = null;
+
+    function abrirCopiarSecao(secao) {
+      secaoCopiandoAtual = secao;
+      document.getElementById('tituloCopiarSecao').textContent = 'Copiar "' + secao.nome + '"';
+
+      const select = document.getElementById('selectChecklistDestino');
+      select.innerHTML = '';
+      for (const cl of painel.checklists) {
+        const opcao = document.createElement('option');
+        opcao.value = cl.id;
+        opcao.textContent = cl.nome + (cl.id === checklistAtual.id ? ' (este checklist)' : '');
+        select.appendChild(opcao);
+      }
+
+      document.getElementById('radioDestinoExistente').checked = true;
+      document.getElementById('radioDestinoNovo').checked = false;
+      document.getElementById('radioDestinoTexto').checked = false;
+      document.getElementById('campoNomeNovoChecklistDestino').value = '';
+      atualizarDestinoCopiarSecao();
+
+      document.getElementById('janelaCopiarSecao').style.display = 'flex';
+    }
+
+    function fecharCopiarSecao() {
+      document.getElementById('janelaCopiarSecao').style.display = 'none';
+      secaoCopiandoAtual = null;
+    }
+
+    function atualizarDestinoCopiarSecao() {
+      const existente = document.getElementById('radioDestinoExistente').checked;
+      const texto = document.getElementById('radioDestinoTexto').checked;
+      document.getElementById('selectChecklistDestino').disabled = !existente;
+      document.getElementById('campoNomeNovoChecklistDestino').disabled = existente || texto;
+      document.getElementById('botaoConfirmarCopiarSecao').textContent = texto ? 'Copiar texto' : 'Copiar';
+    }
+
+    // Copia o texto pra área de transferência, com um jeito alternativo
+    // (textarea escondido + execCommand) pra quando o navegador bloquear
+    // o jeito moderno — ex.: alguns navegadores dentro de apps/webview.
+    function copiarTextoParaAreaDeTransferencia(texto) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(texto).then(() => true).catch(() => copiarTextoViaFallback(texto));
+      }
+      return Promise.resolve(copiarTextoViaFallback(texto));
+    }
+
+    function copiarTextoViaFallback(texto) {
+      try {
+        const campoTemp = document.createElement('textarea');
+        campoTemp.value = texto;
+        campoTemp.style.position = 'fixed';
+        campoTemp.style.opacity = '0';
+        document.body.appendChild(campoTemp);
+        campoTemp.focus();
+        campoTemp.select();
+        const deuCerto = document.execCommand('copy');
+        document.body.removeChild(campoTemp);
+        return deuCerto;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function confirmarCopiarSecao() {
+      if (!secaoCopiandoAtual) return;
+
+      const comoTexto = document.getElementById('radioDestinoTexto').checked;
+      if (comoTexto) {
+        const itensDaSecao = (checklistAtual.itens || [])
+          .filter(i => i.idSecao === secaoCopiandoAtual.id)
+          .sort((a, b) => a.ordem - b.ordem);
+        const texto = secaoCopiandoAtual.nome + '\n' + itensDaSecao.map(i => '- ' + i.descricao).join('\n');
+        copiarTextoParaAreaDeTransferencia(texto).then(function (deuCerto) {
+          if (deuCerto) {
+            fecharCopiarSecao();
+            alert('Lista copiada! Já pode colar onde quiser.');
+          } else {
+            alert('Não foi possível copiar automaticamente. Tente de novo.');
+          }
+        });
+        return;
+      }
+
+      const existente = document.getElementById('radioDestinoExistente').checked;
+      const dadosEnvio = { idPlanilha: idPlanilha, idSecaoOrigem: secaoCopiandoAtual.id };
+
+      if (existente) {
+        const idDestino = document.getElementById('selectChecklistDestino').value;
+        if (!idDestino) return;
+        dadosEnvio.idChecklistDestino = idDestino;
+      } else {
+        const nomeNovo = document.getElementById('campoNomeNovoChecklistDestino').value.trim();
+        if (!nomeNovo) {
+          alert('Digite um nome pro novo checklist.');
+          return;
+        }
+        dadosEnvio.nomeNovoChecklist = nomeNovo;
+      }
+
+      const botao = document.getElementById('botaoConfirmarCopiarSecao');
+      botao.disabled = true;
+
+      chamarBackend('copiarSecao', dadosEnvio).then(function (resultado) {
+        if (!resultado.ok) {
+          alert(resultado.erro || 'Não foi possível copiar a lista.');
+          return;
+        }
+
+        let checklistDestino = painel.checklists.find(c => c.id === resultado.idChecklistDestino);
+        if (checklistDestino) {
+          // Empurra pros MESMOS arrays (em vez de trocar por um array novo
+          // com concat) pra não perder a referência que itensAtuais usa
+          // quando esse é o checklist aberto na tela agora.
+          if (!checklistDestino.secoes) checklistDestino.secoes = [];
+          checklistDestino.secoes.push(resultado.secaoNova);
+          if (!checklistDestino.itens) checklistDestino.itens = [];
+          for (const itemNovo of (resultado.itens || [])) checklistDestino.itens.push(itemNovo);
+          // Se é o checklist que já está aberto na tela, atualiza na hora.
+          if (checklistAtual && checklistAtual.id === checklistDestino.id) {
+            renderizarItens();
+          }
+        } else {
+          checklistDestino = { id: resultado.idChecklistDestino, nome: resultado.nomeChecklistDestino, itens: resultado.itens || [], secoes: [resultado.secaoNova] };
+          painel.checklists.push(checklistDestino);
+        }
+
+        fecharCopiarSecao();
+        alert('Lista copiada pra "' + resultado.nomeChecklistDestino + '".');
+      }).catch(function () {
+        alert('Falha de conexão ao copiar a lista.');
+      }).finally(function () {
+        botao.disabled = false;
+      });
+    }
+
+    function atualizarProgresso() {
+      const total = itensAtuais.length;
+      const feitos = itensAtuais.filter(i => i.marcado).length;
+      const percentual = total ? Math.round((feitos / total) * 100) : 0;
+      document.getElementById('progressoTexto').textContent = feitos + ' de ' + total + ' concluídos';
+      document.getElementById('progressoPercentual').textContent = percentual + '%';
+      document.getElementById('progressoBarra').style.width = percentual + '%';
+    }
+
+    // Arrastar e soltar para reordenar os itens. A alça e a própria linha
+    // iniciam o arrasto; o alvo é definido pela linha sobre a qual o mouse
+    // está quando o item é soltado.
+    // Pointer Events funcionam em mouse E em toque com o mesmo código — por
+    // isso trocamos a API nativa de Drag and Drop (que o celular não segue
+    // direito) por essa aqui, pra arrastar tanto itens quanto seções
+    // segurando pela alcinha.
+    function prepararArrastavel(config) {
+      let arrastando = false;
+      let pointerId = null;
+
+      function limparDestaque() {
+        document.querySelectorAll(config.seletorLinha + '.' + config.classeSobre).forEach(function (el) {
+          el.classList.remove(config.classeSobre);
+        });
+      }
+
+      function elementoSobPonteiro(ev) {
+        const alvo = document.elementFromPoint(ev.clientX, ev.clientY);
+        return alvo && alvo.closest(config.seletorLinha);
+      }
+
+      config.alca.addEventListener('pointerdown', function (ev) {
+        if (ev.button !== undefined && ev.button !== 0) return;
+        arrastando = true;
+        pointerId = ev.pointerId;
+        config.definirIdArrastado(config.obterIdAtual());
+        config.elemento.classList.add(config.classeArrastando);
+        try { config.alca.setPointerCapture(pointerId); } catch (e) { /* ignora se o navegador não suportar */ }
+        ev.preventDefault();
+      });
+
+      config.alca.addEventListener('pointermove', function (ev) {
+        if (!arrastando) return;
+        limparDestaque();
+        const alvo = elementoSobPonteiro(ev);
+        if (alvo && alvo !== config.elemento) alvo.classList.add(config.classeSobre);
+      });
+
+      function finalizar(ev) {
+        if (!arrastando) return;
+        arrastando = false;
+        config.elemento.classList.remove(config.classeArrastando);
+        limparDestaque();
+        const alvo = elementoSobPonteiro(ev);
+        if (alvo && alvo !== config.elemento) {
+          config.aoSoltar(config.obterIdArrastado(), alvo);
+        }
+        config.definirIdArrastado(null);
+        pointerId = null;
+      }
+
+      config.alca.addEventListener('pointerup', finalizar);
+      config.alca.addEventListener('pointercancel', finalizar);
+    }
+
+    function ativarArrasto(linha, alca, item) {
+      prepararArrastavel({
+        alca: alca,
+        elemento: linha,
+        seletorLinha: '.item-check',
+        obterIdAtual: function () { return item.id; },
+        definirIdArrastado: function (id) { idArrastado = id; },
+        obterIdArrastado: function () { return idArrastado; },
+        classeArrastando: 'arrastando',
+        classeSobre: 'arrasto-sobre',
+        aoSoltar: function (idOrigem, elementoAlvo) {
+          moverItem(idOrigem, elementoAlvo.dataset.itemId);
+        }
+      });
+    }
+
+    function moverItem(idOrigem, idDestino) {
+      if (idOrigem === null || idOrigem === idDestino) return;
+
+      const indiceOrigem = itensAtuais.findIndex(i => i.id === idOrigem);
+      const indiceDestino = itensAtuais.findIndex(i => i.id === idDestino);
+      if (indiceOrigem === -1 || indiceDestino === -1) return;
+
+      const [itemMovido] = itensAtuais.splice(indiceOrigem, 1);
+      itensAtuais.splice(indiceDestino, 0, itemMovido);
+      itensAtuais.forEach((it, i) => { it.ordem = i + 1; });
+
+      renderizarItens();
+      persistirOrdem();
+    }
+
+    function persistirOrdem() {
+      const ids = itensAtuais.map(i => i.id);
+      chamarBackendEmSegundoPlano('reordenarItens', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, ids: ids }, function (erro) {
+        alert('Não foi possível salvar a nova ordem: ' + erro);
+      });
+    }
+
+    // Arrastar a lista (seção) inteira pela alça do cabeçalho, para cima
+    // ou para baixo de outra lista — move a seção com todos os itens
+    // dela junto, já que os itens ficam ligados pelo idSecao.
+    function ativarArrastoSecao(bloco, alca, secao) {
+      prepararArrastavel({
+        alca: alca,
+        elemento: bloco,
+        seletorLinha: '.bloco-secao',
+        obterIdAtual: function () { return secao.id; },
+        definirIdArrastado: function (id) { idSecaoArrastada = id; },
+        obterIdArrastado: function () { return idSecaoArrastada; },
+        classeArrastando: 'secao-arrastando',
+        classeSobre: 'secao-arrasto-sobre',
+        aoSoltar: function (idOrigem, elementoAlvo) {
+          moverSecao(idOrigem, elementoAlvo.dataset.secaoId);
+        }
+      });
+    }
+
+    function moverSecao(idOrigem, idDestino) {
+      if (idOrigem === null || idOrigem === idDestino) return;
+
+      const secoes = checklistAtual.secoes || [];
+      const indiceOrigem = secoes.findIndex(s => s.id === idOrigem);
+      const indiceDestino = secoes.findIndex(s => s.id === idDestino);
+      if (indiceOrigem === -1 || indiceDestino === -1) return;
+
+      const [secaoMovida] = secoes.splice(indiceOrigem, 1);
+      secoes.splice(indiceDestino, 0, secaoMovida);
+
+      renderizarItens();
+      persistirOrdemSecoes();
+    }
+
+    function persistirOrdemSecoes() {
+      const ids = (checklistAtual.secoes || []).map(s => s.id);
+      chamarBackendEmSegundoPlano('reordenarSecoes', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, ids: ids }, function (erro) {
+        alert('Não foi possível salvar a nova ordem das listas: ' + erro);
+      });
+    }
+
+    function excluirItemUnico(idItem) {
+      if (!confirm('Excluir este item?')) return;
+
+      const indice = itensAtuais.findIndex(i => i.id === idItem);
+      if (indice === -1) return;
+      const [itemRemovido] = itensAtuais.splice(indice, 1);
+      renderizarItens();
+
+      chamarBackendEmSegundoPlano('excluirItem', { idPlanilha: idPlanilha, idItem: idItem }, function (erro) {
+        itensAtuais.splice(indice, 0, itemRemovido);
+        renderizarItens();
+        alert(erro);
+      });
+    }
+
+    // Edição direta em cima do texto do item, estilo Trello: troca o texto
+    // por um campo editável na hora, sem janela de confirmação. Salva ao
+    // sair do campo (blur) ou Enter; Esc cancela.
+    function iniciarEdicaoInline(spanEl, item) {
+      const valorAntigo = item.descricao;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'texto-item-input';
+      input.value = valorAntigo;
+      spanEl.replaceWith(input);
+      input.focus();
+      input.select();
+
+      let cancelado = false;
+
+      function salvar() {
+        if (cancelado) return;
+        const novoValor = input.value.trim();
+        if (!novoValor || novoValor === valorAntigo) {
+          renderizarItens();
+          return;
+        }
+        item.descricao = novoValor;
+        renderizarItens();
+        chamarBackendEmSegundoPlano('renomearItem', { idPlanilha: idPlanilha, idItem: item.id, descricao: novoValor }, function (erro) {
+          item.descricao = valorAntigo;
+          renderizarItens();
+          alert(erro);
+        });
+      }
+
+      input.addEventListener('blur', salvar);
+      input.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') {
+          input.blur();
+        } else if (ev.key === 'Escape') {
+          cancelado = true;
+          renderizarItens();
+        }
+      });
+      input.addEventListener('click', (ev) => ev.stopPropagation());
+    }
+
+
+    function renomearChecklistAtual() {
+      const nomeAntigo = checklistAtual.nome;
+      const nome = prompt('Novo nome do checklist:', nomeAntigo);
+      if (!nome || !nome.trim() || nome.trim() === nomeAntigo) return;
+
+      checklistAtual.nome = nome.trim();
+      document.getElementById('tituloChecklist').textContent = checklistAtual.nome;
+
+      function enviar(token) {
+        chamarBackendEmSegundoPlano('renomearChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: checklistAtual.nome, tokenAgenda: token }, function (erro) {
+          checklistAtual.nome = nomeAntigo;
+          document.getElementById('tituloChecklist').textContent = nomeAntigo;
+          alert(erro);
+        });
+      }
+
+      // Se esse checklist já avisa na agenda, busca o token pra atualizar
+      // o título do evento também; senão, só renomeia o checklist mesmo.
+      if (checklistAtual.notificarAgenda) {
+        obterTokenAgenda(enviar);
+      } else {
+        enviar(null);
+      }
+    }
+
+    function excluirChecklistAtual() {
+      if (!confirm('Excluir o checklist "' + checklistAtual.nome + '"? Os itens deixarão de aparecer.')) return;
+
+      const checklistRemovido = checklistAtual;
+
+      function enviar(token) {
+        painel.checklists = painel.checklists.filter(c => c.id !== checklistRemovido.id);
+        voltarParaLista();
+
+        chamarBackendEmSegundoPlano('excluirChecklist', { idPlanilha: idPlanilha, idChecklist: checklistRemovido.id, tokenAgenda: token }, function (erro) {
+          painel.checklists.push(checklistRemovido);
+          renderizarGrade();
+          alert(erro);
+        });
+      }
+
+      // Se esse checklist já avisa na agenda, busca o token pra apagar o
+      // evento também; senão, exclui direto.
+      if (checklistRemovido.notificarAgenda) {
+        obterTokenAgenda(enviar);
+      } else {
+        enviar(null);
+      }
+    }
+
+    // Cria uma cópia completa do checklist atual (itens, seções e ordem),
+    // tudo desmarcado — pra guardar um "modelo" completo (ex: Compras, com
+    // tudo que você já costuma comprar) e usar a cópia só pra riscar o que
+    // precisa dessa vez, sem nunca precisar digitar tudo de novo e sem a
+    // lista ficar poluída com item que não vai comprar. A cópia NÃO leva
+    // fotos dos itens nem as configurações de aviso na agenda — começa
+    // limpa nesse sentido.
+    function duplicarChecklistAtual() {
+      const sugestaoNome = checklistAtual.nome + ' 2';
+      const nome = prompt('Nome do novo checklist (cópia completa de "' + checklistAtual.nome + '"):', sugestaoNome);
+      if (!nome || !nome.trim()) return;
+
+      const botao = document.getElementById('botaoDuplicarChecklist');
+      botao.disabled = true;
+
+      chamarBackend('duplicarChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: nome.trim() })
+        .then(function (resultado) {
+          if (!resultado.ok) {
+            alert(resultado.erro || 'Não foi possível duplicar o checklist.');
+            return;
+          }
+          const novoChecklist = { id: resultado.id, nome: resultado.nome, itens: resultado.itens || [], secoes: resultado.secoes || [] };
+          painel.checklists.push(novoChecklist);
+          abrirChecklist(novoChecklist.id);
+        })
+        .catch(function () {
+          alert('Falha de conexão ao duplicar o checklist.');
+        })
+        .finally(function () {
+          botao.disabled = false;
+        });
+    }
+
+    function alternarItem(idItem) {
+      const item = itensAtuais.find(i => i.id === idItem);
+      if (!item) return;
+      item.marcado = !item.marcado;
+      renderizarItens();
+
+      chamarBackendEmSegundoPlano('marcarItem', { idPlanilha: idPlanilha, idItem: idItem, data: dataHoje, marcar: item.marcado }, function (erro) {
+        item.marcado = !item.marcado;
+        renderizarItens();
+        alert(erro);
+      });
+    }
+
+    function marcarTodos(valor) {
+      for (const item of itensAtuais) {
+        item.marcado = valor;
+      }
+      renderizarItens();
+
+      for (const item of itensAtuais) {
+        chamarBackendEmSegundoPlano('marcarItem', { idPlanilha: idPlanilha, idItem: item.id, data: dataHoje, marcar: valor }, function (erro) {
+          alert(erro);
+        });
+      }
+    }
+
+    function marcarTodosSecao(idSecao, valor) {
+      const itensDaSecao = itensAtuais.filter(i => i.idSecao === idSecao);
+      for (const item of itensDaSecao) {
+        item.marcado = valor;
+      }
+      renderizarItens();
+
+      for (const item of itensDaSecao) {
+        chamarBackendEmSegundoPlano('marcarItem', { idPlanilha: idPlanilha, idItem: item.id, data: dataHoje, marcar: valor }, function (erro) {
+          alert(erro);
+        });
+      }
+    }
+
+    function focarCampoNovoItem(idSecao) {
+      const campos = document.querySelectorAll('.linha-novo-item-secao textarea');
+      for (const c of campos) {
+        if (c.dataset.secaoId === idSecao) {
+          c.focus();
+          break;
+        }
+      }
+    }
+
+    function adicionarItem(idSecao, campoSecao) {
+      const campo = campoSecao || document.getElementById('campoNovoItem');
+      const descricao = campo.value.trim();
+      if (!descricao) return;
+
+      campo.value = '';
+      criarItemLocalEEnviar(descricao, idSecao);
+      renderizarItens();
+      focarCampoNovoItem(idSecao);
+    }
+
+    // Permite colar uma lista com várias linhas (ex: copiada do WhatsApp ou
+    // do bloco de notas) direto no campo de novo item: cada linha não-vazia
+    // vira um item separado, em vez de ser colada como texto corrido.
+    //
+    // O campo é um <textarea>, não um <input>, justamente para isso: um
+    // <input> de uma linha só apaga as quebras de linha antes mesmo do JS
+    // conseguir ler o texto colado (é o que acontecia no celular). O
+    // <textarea> preserva as quebras, então aqui a gente lê o valor já colado
+    // (via evento "input", que dispara tanto no computador quanto no
+    // celular) em vez de depender da API de clipboard, que é instável em
+    // alguns navegadores/apps de celular.
+    function processarPossivelColagemMultilinha(idSecao, campo) {
+      if (campo.value.indexOf('\n') === -1) return;
+
+      const linhas = campo.value
+        .split(/\r?\n/)
+        .map(function (linha) { return linha.trim(); })
+        .filter(function (linha) { return linha.length > 0; });
+
+      campo.value = '';
+      if (!linhas.length) return;
+
+      for (const descricao of linhas) {
+        criarItemLocalEEnviar(descricao, idSecao);
+      }
+      renderizarItens();
+      focarCampoNovoItem(idSecao);
+    }
+
+    function criarItemLocalEEnviar(descricao, idSecao) {
+      const idTemporario = 'tmp-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+      const maiorOrdem = itensAtuais.reduce((max, i) => Math.max(max, i.ordem || 0), 0);
+      const novoItem = { id: idTemporario, descricao: descricao, ordem: maiorOrdem + 1, marcado: false, idSecao: idSecao || '' };
+      itensAtuais.push(novoItem);
+
+      chamarBackend('adicionarItem', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, descricao: descricao, idSecao: idSecao || '' }).then(function (resultado) {
+        if (!resultado.ok) {
+          const i = itensAtuais.indexOf(novoItem);
+          if (i !== -1) itensAtuais.splice(i, 1);
+          renderizarItens();
+          alert(resultado.erro);
+          return;
+        }
+        novoItem.id = resultado.id;
+      }).catch(function () {
+        const i = itensAtuais.indexOf(novoItem);
+        if (i !== -1) itensAtuais.splice(i, 1);
+        renderizarItens();
+        alert('Falha de conexão ao adicionar um dos itens.');
+      });
+    }
+  </script>
+</body>
+</html>

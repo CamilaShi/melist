@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if (/type=(invite|recovery)/.test(location.hash) || /error_code=/.test(location.hash)) {
+      location.replace("login.html" + location.hash);
+    }
+  </script>
+  <title>Configurações - ME-List</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#7C8F6E">
+  <script>
+    if (localStorage.getItem('checklist_tema') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+  <link rel="stylesheet" href="style.css?v=17">
+</head>
+<body>
+
+  <div class="particulas" id="particulas"></div>
+
+  <div class="app">
+    <aside class="barra-lateral">
+      <div class="marca-menu">
+        <img src="icons/icon-192.png" alt="">
+        <span>ME-LIST</span>
+      </div>
+      <div class="saudacao-menu" id="saudacaoMenu">Oi! &#128075;</div>
+
+      <nav class="nav-lista">
+        <button class="nav-item" onclick="irPara('index.html')">
+          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 5"></polyline><polyline points="15 5 21 5 21 11"></polyline></svg></span> Dashboard
+        </button>
+        <button class="nav-item" onclick="irPara('checklists.html')">
+          <span class="nav-icone">&#10003;</span> Meus Checklists
+        </button>
+        <button class="nav-item" onclick="irPara('checklists.html#historico')">
+          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v5l3.5 2"></path></svg></span> Histórico
+        </button>
+        <button class="nav-item ativo" onclick="irPara('configuracoes.html')">
+          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span> Configurações
+        </button>
+      </nav>
+
+      <div class="nav-rodape">
+        <div class="linha-sair">
+          <button class="nav-item" onclick="sair()">
+            <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span> Sair
+          </button>
+          <label class="interruptor-tema" aria-label="Alternar tema">
+            <input type="checkbox" id="toggleTemaRodape" onchange="alternarTema()">
+            <span class="interruptor-tema-trilho">
+              <span class="interruptor-tema-bola"></span>
+              <span class="interruptor-tema-icone" id="iconeTemaRodape">&#9790;</span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <main class="conteudo">
+      <div class="topo">
+        <div class="selo-topo">Painel</div>
+        <h1>Configurações</h1>
+      </div>
+
+      <div class="grade-widgets">
+
+        <div class="widget widget-acao">
+          <div class="widget-topo">
+            <div class="widget-titulo"><span class="icone-widget">&#9786;</span> Minha conta</div>
+          </div>
+          <p id="emailConta"></p>
+          <div class="campo-login">
+            <label>Nome
+              <input type="text" id="campoNome" maxlength="60" autocomplete="name">
+            </label>
+            <button class="botao-widget" onclick="salvarNome()">Salvar nome</button>
+            <div class="mensagem" id="msgNome"></div>
+          </div>
+        </div>
+
+        <div class="widget widget-acao">
+          <div class="widget-topo">
+            <div class="widget-titulo"><span class="icone-widget">&#10022;</span> Alterar senha</div>
+          </div>
+          <div class="campo-login">
+            <label>Nova senha (mínimo 10 caracteres)
+              <input type="password" id="campoSenha1" minlength="10" autocomplete="new-password">
+            </label>
+            <label>Repita a nova senha
+              <input type="password" id="campoSenha2" minlength="10" autocomplete="new-password">
+            </label>
+            <button class="botao-widget" onclick="alterarSenha()">Salvar senha</button>
+            <div class="mensagem" id="msgSenha"></div>
+          </div>
+        </div>
+
+        <div class="widget widget-acao">
+          <div class="widget-topo">
+            <div class="widget-titulo"><span class="icone-widget">&#10003;</span> Assinatura</div>
+          </div>
+          <p id="textoAssinatura">Carregando...</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    window.onload = async function () {
+      const usuario = await exigirLogin();
+      if (!usuario) return;
+
+      document.getElementById('saudacaoMenu').textContent = 'Oi, ' + usuario.primeiroNome + '! \u{1F44B}';
+      document.getElementById('emailConta').textContent = 'E-mail de acesso: ' + usuario.email;
+      document.getElementById('campoNome').value = usuario.nome;
+
+      const temaAtual = document.documentElement.getAttribute('data-theme');
+      document.getElementById('toggleTemaRodape').checked = temaAtual === 'dark';
+      document.getElementById('iconeTemaRodape').innerHTML = temaAtual === 'dark' ? '&#9728;' : '&#9790;';
+      criarParticulas();
+
+      const ass = await db.from('assinaturas').select('status, plano, valido_ate').eq('user_id', usuario.id).maybeSingle();
+      const texto = document.getElementById('textoAssinatura');
+      if (ass.data) {
+        const validade = ass.data.valido_ate ? ' Válida até ' + new Date(ass.data.valido_ate).toLocaleDateString('pt-BR') + '.' : '';
+        texto.textContent = 'Situação: ' + (ass.data.status === 'ativa' ? 'ativa' : ass.data.status) + '.' + validade;
+      } else {
+        texto.textContent = 'Não foi possível consultar a assinatura agora.';
+      }
+    };
+
+    async function salvarNome() {
+      const msg = document.getElementById('msgNome');
+      const nome = document.getElementById('campoNome').value.trim();
+      if (!nome) { msg.textContent = 'Digite um nome.'; return; }
+      const { error } = await db.from('perfis').update({ nome: nome }).eq('id', usuarioAtual.id);
+      if (error) { msg.textContent = 'Não foi possível salvar agora.'; return; }
+      usuarioAtual.nome = nome;
+      document.getElementById('saudacaoMenu').textContent = 'Oi, ' + nome.split(' ')[0] + '! \u{1F44B}';
+      msg.textContent = 'Nome salvo.';
+    }
+
+    async function alterarSenha() {
+      const msg = document.getElementById('msgSenha');
+      const a = document.getElementById('campoSenha1').value;
+      const b = document.getElementById('campoSenha2').value;
+      if (a.length < 10) { msg.textContent = 'Use pelo menos 10 caracteres.'; return; }
+      if (a !== b) { msg.textContent = 'As senhas não são iguais.'; return; }
+      const { error } = await db.auth.updateUser({ password: a });
+      if (error) { msg.textContent = error.message; return; }
+      document.getElementById('campoSenha1').value = '';
+      document.getElementById('campoSenha2').value = '';
+      msg.textContent = 'Senha alterada.';
+    }
+
+    function irPara(pagina) {
+      window.location.href = pagina;
+    }
+
+    function alternarTema() {
+      const raiz = document.documentElement;
+      const atual = raiz.getAttribute('data-theme');
+      const novo = atual === 'dark' ? 'light' : 'dark';
+      raiz.setAttribute('data-theme', novo);
+      localStorage.setItem('checklist_tema', novo);
+      document.getElementById('toggleTemaRodape').checked = novo === 'dark';
+      document.getElementById('iconeTemaRodape').innerHTML = novo === 'dark' ? '&#9728;' : '&#9790;';
+    }
+
+    function criarParticulas() {
+      const container = document.getElementById('particulas');
+      const tema = document.documentElement.getAttribute('data-theme');
+      const total = tema === 'light' ? 29 : 22;
+      const faixas = 4;
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement('div');
+        p.className = 'particula';
+        const faixa = i % faixas;
+        const altoMin = faixa * (100 / faixas);
+        const altoMax = altoMin + (100 / faixas);
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = (altoMin + Math.random() * (altoMax - altoMin)) + 'vh';
+        p.style.animationDelay = (Math.random() * 9) + 's';
+        p.style.animationDuration = (7 + Math.random() * 5) + 's';
+        container.appendChild(p);
+      }
+    }
+  </script>
+</body>
+</html>
