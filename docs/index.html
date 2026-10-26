@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ME-List</title>
+  <meta name="description" content="Checklists pessoais e recorrentes">
+  <meta name="theme-color" content="#8fa88a">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main id="tela-carregando" class="centro">
+    <p>Carregando...</p>
+  </main>
+
+  <main id="tela-login" class="centro" hidden>
+    <form id="form-login" class="cartao">
+      <h1>ME-List</h1>
+      <label>E-mail
+        <input type="email" id="login-email" autocomplete="email" required>
+      </label>
+      <label>Senha
+        <input type="password" id="login-senha" autocomplete="current-password" required minlength="8">
+      </label>
+      <button type="submit" class="primario">Entrar</button>
+      <button type="button" id="btn-google" class="secundario" hidden>Entrar com Google</button>
+      <button type="button" id="btn-esqueci" class="link">Esqueci a senha</button>
+      <p id="login-msg" class="msg" role="status"></p>
+    </form>
+  </main>
+
+  <main id="tela-senha" class="centro" hidden>
+    <form id="form-senha" class="cartao">
+      <h1>Definir senha</h1>
+      <p>Escolha uma senha com pelo menos 10 caracteres.</p>
+      <label>Nova senha
+        <input type="password" id="nova-senha" autocomplete="new-password" required minlength="10">
+      </label>
+      <label>Repita a senha
+        <input type="password" id="nova-senha2" autocomplete="new-password" required minlength="10">
+      </label>
+      <button type="submit" class="primario">Salvar senha</button>
+      <p id="senha-msg" class="msg" role="status"></p>
+    </form>
+  </main>
+
+  <main id="tela-sem-acesso" class="centro" hidden>
+    <div class="cartao">
+      <h1>Acesso não liberado</h1>
+      <p>Sua conta ainda não tem uma assinatura ativa. Se você já pagou, aguarde alguns minutos e entre novamente. Se o problema continuar, fale com o suporte.</p>
+      <button type="button" class="secundario" data-acao="sair">Sair</button>
+    </div>
+  </main>
+
+  <div id="app" hidden>
+    <header class="topo">
+      <button type="button" id="btn-menu" class="link" aria-label="Abrir lista de checklists">Menu</button>
+      <h1 id="titulo-atual">ME-List</h1>
+      <button type="button" class="link" data-acao="sair">Sair</button>
+    </header>
+    <div class="layout">
+      <nav id="lateral" aria-label="Checklists">
+        <button type="button" id="btn-novo-checklist" class="primario">Novo checklist</button>
+        <ul id="lista-checklists"></ul>
+      </nav>
+      <section id="conteudo" aria-live="polite"></section>
+    </div>
+  </div>
+
+  <p id="toast" role="status" hidden></p>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
