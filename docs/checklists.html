@@ -1460,7 +1460,7 @@ const LOGO_PDF_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4C
         const itensDaSecao = (checklistAtual.itens || [])
           .filter(i => i.idSecao === secaoCopiandoAtual.id)
           .sort((a, b) => a.ordem - b.ordem);
-        const texto = secaoCopiandoAtual.nome + '\n' + itensDaSecao.map(i => '- ' + i.descricao).join('\n');
+        const texto = secaoCopiandoAtual.nome + '\n' + itensDaSecao.map(i => i.descricao).join('\n');
         copiarTextoParaAreaDeTransferencia(texto).then(function (deuCerto) {
           if (deuCerto) {
             fecharCopiarSecao();
