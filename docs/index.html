@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body>
 
@@ -30,7 +30,7 @@
         <img src="icons/icon-192.png" alt="">
         <span>ME-LIST</span>
       </div>
-      <div class="saudacao-menu" id="saudacaoMenu">Oi! &#128075;</div>
+      <div class="saudacao-menu" id="saudacaoMenu">Oi!</div>
 
       <nav class="nav-lista">
         <button class="nav-item ativo">
@@ -138,7 +138,7 @@
       if (!usuario) return;
 
       document.getElementById('saudacao').textContent = 'Bem-vinda, ' + usuario.nome;
-      document.getElementById('saudacaoMenu').textContent = 'Oi, ' + usuario.primeiroNome + '! \u{1F44B}';
+      document.getElementById('saudacaoMenu').textContent = 'Oi, ' + usuario.primeiroNome + '!';
 
       const temaAtual = document.documentElement.getAttribute('data-theme');
       document.getElementById('toggleTemaRodape').checked = temaAtual === 'dark';

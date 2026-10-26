@@ -417,13 +417,13 @@ body.tela-login {
   padding: 0 8px;
 }
 .marca-menu img {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
 }
 .marca-menu span {
   font-family: var(--fonte-base);
-  font-size: 13px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--texto-dourado);
@@ -432,7 +432,7 @@ body.tela-login {
 .saudacao-menu {
   font-family: var(--fonte-titulo);
   font-weight: 600;
-  font-size: 21px;
+  font-size: 15px;
   letter-spacing: 0.3px;
   margin-bottom: 28px;
   padding: 0 8px;
