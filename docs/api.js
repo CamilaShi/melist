@@ -48,11 +48,6 @@ async function sair() {
   window.location.replace('login.html');
 }
 
-// A integracao com a Google Agenda nao existe nesta versao; o resto do codigo continua igual.
-function obterTokenAgenda(aoReceber) {
-  aoReceber(null);
-}
-
 // ---------- utilitarios ----------
 
 function uuid() {

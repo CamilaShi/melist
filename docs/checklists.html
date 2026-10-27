@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=23">
+  <link rel="stylesheet" href="style.css?v=24">
 </head>
 <body>
 
@@ -392,15 +392,9 @@
     function irPara(pagina) {
       window.location.href = pagina;
     }
-    // Fotos dos itens: diferente da agenda, isso NÃO passa mais por
-    // autorização do Google no navegador (era isso que travava em
-    // "Enviando..." — o pop-up de permissão do Drive ficava preso, às
-    // vezes sem nem avisar erro). Agora a foto é comprimida aqui, mandada
-    // como base64 pro mesmo backend (Apps Script) que já cuida do resto do
-    // checklist, e é o próprio backend quem guarda no Drive e devolve os
-    // bytes depois — igual já funciona no Checklist Nanya. Continua
-    // restrito a quem está logada: só o backend acessa esses arquivos, e
-    // ele só entrega a foto de um item quando é esse mesmo app pedindo.
+    // Fotos dos itens: a foto e reduzida aqui no navegador e enviada para o
+    // armazenamento privado do Supabase. So quem esta logado, e dono do item,
+    // consegue ver ou apagar a foto.
 
     // Reduz o tamanho da foto antes de mandar pro backend (evita arquivo
     // gigante de celular e deixa o envio bem mais rápido). Redimensiona pro
@@ -829,18 +823,11 @@
         checklistAtual.nome = novoValor;
         restaurarTitulo(novoValor);
 
-        function enviar(token) {
-          chamarBackendEmSegundoPlano('renomearChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: novoValor, tokenAgenda: token }, function (erro) {
-            checklistAtual.nome = valorAntigo;
-            restaurarTitulo(valorAntigo);
-            alert(erro);
-          });
-        }
-        if (checklistAtual.notificarAgenda) {
-          obterTokenAgenda(enviar);
-        } else {
-          enviar(null);
-        }
+        chamarBackendEmSegundoPlano('renomearChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: novoValor }, function (erro) {
+          checklistAtual.nome = valorAntigo;
+          restaurarTitulo(valorAntigo);
+          alert(erro);
+        });
       }
 
       function restaurarTitulo(nome) {
@@ -1801,21 +1788,11 @@ const LOGO_PDF_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4C
       checklistAtual.nome = nome.trim();
       document.getElementById('tituloChecklist').textContent = checklistAtual.nome;
 
-      function enviar(token) {
-        chamarBackendEmSegundoPlano('renomearChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: checklistAtual.nome, tokenAgenda: token }, function (erro) {
-          checklistAtual.nome = nomeAntigo;
-          document.getElementById('tituloChecklist').textContent = nomeAntigo;
-          alert(erro);
-        });
-      }
-
-      // Se esse checklist já avisa na agenda, busca o token pra atualizar
-      // o título do evento também; senão, só renomeia o checklist mesmo.
-      if (checklistAtual.notificarAgenda) {
-        obterTokenAgenda(enviar);
-      } else {
-        enviar(null);
-      }
+      chamarBackendEmSegundoPlano('renomearChecklist', { idPlanilha: idPlanilha, idChecklist: checklistAtual.id, nome: checklistAtual.nome }, function (erro) {
+        checklistAtual.nome = nomeAntigo;
+        document.getElementById('tituloChecklist').textContent = nomeAntigo;
+        alert(erro);
+      });
     }
 
     function excluirChecklistAtual() {
@@ -1823,24 +1800,14 @@ const LOGO_PDF_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4C
 
       const checklistRemovido = checklistAtual;
 
-      function enviar(token) {
-        painel.checklists = painel.checklists.filter(c => c.id !== checklistRemovido.id);
-        voltarParaLista();
+      painel.checklists = painel.checklists.filter(c => c.id !== checklistRemovido.id);
+      voltarParaLista();
 
-        chamarBackendEmSegundoPlano('excluirChecklist', { idPlanilha: idPlanilha, idChecklist: checklistRemovido.id, tokenAgenda: token }, function (erro) {
-          painel.checklists.push(checklistRemovido);
-          renderizarGrade();
-          alert(erro);
-        });
-      }
-
-      // Se esse checklist já avisa na agenda, busca o token pra apagar o
-      // evento também; senão, exclui direto.
-      if (checklistRemovido.notificarAgenda) {
-        obterTokenAgenda(enviar);
-      } else {
-        enviar(null);
-      }
+      chamarBackendEmSegundoPlano('excluirChecklist', { idPlanilha: idPlanilha, idChecklist: checklistRemovido.id }, function (erro) {
+        painel.checklists.push(checklistRemovido);
+        renderizarGrade();
+        alert(erro);
+      });
     }
 
     function abrirEnvioChecklist() {
@@ -1877,8 +1844,7 @@ const LOGO_PDF_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4C
     // tudo que você já costuma comprar) e usar a cópia só pra riscar o que
     // precisa dessa vez, sem nunca precisar digitar tudo de novo e sem a
     // lista ficar poluída com item que não vai comprar. A cópia NÃO leva
-    // fotos dos itens nem as configurações de aviso na agenda — começa
-    // limpa nesse sentido.
+    // fotos dos itens.
     function duplicarChecklistAtual() {
       const sugestaoNome = checklistAtual.nome + ' 2';
       const nome = prompt('Nome do novo checklist (cópia completa de "' + checklistAtual.nome + '"):', sugestaoNome);

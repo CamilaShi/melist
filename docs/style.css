@@ -217,7 +217,7 @@ body.tela-login {
 .linha-sair .nav-item {
   flex: 1;
 }
-/* Interruptor de tema (sol/lua), no mesmo padrão do toggle "Avisar na agenda" */
+/* Interruptor de tema (sol/lua) */
 .interruptor-tema {
   position: relative;
   display: inline-flex;
@@ -553,42 +553,6 @@ body.tela-login {
   font-weight: 600;
   cursor: pointer;
 }
-
-.bloco-agenda {
-  margin-bottom: 14px;
-  border-radius: 14px;
-  border: 1px solid var(--borda-dourada);
-  padding: 4px 14px 12px;
-}
-.linha-agenda {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 4px 0;
-  flex-wrap: wrap;
-}
-.linha-agenda-detalhes {
-  display: flex;
-  align-items: flex-end;
-  gap: 14px;
-  flex-wrap: wrap;
-  padding-top: 10px;
-  border-top: 1px solid var(--borda-dourada);
-  margin-top: 4px;
-}
-.campo-agenda {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.campo-agenda label {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--texto-suave-card);
-}
 .campo-data {
   padding: 6px 10px;
   border-radius: 14px;
@@ -602,13 +566,6 @@ body.tela-login {
 .campo-repetir {
   flex: 1;
   min-width: 140px;
-}
-.linha-agenda-recorrencia {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  padding-top: 10px;
 }
 .dias-semana-chips {
   display: flex;
@@ -653,57 +610,8 @@ body.tela-login {
   font-size: 13px;
   font-weight: 600;
 }
-.rotulo-agenda {
-  font-family: var(--fonte-base);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--texto-suave-card);
-  margin-right: auto;
-}
-.status-salvando-agenda {
-  font-family: var(--fonte-base);
-  font-size: 11px;
-  font-weight: 600;
-  font-style: italic;
-  color: var(--texto-suave-card);
-  opacity: 0.75;
-  display: none;
-}
-.status-salvando-agenda.visivel {
-  display: inline-block;
-}
-.icone-agenda-link {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--borda-dourada);
-  background: var(--vidro-icone);
-  color: var(--texto-dourado-card);
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.15s ease;
-}
-.icone-agenda-link:hover {
-  transform: translateY(-1px);
-}
-.icone-agenda-link svg {
-  display: block;
-  width: 18px;
-  height: 18px;
-}
-:root[data-theme="light"] .icone-agenda-link {
-  background: var(--pergaminho);
-  color: var(--texto-dourado-card);
-}
-:root[data-theme="dark"] .icone-agenda-link {
-  background: transparent;
-}
 
-/* Interruptor (toggle) de avisar na agenda, no mesmo tom dourado usado
+/* Interruptor (toggle) das configurações do checklist, no mesmo tom dourado usado
    pros itens marcados e pela barra de progresso. */
 .interruptor {
   position: relative;
@@ -750,23 +658,11 @@ body.tela-login {
   outline-offset: 2px;
 }
 
-.linha-agenda .select-hora {
-  flex: none;
-  width: auto;
-}
-.linha-agenda .select-hora:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* modo claro: fonte do horário na mesma cor verde do fundo da página;
    ícones de lápis/lixeira com fundo bege, mantendo a cor do ícone */
 :root[data-theme="light"] .select-hora {
   color: var(--pergaminho);
   background: var(--sage-escuro);
-}
-:root[data-theme="light"] .linha-agenda .select-hora:disabled {
-  opacity: 1;
 }
 :root[data-theme="light"] .icone-renomear,
 :root[data-theme="light"] .icone-lixeira,
