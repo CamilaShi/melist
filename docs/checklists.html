@@ -213,7 +213,7 @@
 
       <label class="botao-add-foto" id="botaoAddFoto">
         <input type="file" accept="image/*" id="inputFotoItem" style="display:none;" onchange="onAdicionarFotoSelecionada(event)">
-        + Adicionar foto
+        <span id="textoBotaoAddFoto">+ Adicionar foto</span>
       </label>
 
       <div class="janela-botoes">
@@ -418,9 +418,9 @@
       event.target.value = '';
       if (!arquivo || !itemGaleriaAtual) return;
 
-      const botaoAdd = document.getElementById('botaoAddFoto');
-      const textoOriginal = botaoAdd.textContent;
-      botaoAdd.textContent = 'Enviando...';
+      const textoBotao = document.getElementById('textoBotaoAddFoto');
+      const textoOriginal = '+ Adicionar foto';
+      textoBotao.textContent = 'Enviando...';
 
       try {
         const comprimida = await comprimirFoto(arquivo);
@@ -439,7 +439,7 @@
         const detalhe = (erro && erro.message) ? erro.message : '';
         alert('Não foi possível adicionar a foto agora.' + (detalhe ? ' Detalhe técnico: ' + detalhe : '') + ' Tente de novo.');
       } finally {
-        botaoAdd.textContent = textoOriginal;
+        textoBotao.textContent = textoOriginal;
       }
     }
 
