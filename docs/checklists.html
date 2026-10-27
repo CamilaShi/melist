@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=26">
+  <link rel="stylesheet" href="style.css?v=27">
 </head>
 <body>
 
@@ -152,7 +152,8 @@
           </div>
 
           <div class="leitor-voz" id="leitorVoz" style="display:none;">
-            <div class="leitor-texto"><span id="leitorItem"></span><small id="leitorDetalhe"></small></div>
+            <div class="leitor-texto"><span id="leitorItem"></span><small id="leitorDetalhe"></small><small id="leitorAviso"></small></div>
+            <button class="botao-mini" id="leitorBotaoVoz" onclick="alternarMarcarPorVoz()" title="Diga ok, feito, pronto ou peguei para marcar o item lido">Marcar por voz: desligado</button>
             <select id="leitorPausa" title="Tempo de espera entre os itens" onchange="salvarPausaLeitura()">
               <option value="3">Pausa 3 s</option>
               <option value="5">Pausa 5 s</option>
@@ -477,12 +478,157 @@
         if (salvo) document.getElementById('leitorPausa').value = salvo;
       } catch (erro) { /* sem armazenamento local */ }
       document.getElementById('leitorBotaoPausar').textContent = 'Pausar';
+      document.getElementById('leitorAviso').textContent = marcarPorVozLigado() && reconhecimentoDisponivel()
+        ? 'Depois de cada item, diga: ok, feito, pronto ou peguei.'
+        : '';
+      atualizarBotaoVoz();
       document.getElementById('leitorVoz').style.display = 'flex';
       if (secaoId && secoesRecolhidas.has(secaoId)) {
         secoesRecolhidas.delete(secaoId);
         renderizarItens();
       }
       lerProximoItem();
+    }
+
+    // ----- Marcar por voz -----
+    // Depois de ler cada item, o microfone fica aberto durante a pausa. Se a
+    // pessoa disser uma das palavras abaixo, o item e marcado e a leitura segue.
+    // Para incluir outra palavra, basta acrescentar na lista (sem acento e em
+    // minusculas).
+    const PALAVRAS_CONFIRMACAO = [
+      'ok', 'okay', 'okey', 'oke', 'oque', 'oquei', 'okei', 'ouquei',
+      'feito', 'feita', 'pronto', 'pronta', 'peguei', 'pegado',
+      'certo', 'marcado', 'marca', 'marcar', 'confirmo', 'sim', 'beleza', 'blz'
+    ];
+
+    let reconhecimentoAtual = null;
+
+    function reconhecimentoDisponivel() {
+      return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+    }
+
+    function marcarPorVozLigado() {
+      try { return localStorage.getItem('checklist_marcar_voz') === '1'; } catch (erro) { return false; }
+    }
+
+    function atualizarBotaoVoz() {
+      const botao = document.getElementById('leitorBotaoVoz');
+      if (!botao) return;
+      if (!reconhecimentoDisponivel()) { botao.style.display = 'none'; return; }
+      botao.textContent = 'Marcar por voz: ' + (marcarPorVozLigado() ? 'ligado' : 'desligado');
+    }
+
+    function alternarMarcarPorVoz() {
+      const ligar = !marcarPorVozLigado();
+      try { localStorage.setItem('checklist_marcar_voz', ligar ? '1' : '0'); } catch (erro) { /* sem armazenamento local */ }
+      document.getElementById('leitorAviso').textContent = ligar
+        ? 'Depois de cada item, diga: ok, feito, pronto ou peguei.'
+        : '';
+      if (!ligar) pararReconhecimento();
+      atualizarBotaoVoz();
+    }
+
+    function normalizarFala(texto) {
+      return String(texto || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z ]/g, ' ')
+        .trim();
+    }
+
+    function distanciaEdicao(a, b) {
+      const linhas = [];
+      for (let i = 0; i <= a.length; i++) {
+        linhas[i] = [i];
+      }
+      for (let j = 1; j <= b.length; j++) linhas[0][j] = j;
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const custo = a[i - 1] === b[j - 1] ? 0 : 1;
+          linhas[i][j] = Math.min(linhas[i - 1][j] + 1, linhas[i][j - 1] + 1, linhas[i - 1][j - 1] + custo);
+        }
+      }
+      return linhas[a.length][b.length];
+    }
+
+    function ehConfirmacao(transcricao) {
+      const tokens = normalizarFala(transcricao).split(/\s+/).filter(Boolean);
+      if (!tokens.length) return false;
+      const candidatos = tokens.slice();
+      if (tokens.length > 1) candidatos.push(tokens.join(''));
+      for (const palavra of candidatos) {
+        for (const chave of PALAVRAS_CONFIRMACAO) {
+          if (palavra === chave) return true;
+          if (chave.length >= 5 && palavra.length >= 4 && distanciaEdicao(palavra, chave) <= 1) return true;
+        }
+      }
+      return false;
+    }
+
+    function pararReconhecimento() {
+      const atual = reconhecimentoAtual;
+      reconhecimentoAtual = null;
+      if (atual) {
+        atual.encerrar();
+      }
+    }
+
+    // Escuta por "duracaoMs". Chama aoTerminar(true) se ouviu uma confirmacao,
+    // ou aoTerminar(false) quando o tempo acaba.
+    function ouvirConfirmacao(duracaoMs, aoTerminar) {
+      const Reconhecedor = window.SpeechRecognition || window.webkitSpeechRecognition;
+      let terminou = false;
+      let reconhecedor = null;
+      let temporizador = null;
+
+      function concluir(confirmou) {
+        if (terminou) return;
+        terminou = true;
+        clearTimeout(temporizador);
+        if (reconhecimentoAtual === controle) reconhecimentoAtual = null;
+        try { reconhecedor.abort(); } catch (erro) { /* ja encerrado */ }
+        aoTerminar(confirmou);
+      }
+
+      const controle = { encerrar: function () {
+        if (terminou) return;
+        terminou = true;
+        clearTimeout(temporizador);
+        try { reconhecedor.abort(); } catch (erro) { /* ja encerrado */ }
+      } };
+      reconhecimentoAtual = controle;
+
+      function iniciar() {
+        if (terminou) return;
+        reconhecedor = new Reconhecedor();
+        reconhecedor.lang = 'pt-BR';
+        reconhecedor.continuous = true;
+        reconhecedor.interimResults = true;
+        reconhecedor.maxAlternatives = 5;
+        reconhecedor.onresult = function (ev) {
+          for (let i = ev.resultIndex; i < ev.results.length; i++) {
+            for (let k = 0; k < ev.results[i].length; k++) {
+              if (ehConfirmacao(ev.results[i][k].transcript)) { concluir(true); return; }
+            }
+          }
+        };
+        reconhecedor.onerror = function (ev) {
+          if (ev && (ev.error === 'not-allowed' || ev.error === 'service-not-allowed')) {
+            try { localStorage.setItem('checklist_marcar_voz', '0'); } catch (erro) { /* sem armazenamento local */ }
+            atualizarBotaoVoz();
+            document.getElementById('leitorAviso').textContent = 'Microfone bloqueado. Libere o microfone para este site no navegador.';
+            concluir(false);
+          }
+        };
+        reconhecedor.onend = function () {
+          if (!terminou) { try { iniciar(); } catch (erro) { /* tempo acabando */ } }
+        };
+        try { reconhecedor.start(); } catch (erro) { /* ja iniciado */ }
+      }
+
+      temporizador = setTimeout(function () { concluir(false); }, duracaoMs);
+      iniciar();
     }
 
     function lerProximoItem() {
@@ -512,8 +658,21 @@
 
       falarTexto(texto, function () {
         if (!leitor.ativo || leitor.pausado) return;
-        leitor.posicao++;
-        leitor.temporizador = setTimeout(lerProximoItem, pausaDaLeitura());
+        const itemLido = entrada.item;
+        if (marcarPorVozLigado() && reconhecimentoDisponivel()) {
+          ouvirConfirmacao(pausaDaLeitura(), function (confirmou) {
+            if (!leitor.ativo || leitor.pausado) return;
+            if (confirmou && !itemLido.marcado) {
+              alternarItem(itemLido.id);
+              document.getElementById('leitorDetalhe').textContent = 'Marcado: ' + itemLido.descricao;
+            }
+            leitor.posicao++;
+            leitor.temporizador = setTimeout(lerProximoItem, confirmou ? 700 : 0);
+          });
+        } else {
+          leitor.posicao++;
+          leitor.temporizador = setTimeout(lerProximoItem, pausaDaLeitura());
+        }
       });
     }
 
@@ -537,6 +696,7 @@
       if (!leitor.pausado) {
         leitor.pausado = true;
         clearTimeout(leitor.temporizador);
+        pararReconhecimento();
         window.speechSynthesis.cancel();
         botao.textContent = 'Continuar';
       } else {
@@ -550,6 +710,7 @@
 
     function pararLeituraVoz() {
       clearTimeout(leitor.temporizador);
+      pararReconhecimento();
       if (leituraDisponivel()) window.speechSynthesis.cancel();
       leitor.ativo = false;
       leitor.pausado = false;
