@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
 
@@ -92,7 +92,7 @@
         <button class="botao-voltar" onclick="voltarParaLista()">&#8592; Voltar para Meus Checklists</button>
         <div class="painel-itens">
           <div class="painel-itens-topo">
-            <h2 id="tituloChecklist">Checklist</h2>
+            <h2 id="tituloChecklist" class="titulo-editavel" title="Clique para renomear" onclick="iniciarEdicaoTituloChecklist()">Checklist</h2>
             <div class="topo-direita">
               <span class="icones-titulo" id="iconesTituloChecklist">
                 <button class="icone-config" onclick="abrirConfigChecklist()" title="Configurações do checklist">
@@ -128,7 +128,6 @@
                     <path d="M4 16V4a2 2 0 0 1 2-2h10"></path>
                   </svg>
                 </button>
-                <button class="icone-renomear" id="botaoEditarLista" onclick="alternarEdicaoLista()" title="Habilitar edição">&#9999;</button>
                 <button class="icone-lixeira" onclick="excluirChecklistAtual()" title="Excluir checklist">&#128465;</button>
               </span>
               <span class="widget-tag" id="dataAtual"></span>
@@ -571,7 +570,6 @@
       criandoSecao = false;
 
       document.getElementById('tituloChecklist').textContent = checklistAtual.nome;
-      document.getElementById('botaoEditarLista').classList.remove('ativo');
       document.getElementById('vistaLista').style.display = 'none';
       document.getElementById('vistaHistorico').style.display = 'none';
       document.getElementById('vistaItens').style.display = 'block';
@@ -732,17 +730,8 @@
     // O lápis ao lado do título funciona como interruptor: liga a edição
     // (abre o nome pra digitar na hora e libera texto/lixeira dos itens
     // soltos) e, clicado de novo, desliga, voltando tudo limpo.
-    function alternarEdicaoLista() {
-      listaEditando = !listaEditando;
-      document.getElementById('botaoEditarLista').classList.toggle('ativo', listaEditando);
-      if (listaEditando) {
-        iniciarEdicaoTituloChecklist();
-      }
-      renderizarItens();
-    }
-
     // Edição direta do título do checklist (estilo Trello): troca o <h2>
-    // por um campo editável ao clicar no lápis, sem prompt.
+    // por um campo editável ao clicar no nome, sem prompt.
     function iniciarEdicaoTituloChecklist() {
       const h2 = document.getElementById('tituloChecklist');
       const valorAntigo = checklistAtual.nome;
@@ -785,6 +774,9 @@
         const novoH2 = document.createElement('h2');
         novoH2.id = 'tituloChecklist';
         novoH2.textContent = nome;
+        novoH2.className = 'titulo-editavel';
+        novoH2.title = 'Clique para renomear';
+        novoH2.onclick = iniciarEdicaoTituloChecklist;
         input.replaceWith(novoH2);
       }
 

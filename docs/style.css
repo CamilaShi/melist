@@ -1068,14 +1068,25 @@ body.tela-login {
   gap: 12px;
   flex-shrink: 0;
 }
+.painel-itens-topo h2,
+.titulo-checklist-input {
+  flex: 1;
+  min-width: 0;
+  margin-right: 12px;
+}
+.painel-itens-topo h2.titulo-editavel { cursor: text; }
 .titulo-checklist-input {
   font-family: var(--fonte-titulo);
   font-size: 24px;
+  line-height: normal;
   color: var(--texto-card);
-  background: var(--fundo-solido);
-  border: 1px solid var(--borda-dourada);
-  border-radius: 10px;
-  padding: 2px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--borda-dourada);
+  border-radius: 0;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .titulo-checklist-input:focus {
   outline: none;
