@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 
@@ -33,9 +33,6 @@
       <div class="saudacao-menu" id="saudacaoMenu">Oi!</div>
 
       <nav class="nav-lista">
-        <button class="nav-item" onclick="irPara('index.html')">
-          <span class="nav-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 5"></polyline><polyline points="15 5 21 5 21 11"></polyline></svg></span> Dashboard
-        </button>
         <button class="nav-item" onclick="irPara('checklists.html')">
           <span class="nav-icone">&#10003;</span> Meus Checklists
         </button>
@@ -67,6 +64,7 @@
       <div class="topo">
         <div class="selo-topo">Painel</div>
         <h1>Configurações</h1>
+        <div class="status-assinatura" id="statusAssinatura" style="display:none;"></div>
       </div>
 
       <div class="grade-widgets">
@@ -101,13 +99,6 @@
           </div>
         </div>
 
-        <div class="widget widget-acao">
-          <div class="widget-topo">
-            <div class="widget-titulo"><span class="icone-widget">&#10003;</span> Assinatura</div>
-          </div>
-          <p id="textoAssinatura">Carregando...</p>
-        </div>
-
       </div>
     </main>
   </div>
@@ -130,12 +121,11 @@
       criarParticulas();
 
       const ass = await db.from('assinaturas').select('status, plano, valido_ate').eq('user_id', usuario.id).maybeSingle();
-      const texto = document.getElementById('textoAssinatura');
-      if (ass.data) {
-        const validade = ass.data.valido_ate ? ' Válida até ' + new Date(ass.data.valido_ate).toLocaleDateString('pt-BR') + '.' : '';
-        texto.textContent = 'Situação: ' + (ass.data.status === 'ativa' ? 'ativa' : ass.data.status) + '.' + validade;
-      } else {
-        texto.textContent = 'Não foi possível consultar a assinatura agora.';
+      const faixa = document.getElementById('statusAssinatura');
+      if (ass.data && ass.data.status === 'ativa') {
+        const validade = ass.data.valido_ate ? ' \u00B7 at\u00E9 ' + new Date(ass.data.valido_ate).toLocaleDateString('pt-BR') : '';
+        faixa.textContent = 'Assinatura ativa' + validade;
+        faixa.style.display = 'inline-flex';
       }
     };
 

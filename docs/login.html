@@ -178,7 +178,7 @@
       if (!data.session) return;
       const ass = await db.from('assinaturas').select('status, valido_ate').eq('user_id', data.session.user.id).maybeSingle();
       if (acessoAtivo(ass.data)) {
-        window.location.replace('index.html');
+        window.location.replace('checklists.html');
         return;
       }
       await db.auth.signOut();

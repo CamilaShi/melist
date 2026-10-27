@@ -3,7 +3,7 @@
   "short_name": "ME-List",
   "description": "Checklists pessoais e recorrentes",
   "lang": "pt-BR",
-  "start_url": "./index.html",
+  "start_url": "./checklists.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#F3EAD6",
