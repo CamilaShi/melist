@@ -1996,3 +1996,36 @@ input.campo-nova-secao:focus {
 :root[data-theme="light"] .status-assinatura { border-left-color: var(--floresta); }
 :root[data-theme="light"] .status-icone { background: var(--floresta); color: var(--pergaminho); }
 :root[data-theme="dark"] .status-assinatura { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
+
+/* Leitura em voz alta */
+.leitor-voz {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--vidro-card);
+  border: 1px solid var(--borda-dourada);
+  border-left: 4px solid var(--classico);
+  font-size: 13px;
+  color: var(--texto-card);
+}
+.leitor-voz .leitor-texto { flex: 1; min-width: 140px; font-weight: 600; }
+.leitor-voz .leitor-texto small { display: block; font-weight: 500; opacity: 0.75; font-size: 11px; }
+.leitor-voz select {
+  font-family: var(--fonte-base);
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+}
+:root[data-theme="light"] .leitor-voz { border-left-color: var(--floresta); }
+.item-check.lendo {
+  outline: 2px solid var(--classico);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
