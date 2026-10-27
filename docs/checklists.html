@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=21">
+  <link rel="stylesheet" href="style.css?v=22">
 </head>
 <body>
 
@@ -125,6 +125,12 @@
                     <path d="M4 16V4a2 2 0 0 1 2-2h10"></path>
                   </svg>
                 </button>
+                <button class="icone-duplicar" id="botaoEnviarChecklist" onclick="abrirEnvioChecklist()" title="Enviar uma cópia para outro usuário">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
                 <button class="icone-lixeira" onclick="excluirChecklistAtual()" title="Excluir checklist">&#128465;</button>
               </span>
               <span class="widget-tag" id="dataAtual"></span>
@@ -197,6 +203,23 @@
       <div class="janela-botoes">
         <button class="botao-fechar" onclick="fecharConfigChecklist()">Cancelar</button>
         <button class="botao-salvar" onclick="salvarConfigChecklist()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="janela-overlay" id="janelaEnvioChecklist" style="display:none;">
+    <div class="janela-config">
+      <h2 id="tituloEnvioChecklist">Enviar checklist</h2>
+      <p class="subtitulo">A pessoa recebe uma cópia na lista dela, sem marcações e sem fotos. O que ela mudar não altera o seu.</p>
+      <div class="campo-login">
+        <label>E-mail do usuário
+          <input type="email" id="campoEmailEnvio" autocomplete="off" placeholder="nome@email.com">
+        </label>
+        <div class="mensagem" id="msgEnvio"></div>
+      </div>
+      <div class="janela-botoes">
+        <button class="botao-fechar" onclick="fecharEnvioChecklist()">Cancelar</button>
+        <button class="botao-salvar" id="botaoConfirmarEnvio" onclick="enviarChecklistAtual()">Enviar</button>
       </div>
     </div>
   </div>
@@ -1765,6 +1788,35 @@ const LOGO_PDF_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4C
       } else {
         enviar(null);
       }
+    }
+
+    function abrirEnvioChecklist() {
+      document.getElementById('tituloEnvioChecklist').textContent = 'Enviar — ' + checklistAtual.nome;
+      document.getElementById('campoEmailEnvio').value = '';
+      document.getElementById('msgEnvio').textContent = '';
+      document.getElementById('janelaEnvioChecklist').style.display = 'flex';
+      document.getElementById('campoEmailEnvio').focus();
+    }
+
+    function fecharEnvioChecklist() {
+      document.getElementById('janelaEnvioChecklist').style.display = 'none';
+    }
+
+    async function enviarChecklistAtual() {
+      const msg = document.getElementById('msgEnvio');
+      const email = document.getElementById('campoEmailEnvio').value.trim();
+      if (!email || email.indexOf('@') < 1) { msg.textContent = 'Digite um e-mail válido.'; return; }
+
+      const botao = document.getElementById('botaoConfirmarEnvio');
+      botao.disabled = true;
+      msg.textContent = 'Enviando...';
+      const resposta = await chamarBackend('enviarChecklist', { idChecklist: checklistAtual.id, email: email });
+      botao.disabled = false;
+      if (!resposta.ok) {
+        msg.textContent = resposta.erro || 'Não foi possível enviar agora.';
+        return;
+      }
+      msg.textContent = 'Checklist enviado para ' + email + '.';
     }
 
     // Cria uma cópia completa do checklist atual (itens, seções e ordem),

@@ -253,6 +253,11 @@ const acoes = {
     };
   },
 
+  async enviarChecklist(d) {
+    conferir(await db.rpc('enviar_checklist', { p_checklist_id: d.idChecklist, p_email: d.email }));
+    return {};
+  },
+
   async definirConfigChecklist(d) {
     conferir(await db.from('checklists')
       .update({ registrar_historico: !!d.registrarHistorico, zerar_diario: !!d.zerarDiario })
