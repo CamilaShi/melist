@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=25">
+  <link rel="stylesheet" href="style.css?v=26">
 </head>
 <body>
 
@@ -412,7 +412,7 @@
     // Le so os itens ainda nao marcados, na ordem da tela (itens soltos e depois
     // cada lista). Quem marca o item e a pessoa, tocando nele.
 
-    const leitor = { fila: [], posicao: 0, lidos: 0, ativo: false, pausado: false, temporizador: null, ultimaSecao: null };
+    const leitor = { fila: [], posicao: 0, lidos: 0, ativo: false, pausado: false, temporizador: null, ultimaSecao: null, secaoId: null };
 
     function leituraDisponivel() {
       return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
@@ -423,10 +423,13 @@
       return vozes.find(v => v.lang === 'pt-BR') || vozes.find(v => (v.lang || '').toLowerCase().indexOf('pt') === 0) || null;
     }
 
-    function montarFilaDeLeitura() {
+    function montarFilaDeLeitura(secaoId) {
       const fila = [];
-      for (const item of itensAtuais.filter(i => !i.idSecao)) fila.push({ item: item, secao: null });
+      if (!secaoId) {
+        for (const item of itensAtuais.filter(i => !i.idSecao)) fila.push({ item: item, secao: null });
+      }
       for (const secao of (checklistAtual.secoes || [])) {
+        if (secaoId && secao.id !== secaoId) continue;
         for (const item of itensAtuais.filter(i => i.idSecao === secao.id)) fila.push({ item: item, secao: secao });
       }
       return fila.filter(e => !e.item.marcado);
@@ -443,13 +446,23 @@
 
     function alternarLeituraVoz() {
       if (leitor.ativo) { pararLeituraVoz(); return; }
+      iniciarLeituraVoz(null);
+    }
+
+    function lerSecaoEmVoz(secao) {
+      if (leitor.ativo && leitor.secaoId === secao.id) { pararLeituraVoz(); return; }
+      if (leitor.ativo) pararLeituraVoz();
+      iniciarLeituraVoz(secao.id);
+    }
+
+    function iniciarLeituraVoz(secaoId) {
       if (!leituraDisponivel()) {
         alert('Este navegador não tem leitura em voz alta.');
         return;
       }
-      const fila = montarFilaDeLeitura();
+      const fila = montarFilaDeLeitura(secaoId);
       if (!fila.length) {
-        alert('Não há itens pendentes neste checklist.');
+        alert(secaoId ? 'Não há itens pendentes nesta lista.' : 'Não há itens pendentes neste checklist.');
         return;
       }
       leitor.fila = fila;
@@ -458,12 +471,17 @@
       leitor.ativo = true;
       leitor.pausado = false;
       leitor.ultimaSecao = null;
+      leitor.secaoId = secaoId;
       try {
         const salvo = localStorage.getItem('checklist_pausa_leitura');
         if (salvo) document.getElementById('leitorPausa').value = salvo;
       } catch (erro) { /* sem armazenamento local */ }
       document.getElementById('leitorBotaoPausar').textContent = 'Pausar';
       document.getElementById('leitorVoz').style.display = 'flex';
+      if (secaoId && secoesRecolhidas.has(secaoId)) {
+        secoesRecolhidas.delete(secaoId);
+        renderizarItens();
+      }
       lerProximoItem();
     }
 
@@ -536,6 +554,7 @@
       leitor.ativo = false;
       leitor.pausado = false;
       leitor.fila = [];
+      leitor.secaoId = null;
       const barra = document.getElementById('leitorVoz');
       if (barra) barra.style.display = 'none';
       destacarItemLido();
@@ -1145,6 +1164,15 @@
       iconeLimpar.title = 'Limpar tudo nesta seção';
       iconeLimpar.onclick = (ev) => { ev.stopPropagation(); marcarTodosSecao(secao.id, false); };
 
+      const iconeLer = document.createElement('button');
+      iconeLer.className = 'icone-copiar-secao icone-ler-secao';
+      iconeLer.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M19 5a10 10 0 0 1 0 14"></path></svg>';
+      iconeLer.title = 'Ler em voz alta os itens que faltam nesta lista';
+      iconeLer.onclick = (ev) => { ev.stopPropagation(); lerSecaoEmVoz(secao); };
+      if (!leituraDisponivel()) iconeLer.style.display = 'none';
+
       const iconeCopiar = document.createElement('button');
       iconeCopiar.className = 'icone-copiar-secao';
       iconeCopiar.innerHTML =
@@ -1180,6 +1208,7 @@
       cabecalho.appendChild(iconeSeta);
       cabecalho.appendChild(iconeMarcar);
       cabecalho.appendChild(iconeLimpar);
+      cabecalho.appendChild(iconeLer);
       cabecalho.appendChild(iconeCopiar);
       cabecalho.appendChild(iconeExcluir);
       cabecalho.appendChild(contagem);
