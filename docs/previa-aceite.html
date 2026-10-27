@@ -1,0 +1,4787 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><title>Previa aceite</title>
+<style>body{margin:0;padding:16px;background:#222;font-family:sans-serif;color:#eee}h3{margin:12px 0 6px}iframe{width:100%;height:460px;border:0;border-radius:8px;background:#fff}</style></head><body>
+<h3>Tema claro: janela que o destinatário vê</h3><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-br&quot; data-theme=&quot;light&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  
+  &lt;title&gt;Meus Checklists - Checklist Melissa&lt;/title&gt;
+  &lt;link rel=&quot;manifest&quot; href=&quot;manifest.json&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;icons/favicon-32.png&quot;&gt;
+  &lt;link rel=&quot;apple-touch-icon&quot; href=&quot;icons/icon-192.png&quot;&gt;
+  &lt;meta name=&quot;theme-color&quot; content=&quot;#7C8F6E&quot;&gt;
+  
+  
+&lt;style&gt;@import url(&#x27;https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap&#x27;);
+
+/* ===== TOKENS ===== */
+:root {
+  --abismo: #04140F;
+  --floresta: #0A2E23;
+  --esmeralda: #14573F;
+  --salvia: #3F6B54;
+  --nevoa: #C7DBD0;
+
+  --bronze: #8A6A2F;
+  --antigo: #B8923F;
+  --classico: #D4B06A;
+  --brilho: #F0D48A;
+
+  --creme: #FBF7EE;
+  --pergaminho: #F3EAD6;
+  --areia: #E8D9BC;
+
+  --glow: rgba(240,212,138,0.35);
+  --aura: rgba(46,125,91,0.45);
+  --acento: #5FD3A8;
+
+  --fonte-titulo: &#x27;Inter&#x27;, sans-serif;
+  --fonte-base: &#x27;Inter&#x27;, sans-serif;
+}
+
+/* modo claro (padrão) — paleta sálvia + marrom */
+:root[data-theme=&quot;light&quot;] {
+  --sage-escuro: #7C8F6E;
+  --sage-claro: #B9C7A8;
+  --creme-cartao: #F5F1E5;
+  --marrom: #9C6B42;
+  --marrom-claro: #B88257;
+
+  --fundo: linear-gradient(160deg, var(--sage-claro), var(--sage-escuro));
+  --fundo-solido: var(--pergaminho);
+  --nav-ativo-bg: var(--sage-escuro);
+
+  --vidro-card: rgba(243, 234, 214, 0.96);
+  --vidro-icone: rgba(178, 130, 90, 0.9);
+  --vidro-realce: rgba(255, 255, 255, 0.45);
+  --sombra-clara: rgba(255, 252, 244, 0.35);
+  --sombra-escura: rgba(32, 56, 39, 0.3);
+
+  --borda-dourada: rgba(156, 107, 66, 0.5);
+  --texto-principal: #203827;
+  --texto-suave: #43583E;
+  --texto-dourado: var(--marrom);
+  --sombra: 0 12px 28px rgba(20,87,63,0.18);
+  --trilho: rgba(124, 143, 110, 0.3);
+
+  --texto-card: #1F3626;
+  --texto-suave-card: #35543E;
+  --texto-dourado-card: #0F2A1A;
+  --fundo-miolo: var(--pergaminho);
+
+  --cor-particula: #EFDFBB;
+  --glow-particula: rgba(239, 223, 187, 0.4);
+
+  --menu-fundo: var(--vidro-card);
+
+  --cartao-bg: rgba(243, 234, 214, 0.97);
+  --cartao-borda: var(--borda-dourada);
+  --cor-titulo-login: var(--esmeralda);
+
+  --perigo-bg: rgba(192, 57, 43, 0.14);
+  --perigo-borda: rgba(192, 57, 43, 0.4);
+  --perigo-texto: #C0392B;
+
+  --item-fundo: rgba(124, 143, 110, 0.22);
+
+  --botao-mini-bg: var(--sage-escuro);
+  --botao-mini-texto: var(--pergaminho);
+  --progresso-cor1: var(--marrom-claro);
+  --progresso-cor2: var(--marrom);
+
+  --pdf-doc-fundo: #F3EAD6;
+  --pdf-doc-traco: #0F2A1A;
+  --pdf-faixa-ini: #7C8F6E;
+  --pdf-faixa-fim: #0F2A1A;
+  --pdf-faixa-texto: #F3EAD6;
+
+  --interruptor-ligado: #7C8F6E;
+}
+
+/* modo escuro */
+:root[data-theme=&quot;dark&quot;] {
+  --fundo: linear-gradient(160deg, #1C3A2D 0%, #15302A 50%, #0F2620 100%);
+  --fundo-solido: var(--abismo);
+  --nav-ativo-bg: #15302A;
+
+  --classico: #DFC592;
+  --antigo: #C7A368;
+
+  --botao-mini-bg: var(--vidro-icone);
+  --botao-mini-texto: var(--pergaminho);
+  --progresso-cor1: var(--classico);
+  --progresso-cor2: var(--antigo);
+
+  --vidro-card: rgba(4, 20, 15, 0.82);
+  --vidro-icone: #15302A;
+  --vidro-realce: rgba(255, 255, 255, 0.18);
+  --sombra-clara: rgba(240, 212, 138, 0.1);
+  --sombra-escura: rgba(4, 20, 15, 0.35);
+
+  --borda-dourada: rgba(212,176,106,0.4);
+  --texto-principal: var(--creme);
+  --texto-suave: var(--nevoa);
+  --texto-dourado: var(--brilho);
+  --sombra: 0 14px 36px rgba(0,0,0,0.5), 0 0 40px var(--aura);
+  --trilho: rgba(143,181,160,0.22);
+
+  --texto-card: var(--creme);
+  --texto-suave-card: var(--nevoa);
+  --texto-dourado-card: var(--brilho);
+  --fundo-miolo: var(--abismo);
+
+  --cor-particula: var(--brilho);
+  --glow-particula: var(--glow);
+
+  --menu-fundo: linear-gradient(160deg, rgba(10, 46, 35, 0.55), rgba(4, 20, 15, 0.78));
+
+  --perigo-bg: rgba(212, 176, 106, 0.14);
+  --perigo-borda: rgba(212, 176, 106, 0.45);
+  --perigo-texto: var(--brilho);
+
+  --item-fundo: rgba(95, 211, 168, 0.18);
+
+  --cartao-bg: linear-gradient(160deg, #0A2018, #04140F);
+  --cartao-borda: var(--borda-dourada);
+  --cor-titulo-login: var(--brilho);
+
+  --pdf-doc-fundo: #15302A;
+  --pdf-doc-traco: #DFC592;
+  --pdf-faixa-ini: #DFC592;
+  --pdf-faixa-fim: #C7A368;
+  --pdf-faixa-texto: #0F2620;
+
+  --interruptor-ligado: #5FD3A8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--fonte-base);
+  background: var(--fundo);
+  background-attachment: fixed;
+  color: var(--texto-principal);
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ===== Tela de login ===== */
+body.tela-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+#sakura-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.botao-tema-login {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--cartao-borda);
+  background: var(--cartao-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--texto-principal);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linha-saudacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding: 0 8px;
+}
+.linha-saudacao .saudacao-menu {
+  margin-bottom: 0;
+  padding: 0;
+}
+.linha-sair {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.linha-sair .nav-item {
+  flex: 1;
+}
+/* Interruptor de tema (sol/lua), no mesmo padrão do toggle &quot;Avisar na agenda&quot; */
+.interruptor-tema {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.interruptor-tema input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.interruptor-tema-trilho {
+  width: 58px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  border: 1px solid var(--cartao-borda);
+  background: var(--pergaminho);
+  overflow: visible;
+  transition: background 0.25s ease, flex-direction 0.25s ease;
+}
+.interruptor-tema-bola {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sage-escuro);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+.interruptor-tema-icone {
+  font-size: 17px;
+  line-height: 1;
+  color: var(--sage-escuro);
+  flex-shrink: 0;
+}
+.interruptor-tema input:checked + .interruptor-tema-trilho {
+  background: var(--abismo);
+  flex-direction: row-reverse;
+}
+.interruptor-tema input:checked + .interruptor-tema-trilho .interruptor-tema-bola {
+  background: var(--classico);
+}
+.interruptor-tema input:checked + .interruptor-tema-trilho .interruptor-tema-icone {
+  color: var(--classico);
+  font-size: 20px;
+}
+
+.cartao {
+  background: var(--cartao-bg);
+  border: 1px solid var(--cartao-borda);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--sombra);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cartao h1 {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-titulo-login);
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.cartao p {
+  font-size: 14px;
+  color: var(--texto-suave-card);
+  margin-bottom: 24px;
+}
+
+.area-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.area-codigo {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.area-codigo.visivel {
+  display: flex;
+}
+
+.area-codigo input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid var(--areia);
+  font-size: 15px;
+  text-align: center;
+}
+
+.area-codigo input:focus {
+  outline: none;
+  border-color: var(--esmeralda);
+}
+
+.botao-principal {
+  background: var(--esmeralda);
+  color: var(--creme);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao-principal:hover {
+  opacity: 0.9;
+}
+
+.mensagem {
+  font-size: 13px;
+  margin-top: 12px;
+  min-height: 18px;
+}
+
+.mensagem.erro {
+  color: #C0392B;
+}
+
+.mensagem.info {
+  color: #2E7D8C;
+}
+
+/* ===== Estrutura do app (pós-login) ===== */
+.app {
+  display: flex;
+  min-height: 100vh;
+  gap: 18px;
+  padding: 18px;
+  position: relative;
+  align-items: flex-start;
+}
+
+/* ===== brilhinhos ===== */
+.particulas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+.particula {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cor-particula);
+  box-shadow: 0 0 5px 1px var(--glow-particula);
+  animation: flutuar 9s ease-in-out infinite;
+}
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.15; }
+  50% { transform: translateY(-26px) translateX(8px); opacity: 0.5; }
+}
+
+/* ===== SIDEBAR ===== */
+.barra-lateral {
+  position: relative;
+  z-index: 1;
+  width: 232px;
+  flex-shrink: 0;
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 28px;
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+}
+
+.marca-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 0 8px;
+}
+.marca-menu img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.marca-menu span {
+  font-family: var(--fonte-base);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--texto-dourado);
+}
+
+.saudacao-menu {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  margin-bottom: 28px;
+  padding: 0 8px;
+  color: var(--texto-principal);
+}
+
+.nav-lista { display: flex; flex-direction: column; gap: 12px; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  color: var(--texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: all 0.25s ease;
+}
+
+.nav-item .nav-icone {
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--vidro-icone);
+  box-shadow: 3px 3px 8px var(--sombra-escura), -3px -3px 8px var(--sombra-clara);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--pergaminho);
+}
+.nav-item .nav-icone svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.nav-item.ativo {
+  color: var(--pergaminho);
+  background: var(--nav-ativo-bg);
+  box-shadow: 0 6px 16px rgba(20,87,63,0.22);
+  border: 1px solid var(--borda-dourada);
+  border-left: 4px solid var(--classico);
+  padding-left: 12px;
+}
+.nav-item.ativo .nav-icone {
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  color: var(--floresta);
+  box-shadow: none;
+  font-weight: 700;
+}
+.nav-item.ativo .nav-icone svg {
+  stroke-width: 2.6;
+}
+
+/* Tema escuro: ícone do item de menu selecionado na cor verde do fundo
+   dos cards (resto do botão continua igual: fundo dourado, borda). */
+:root[data-theme=&quot;dark&quot;] .nav-item.ativo .nav-icone {
+  color: var(--abismo);
+}
+
+/* Tema claro: fundo do ícone em verde-floresta (escuro) com o ícone
+   bege, e a borda lateral do item na mesma cor do fundo do ícone.
+   Claro bege-sobre-escuro &quot;parece&quot; mais fino que escuro-sobre-dourado
+   com o mesmo peso, então aqui o traço é um pouco mais grosso pra
+   compensar e os dois lerem como igualmente em negrito. */
+:root[data-theme=&quot;light&quot;] .nav-item.ativo .nav-icone {
+  background: var(--floresta);
+  color: var(--pergaminho);
+  font-weight: 900;
+}
+:root[data-theme=&quot;light&quot;] .nav-item.ativo .nav-icone svg {
+  stroke-width: 3.2;
+}
+:root[data-theme=&quot;light&quot;] .nav-item.ativo {
+  border-left-color: var(--floresta);
+}
+
+.nav-rodape { margin-top: auto; padding-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+
+.botao-tema {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bloco-horario {
+  display: flex;
+  gap: 8px;
+}
+.select-hora {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bloco-agenda {
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  padding: 4px 14px 12px;
+}
+.linha-agenda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+  flex-wrap: wrap;
+}
+.linha-agenda-detalhes {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--borda-dourada);
+  margin-top: 4px;
+}
+.campo-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.campo-agenda label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--texto-suave-card);
+}
+.campo-data {
+  padding: 6px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+}
+.campo-repetir {
+  flex: 1;
+  min-width: 140px;
+}
+.linha-agenda-recorrencia {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+.dias-semana-chips {
+  display: flex;
+  gap: 4px;
+}
+.chip-dia {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--borda-dourada);
+  background: transparent;
+  color: var(--texto-suave-card);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chip-dia.ativo {
+  background: var(--nav-ativo-bg);
+  color: var(--pergaminho);
+  border-color: transparent;
+}
+.campo-intervalo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+.campo-intervalo input {
+  width: 42px;
+  padding: 5px 6px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+}
+.rotulo-agenda {
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+  margin-right: auto;
+}
+.status-salvando-agenda {
+  font-family: var(--fonte-base);
+  font-size: 11px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--texto-suave-card);
+  opacity: 0.75;
+  display: none;
+}
+.status-salvando-agenda.visivel {
+  display: inline-block;
+}
+.icone-agenda-link {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease;
+}
+.icone-agenda-link:hover {
+  transform: translateY(-1px);
+}
+.icone-agenda-link svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+:root[data-theme=&quot;light&quot;] .icone-agenda-link {
+  background: var(--pergaminho);
+  color: var(--texto-dourado-card);
+}
+:root[data-theme=&quot;dark&quot;] .icone-agenda-link {
+  background: transparent;
+}
+
+/* Interruptor (toggle) de avisar na agenda, no mesmo tom dourado usado
+   pros itens marcados e pela barra de progresso. */
+.interruptor {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.interruptor input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.interruptor-trilho {
+  width: 38px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--vidro-icone);
+  border: 1px solid var(--borda-dourada);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.interruptor-bola {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--creme);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: transform 0.25s ease;
+}
+.interruptor input:checked + .interruptor-trilho {
+  background: var(--interruptor-ligado);
+  border-color: transparent;
+}
+.interruptor input:checked + .interruptor-trilho .interruptor-bola {
+  transform: translateX(16px);
+}
+.interruptor input:focus-visible + .interruptor-trilho {
+  outline: 2px solid var(--texto-dourado);
+  outline-offset: 2px;
+}
+
+.linha-agenda .select-hora {
+  flex: none;
+  width: auto;
+}
+.linha-agenda .select-hora:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* modo claro: fonte do horário na mesma cor verde do fundo da página;
+   ícones de lápis/lixeira com fundo bege, mantendo a cor do ícone */
+:root[data-theme=&quot;light&quot;] .select-hora {
+  color: var(--pergaminho);
+  background: var(--sage-escuro);
+}
+:root[data-theme=&quot;light&quot;] .linha-agenda .select-hora:disabled {
+  opacity: 1;
+}
+:root[data-theme=&quot;light&quot;] .icone-renomear,
+:root[data-theme=&quot;light&quot;] .icone-lixeira,
+:root[data-theme=&quot;light&quot;] .icone-marcar-secao,
+:root[data-theme=&quot;light&quot;] .icone-limpar-secao,
+:root[data-theme=&quot;light&quot;] .icone-copiar-secao,
+:root[data-theme=&quot;light&quot;] .icone-pdf,
+:root[data-theme=&quot;light&quot;] .icone-duplicar,
+:root[data-theme=&quot;light&quot;] .icone-config {
+  background: var(--pergaminho);
+}
+
+/* Tema escuro: mesmo padrão do tema claro — fundo do ícone igual ao
+   fundo do card por trás dele (só a borda dourada e o ícone aparecem). */
+:root[data-theme=&quot;dark&quot;] .icone-renomear,
+:root[data-theme=&quot;dark&quot;] .icone-lixeira,
+:root[data-theme=&quot;dark&quot;] .icone-marcar-secao,
+:root[data-theme=&quot;dark&quot;] .icone-limpar-secao,
+:root[data-theme=&quot;dark&quot;] .icone-copiar-secao,
+:root[data-theme=&quot;dark&quot;] .icone-pdf,
+:root[data-theme=&quot;dark&quot;] .icone-duplicar,
+:root[data-theme=&quot;dark&quot;] .icone-config {
+  background: transparent;
+}
+
+/* Texto/ícone branco em cima de todo fundo marrom (var(--vidro-icone) no
+   tema claro) — no tema escuro essa mesma variável já é verde escura, não
+   marrom, então fica como estava. */
+:root[data-theme=&quot;light&quot;] .nav-item .nav-icone,
+:root[data-theme=&quot;light&quot;] .botao-tema,
+:root[data-theme=&quot;light&quot;] .icone-widget,
+:root[data-theme=&quot;light&quot;] .icone-menu-item:hover,
+:root[data-theme=&quot;light&quot;] .icone-menu-item.aberto,
+:root[data-theme=&quot;light&quot;] .select-hora,
+:root[data-theme=&quot;light&quot;] .botao-widget,
+:root[data-theme=&quot;light&quot;] .botao-salvar {
+  color: var(--pergaminho);
+}
+
+/* Mesmo padrão no tema escuro: os ícones/textos que saíam esverdeados ou
+   dourados nesses mesmos lugares passam a usar o bege padrão (igual o
+   botão &quot;Meus Checklists&quot; ativo, que já usava essa cor). */
+:root[data-theme=&quot;dark&quot;] .botao-tema,
+:root[data-theme=&quot;dark&quot;] .icone-widget,
+:root[data-theme=&quot;dark&quot;] .icone-menu-item:hover,
+:root[data-theme=&quot;dark&quot;] .icone-menu-item.aberto {
+  color: var(--pergaminho);
+}
+
+/* Ícones do menu lateral (Dashboard, Meus Checklists, Histórico,
+   Configurações, Sair): mesma cor dourada e mesmo tamanho para todos,
+   no tema escuro. O item ativo mantém seu próprio estilo (fundo em
+   degradê dourado), definido logo abaixo. */
+:root[data-theme=&quot;dark&quot;] .nav-item .nav-icone {
+  color: var(--texto-dourado-card);
+}
+
+/* ===== CONTEÚDO ===== */
+.conteudo { position: relative; z-index: 1; flex: 1; min-width: 0; }
+
+.topo { margin-bottom: 22px; }
+.selo-topo {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--texto-dourado);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.topo h1 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 32px;
+  margin: 0;
+  color: var(--texto-principal);
+}
+
+.grade-widgets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 760px) {
+  .app { flex-direction: column; }
+  .barra-lateral { width: 100%; }
+  .grade-widgets { grid-template-columns: 1fr; }
+}
+
+.widget {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+}
+
+.widget-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.widget-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--texto-card);
+}
+.icone-widget {
+  width: 30px; height: 30px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  background: var(--vidro-icone);
+  box-shadow: 3px 3px 8px var(--sombra-escura), -3px -3px 8px var(--sombra-clara);
+  color: var(--texto-dourado-card);
+}
+.icone-widget svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.widget-tag { font-size: 10.5px; color: var(--texto-suave-card); letter-spacing: 1px; font-weight: 600; }
+
+.barras-semana { display: flex; align-items: flex-end; justify-content: space-between; height: 90px; gap: 8px; margin-bottom: 10px; }
+.barra-dia { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.barra-coluna {
+  width: 100%; max-width: 18px; height: 36px;
+  border-radius: 8px;
+  background: var(--trilho);
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.08);
+}
+.barra-dia span { font-size: 10px; color: var(--texto-suave-card); font-weight: 600; }
+
+.widget-rodape { display: flex; gap: 20px; padding-top: 14px; border-top: 1px solid var(--borda-dourada); }
+.widget-rodape .metrica strong { display: block; font-family: var(--fonte-titulo); font-size: 24px; color: var(--texto-dourado-card); font-weight: 700; }
+.widget-rodape .metrica span { font-size: 11px; color: var(--texto-suave-card); font-weight: 600; }
+
+.anel-progresso { display: flex; align-items: center; justify-content: center; margin: 6px 0 16px; }
+.anel {
+  width: 112px; height: 112px; border-radius: 50%;
+  background: conic-gradient(var(--classico) 0deg, var(--trilho) 0deg);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 3px 3px 8px rgba(0,0,0,0.12), 0 0 22px var(--glow);
+}
+.anel-miolo {
+  width: 84px; height: 84px; border-radius: 50%;
+  background: var(--fundo-miolo);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.anel-miolo strong { font-family: var(--fonte-titulo); font-size: 20px; color: var(--texto-dourado-card); font-weight: 700; }
+.anel-miolo span { font-size: 10px; color: var(--texto-suave-card); font-weight: 600; }
+
+.linha-habitos { display: flex; justify-content: space-between; gap: 10px; }
+.habito { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+.mini-anel {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: conic-gradient(var(--classico) 0deg, var(--trilho) 0deg);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 2px 2px 6px rgba(0,0,0,0.12);
+}
+.mini-anel-miolo {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--fundo-miolo);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.habito span { font-size: 10px; color: var(--texto-suave-card); text-align: center; font-weight: 600; }
+
+.widget-acao { display: flex; flex-direction: column; gap: 14px; }
+.widget-acao p { margin: 0; font-size: 13px; color: var(--texto-suave-card); line-height: 1.6; font-weight: 500; }
+.botao-widget {
+  align-self: flex-start;
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  border: 1px solid var(--borda-dourada);
+  padding: 11px 26px;
+  border-radius: 999px;
+  font-family: var(--fonte-titulo);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px var(--sombra-escura), -2px -2px 8px var(--sombra-clara);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.botao-widget:hover {
+  box-shadow: 0 0 0 5px var(--glow);
+  transform: translateY(-1px);
+}
+
+/* ===== MEUS CHECKLISTS ===== */
+.grade-checklists {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.card-checklist {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.card-checklist:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px var(--glow), 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara);
+}
+.card-checklist .widget-titulo { color: var(--texto-card); }
+.card-checklist-progresso {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--trilho);
+  overflow: hidden;
+}
+.card-checklist-progresso span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--classico), var(--antigo));
+  transition: width 0.4s ease;
+}
+.card-checklist-rodape {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+
+.card-novo {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--texto-suave-card);
+  font-weight: 700;
+  font-size: 14px;
+  min-height: 150px;
+  border-style: dashed;
+}
+.card-novo span.simbolo-novo {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--texto-dourado-card);
+}
+
+/* ===== VISTA DE ITENS ===== */
+.botao-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 14px;
+  padding: 0;
+}
+
+.painel-itens {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+  max-width: 560px;
+}
+
+.painel-itens-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.painel-itens-topo h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 24px;
+  margin: 0;
+  color: var(--texto-card);
+}
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.painel-itens-topo h2,
+.titulo-checklist-input {
+  flex: 1;
+  min-width: 0;
+  margin-right: 12px;
+}
+.painel-itens-topo h2.titulo-editavel { cursor: text; }
+.titulo-checklist-input {
+  font-family: var(--fonte-titulo);
+  font-size: 24px;
+  line-height: normal;
+  color: var(--texto-card);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--borda-dourada);
+  border-radius: 0;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.titulo-checklist-input:focus {
+  outline: none;
+}
+.icones-titulo {
+  display: flex;
+  gap: 8px;
+}
+.icones-titulo .icone-renomear {
+  margin-left: 0;
+}
+:root[data-theme=&quot;light&quot;] .icone-renomear.ativo,
+:root[data-theme=&quot;dark&quot;] .icone-renomear.ativo {
+  background: var(--botao-mini-bg);
+  color: var(--botao-mini-texto);
+  border-color: transparent;
+}
+.secao-titulo-editavel {
+  cursor: text;
+}
+.progresso-painel { margin-bottom: 18px; }
+.progresso-texto {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+  margin-bottom: 8px;
+}
+.progresso-percentual { color: var(--texto-dourado-card); font-weight: 700; }
+.progresso-trilha {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--trilho);
+  overflow: hidden;
+}
+.progresso-trilha span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--progresso-cor1), var(--progresso-cor2));
+  transition: width 0.4s ease;
+}
+
+.acoes-itens { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+#acoesNormais { justify-content: space-between; }
+.acoes-itens-esquerda { display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.bloco-botao-historico {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.info-ultimo-historico {
+  font-family: var(--fonte-base);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+  opacity: 0.7;
+  padding-left: 2px;
+}
+.botao-mini {
+  background: var(--botao-mini-bg);
+  color: var(--botao-mini-texto);
+  border: 1px solid var(--borda-dourada);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: var(--fonte-base);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lista-itens { display: flex; flex-direction: column; gap: 2px; margin-bottom: 18px; }
+
+.item-check {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 2px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.caixa-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 2px solid var(--borda-dourada);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--floresta);
+  font-size: 14px;
+  font-weight: 700;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+.item-check.marcado .caixa-check {
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  border-color: transparent;
+}
+.item-check.marcado span.texto-item {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.selo-concluido {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--texto-dourado-card);
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.texto-item {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-card);
+}
+.texto-item-editavel {
+  cursor: text;
+}
+.texto-item-input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-card);
+  background: var(--fundo-solido);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.texto-item-input:focus {
+  outline: none;
+}
+
+.linha-novo-item {
+  display: flex;
+  gap: 10px;
+}
+.linha-novo-item input,
+.linha-novo-item textarea {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+.linha-novo-item input:focus,
+.linha-novo-item textarea:focus { outline: none; }
+.linha-novo-item textarea {
+  resize: none;
+  overflow: hidden;
+  max-height: 120px;
+  line-height: 1.3;
+}
+
+.estado-vazio {
+  font-size: 13px;
+  color: var(--texto-suave-card);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.botao-perigo {
+  background: var(--perigo-bg);
+  border-color: var(--perigo-borda);
+  color: var(--perigo-texto);
+}
+
+.item-check.item-edicao {
+  justify-content: space-between;
+}
+.item-check.selecionado {
+  box-shadow: 0 0 0 2px var(--borda-dourada) inset;
+  opacity: 0.85;
+}
+
+.icone-lixeira,
+.icone-renomear,
+.icone-pdf,
+.icone-duplicar,
+.icone-config {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  border: 1px solid var(--borda-dourada);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: transform 0.15s ease;
+}
+.icone-lixeira:hover,
+.icone-renomear:hover,
+.icone-pdf:hover,
+.icone-duplicar:hover,
+.icone-config:hover {
+  transform: translateY(-1px);
+}
+.icone-duplicar:disabled {
+  opacity: 0.5;
+  cursor: wait;
+  transform: none;
+}
+
+.icone-lixeira {
+  background: var(--perigo-bg);
+  color: var(--perigo-texto);
+}
+
+.icone-renomear {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+  margin-left: auto;
+}
+
+.icone-pdf {
+  background: var(--vidro-icone);
+}
+.icone-pdf svg { display: block; width: 18px; height: 18px; }
+
+.icone-config {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+}
+.icone-config svg { display: block; width: 18px; height: 18px; }
+
+.icone-duplicar {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+}
+.icone-duplicar svg { display: block; width: 18px; height: 18px; }
+
+/* ===== Janela de configurações do checklist (histórico / zerar diário) ===== */
+.janela-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 30, 20, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.janela-config {
+  width: 360px;
+  max-width: calc(100vw - 40px);
+  background: var(--cartao-bg);
+  border: 1px solid var(--cartao-borda);
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.janela-config h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 20px;
+  margin: 0 0 4px;
+  color: var(--texto-card);
+}
+.janela-config .subtitulo {
+  font-size: 12px;
+  color: var(--texto-suave-card);
+  margin: 0 0 20px;
+}
+.linha-opcao {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--borda-dourada);
+}
+.linha-opcao:first-of-type { border-top: none; }
+.linha-destino {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--borda-dourada);
+}
+.linha-destino:first-of-type { border-top: none; }
+.opcao-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--texto-card);
+  cursor: pointer;
+}
+.opcao-radio input[type=&quot;radio&quot;] {
+  accent-color: var(--classico);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.linha-destino select.select-hora {
+  width: 100%;
+}
+.linha-destino input:disabled,
+.linha-destino select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.opcao-texto strong { display: block; font-size: 13.5px; color: var(--texto-card); font-weight: 700; margin-bottom: 3px; }
+.opcao-texto span { display: block; font-size: 11.5px; color: var(--texto-suave-card); line-height: 1.5; }
+.janela-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+.botao-fechar {
+  background: transparent;
+  border: 1px solid var(--borda-dourada);
+  color: var(--texto-suave-card);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.botao-salvar {
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  border: 1px solid var(--borda-dourada);
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== Botão &quot;Salvar no histórico&quot; (ação manual, separada de Marcar tudo) ===== */
+.botao-historico {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px dashed var(--borda-dourada);
+  color: var(--texto-dourado-card);
+}
+.icone-salvar-historico {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* ===== Tela de Histórico ===== */
+.cartao-historico {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 6px 10px 14px 10px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+}
+.tabela-historico { width: 100%; border-collapse: collapse; }
+.tabela-historico thead th {
+  text-align: left;
+  font-size: 10.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--texto-suave-card);
+  font-weight: 700;
+  padding: 16px 16px 10px 16px;
+}
+.tabela-historico tbody tr { border-top: 1px solid var(--borda-dourada); }
+.tabela-historico tbody td { padding: 14px 16px; font-size: 13px; color: var(--texto-card); font-weight: 500; vertical-align: middle; }
+.td-nome { font-family: var(--fonte-titulo); font-size: 17px; font-weight: 700; color: var(--texto-dourado-card); }
+.pill-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.pill-concluido { background: var(--item-fundo); color: var(--texto-suave-card); }
+.pill-parcial { background: rgba(184,146,63,0.18); color: #9C6B42; }
+:root[data-theme=&quot;dark&quot;] .pill-parcial { background: rgba(212,176,106,0.18); color: #DFC592; }
+.td-horario { font-weight: 700; color: var(--texto-dourado-card); white-space: nowrap; }
+
+.alca-arrastar {
+  cursor: grab;
+  color: var(--texto-suave-card);
+  font-size: 14px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  padding: 0 2px;
+  touch-action: none;
+}
+.alca-arrastar:active {
+  cursor: grabbing;
+}
+
+.bloco-secao {
+  padding: 10px 0 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-top: 1px solid var(--borda-dourada);
+}
+.bloco-secao.secao-arrastando {
+  opacity: 0.4;
+}
+.bloco-secao.secao-arrasto-sobre {
+  box-shadow: 0 -3px 0 var(--classico) inset;
+}
+.alca-secao {
+  cursor: grab;
+}
+.alca-secao:active {
+  cursor: grabbing;
+}
+.secao-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+.secao-titulo {
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--texto-card);
+}
+.secao-titulo-input {
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--texto-card);
+  background: var(--fundo-solido);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 8px;
+  padding: 2px 8px;
+  min-width: 0;
+  flex: 1;
+}
+.secao-titulo-input:focus {
+  outline: none;
+}
+.secao-contagem {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+.icone-seta-secao {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid var(--borda-dourada);
+  background: transparent;
+  color: var(--texto-dourado-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+}
+.icone-seta-secao:hover {
+  background: var(--vidro-icone);
+}
+.icone-secao {
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  margin-left: 0;
+}
+.icone-marcar-secao,
+.icone-limpar-secao,
+.icone-copiar-secao {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.icone-copiar-secao svg { display: block; width: 13px; height: 13px; }
+.secao-cabecalho .icone-seta-secao {
+  margin-left: auto;
+}
+.secao-progresso-linha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.secao-percentual {
+  font-size: 12px;
+  color: var(--texto-suave-card);
+  flex-shrink: 0;
+}
+.secao-progresso-trilha {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--trilho);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.secao-progresso-trilha span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--progresso-cor1), var(--progresso-cor2));
+  transition: width 0.4s ease;
+}
+.secao-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+.estado-vazio-secao {
+  padding: 8px 0;
+  font-size: 12px;
+}
+.linha-novo-item-secao {
+  margin: 0;
+}
+.botao-nova-secao {
+  width: 100%;
+  text-align: center;
+  margin-top: 4px;
+}
+input.campo-nova-secao {
+  width: 100%;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--nav-ativo-bg);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+input.campo-nova-secao::placeholder {
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+input.campo-nova-secao:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--nav-ativo-bg) inset;
+}
+
+.item-check.arrastando {
+  opacity: 0.4;
+}
+.item-check.arrasto-sobre {
+  box-shadow: 0 -3px 0 var(--classico) inset;
+}
+
+/* Menu de três pontinhos por item (estilo Trello): editar/excluir
+   sempre acessíveis, sem precisar do lápis da seção. */
+.item-check {
+  position: relative;
+}
+.icone-menu-item {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--texto-suave-card);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.icone-menu-item:hover,
+.icone-menu-item.aberto {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+}
+
+/* Indicador de fotos anexadas: aparece antes dos três pontinhos só
+   quando o item já tem alguma foto salva. Clicar nele também abre a
+   galeria, sem precisar passar pelo menu. */
+.icone-indicador-fotos {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--texto-dourado-card);
+  font-size: 15px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.icone-indicador-fotos:hover {
+  background: var(--vidro-icone);
+}
+.icone-indicador-fotos .qtd-indicador-fotos {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 2px;
+  border-radius: 7px;
+  background: var(--sage-escuro);
+  color: var(--pergaminho);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+:root[data-theme=&quot;dark&quot;] .icone-indicador-fotos .qtd-indicador-fotos {
+  background: var(--nav-ativo-bg);
+  color: var(--classico);
+}
+.menu-item-dropdown {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  z-index: 20;
+  min-width: 140px;
+  background: var(--fundo-solido);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+.menu-item-dropdown.aberto {
+  display: flex;
+}
+.menu-item-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-card);
+  cursor: pointer;
+  text-align: left;
+}
+.menu-item-dropdown button:hover {
+  background: var(--vidro-icone);
+}
+.menu-item-dropdown button.opcao-excluir {
+  color: var(--perigo-texto);
+}
+
+/* ===== Galeria de fotos do item (Google Drive da própria usuária) ===== */
+.janela-fotos {
+  width: 420px;
+}
+.grade-fotos-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.miniatura-foto {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--vidro-icone);
+  border: 1px solid var(--borda-dourada);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.miniatura-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.miniatura-carregando,
+.miniatura-erro {
+  font-size: 10.5px;
+  color: var(--texto-suave-card);
+  text-align: center;
+  padding: 4px;
+}
+.botao-apagar-foto {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.estado-vazio-fotos {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 12px;
+  color: var(--texto-suave-card);
+  padding: 20px 0;
+}
+.botao-add-foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px dashed var(--borda-dourada);
+  border-radius: 12px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--texto-dourado-card);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.botao-add-foto:hover {
+  background: var(--vidro-icone);
+}
+
+/* ===== ÁREA DE IMPRESSÃO / PDF =====
+   Fica fora da tela normal; só aparece quando window.print() é chamado.
+   Cores sempre fixas (claro), nunca usam variáveis de tema, para o PDF
+   sair igual independente do modo claro/escuro ativo no app. */
+#areaImpressaoPdf {
+  display: none;
+}
+
+@media print {
+  html, body {
+    background: #FFFFFF !important;
+  }
+  /* &quot;display: none&quot; de verdade (não só invisível) para o resto do app
+     não ocupar espaço em branco nem gerar páginas extras vazias na
+     hora de paginar a impressão. */
+  .barra-lateral,
+  #vistaLista,
+  #vistaItens,
+  #particulas {
+    display: none !important;
+  }
+  #areaImpressaoPdf {
+    display: block !important;
+    background: #FFFFFF;
+  }
+  /* O cabeçalho fica fixo no topo e se repete em toda página impressa;
+     cada &quot;.pdf-pagina&quot; reserva, com padding-top, o espaço exato da
+     altura dele (calculada em JS) pra o conteúdo nunca ficar escondido
+     atrás dele. */
+  .pdf-cabecalho {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+  }
+}
+
+#areaImpressaoPdf {
+  background: #FFFFFF;
+  font-family: &#x27;Inter&#x27;, sans-serif;
+  color: #203827;
+  padding: 0;
+}
+.pdf-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 2px solid #9C6B42;
+  padding: 0 8px calc(2px + 1mm) 8px;
+}
+.pdf-pagina {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 0 8px;
+  break-after: page;
+  page-break-after: always;
+}
+.pdf-pagina:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+.pdf-rodape-pagina {
+  margin-top: auto;
+  margin-bottom: -86px;
+  margin-right: -17px;
+  padding-top: 6px;
+  text-align: right;
+  font-size: 9px;
+  font-weight: 600;
+  color: #43583E;
+}
+.pdf-logo {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.pdf-titulo {
+  flex: 1;
+  font-family: &#x27;Cormorant Garamond&#x27;, serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.3px;
+  color: #203827;
+}
+.pdf-data {
+  font-size: 10px;
+  font-weight: 600;
+  color: #43583E;
+}
+/* Fluxo &quot;estilo jornal&quot;: cada página tem 3 colunas lado a lado, e as
+   seções preenchem a coluna 1 de cima a baixo antes de continuar na
+   coluna 2 e depois na coluna 3 — a altura de cada seção é medida em
+   JS, então a divisão entre colunas e páginas nunca corta uma seção
+   ao meio. */
+.pdf-colunas {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+.pdf-coluna {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+.pdf-secao-titulo {
+  font-family: &#x27;Inter&#x27;, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9C6B42;
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(156,107,66,0.35);
+}
+.pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 2px;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(156,107,66,0.15);
+}
+.pdf-caixa {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #7C8F6E;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #203827;
+}
+.pdf-item.marcado .pdf-caixa {
+  background: #7C8F6E;
+  color: #FFFFFF;
+  border-color: #7C8F6E;
+}
+.pdf-item.marcado .pdf-texto {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+.pdf-resto {
+  margin-top: 24px;
+}
+.pdf-rodape {
+  margin-top: 28px;
+  font-size: 9px;
+  color: #43583E;
+  text-align: center;
+}
+@page {
+  size: A4 portrait;
+  margin: 6mm 6mm 2mm 6mm;
+}
+
+
+/* ===== Formularios com e-mail e senha (login, configuracoes) ===== */
+.campo-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+}
+.campo-login label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+.campo-login input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+  font-family: var(--fonte-base);
+  font-size: 15px;
+}
+.campo-login input:focus {
+  outline: none;
+  border-color: var(--esmeralda);
+}
+.botao-link {
+  background: none;
+  border: none;
+  color: var(--texto-suave-card);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px;
+  align-self: center;
+}
+.widget-acao .campo-login {
+  gap: 10px;
+}
+
+/* Configuracoes: botoes menores e faixa de assinatura */
+.widget-acao .botao-widget {
+  padding: 7px 18px;
+  font-size: 13px;
+}
+.widget-acao .campo-login input {
+  padding: 9px 14px;
+  font-size: 14px;
+}
+.status-assinatura {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 4px 14px 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--texto-card);
+  background: var(--vidro-card);
+  border: 1px solid var(--borda-dourada);
+  border-left: 4px solid var(--classico);
+  box-shadow: 0 4px 12px rgba(20, 87, 63, 0.16);
+}
+.status-icone {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  color: var(--abismo);
+}
+:root[data-theme=&quot;light&quot;] .status-assinatura { border-left-color: var(--floresta); }
+:root[data-theme=&quot;light&quot;] .status-icone { background: var(--floresta); color: var(--pergaminho); }
+:root[data-theme=&quot;dark&quot;] .status-assinatura { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;div class=&quot;particulas&quot; id=&quot;particulas&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;app&quot;&gt;
+    &lt;aside class=&quot;barra-lateral&quot;&gt;
+      &lt;div class=&quot;marca-menu&quot;&gt;
+        &lt;img src=&quot;https://camilashi.github.io/melist/icons/icon-192.png&quot; alt=&quot;&quot;&gt;
+        &lt;span&gt;ME-LIST&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;saudacao-menu&quot; id=&quot;saudacaoMenu&quot;&gt;Oi, Camila!&lt;/div&gt;
+
+      &lt;nav class=&quot;nav-lista&quot;&gt;
+        &lt;button class=&quot;nav-item ativo&quot; id=&quot;navMeusChecklists&quot; onclick=&quot;mostrarListaPrincipal()&quot;&gt;
+          &lt;span class=&quot;nav-icone&quot;&gt;&amp;#10003;&lt;/span&gt; Meus Checklists
+        &lt;/button&gt;
+        &lt;button class=&quot;nav-item&quot; id=&quot;navHistorico&quot; onclick=&quot;abrirHistorico()&quot;&gt;
+          &lt;span class=&quot;nav-icone&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;8.5&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M12 7.5v5l3.5 2&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/span&gt; Histórico
+        &lt;/button&gt;
+        &lt;button class=&quot;nav-item&quot; onclick=&quot;irPara(&#x27;configuracoes.html&#x27;)&quot;&gt;
+          &lt;span class=&quot;nav-icone&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/span&gt; Configurações
+        &lt;/button&gt;
+      &lt;/nav&gt;
+
+      &lt;div class=&quot;nav-rodape&quot;&gt;
+        &lt;div class=&quot;linha-sair&quot;&gt;
+          &lt;button class=&quot;nav-item&quot; onclick=&quot;sair()&quot;&gt;
+            &lt;span class=&quot;nav-icone&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4&quot;&gt;&lt;/path&gt;&lt;polyline points=&quot;16 17 21 12 16 7&quot;&gt;&lt;/polyline&gt;&lt;line x1=&quot;21&quot; y1=&quot;12&quot; x2=&quot;9&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;&lt;/svg&gt;&lt;/span&gt; Sair
+          &lt;/button&gt;
+          &lt;label class=&quot;interruptor-tema&quot; aria-label=&quot;Alternar tema&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;toggleTemaRodape&quot; onchange=&quot;alternarTema()&quot;&gt;
+            &lt;span class=&quot;interruptor-tema-trilho&quot;&gt;
+              &lt;span class=&quot;interruptor-tema-bola&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;interruptor-tema-icone&quot; id=&quot;iconeTemaRodape&quot;&gt;&amp;#9790;&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+
+    &lt;main class=&quot;conteudo&quot;&gt;
+
+      &lt;!-- VISTA: lista de checklists --&gt;
+      &lt;div id=&quot;vistaLista&quot;&gt;
+        &lt;div class=&quot;topo&quot;&gt;
+          &lt;div class=&quot;selo-topo&quot;&gt;Painel&lt;/div&gt;
+          &lt;h1&gt;Meus Checklists&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;grade-checklists&quot; id=&quot;gradeChecklists&quot;&gt;
+          &lt;div class=&quot;estado-vazio&quot;&gt;Carregando...&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- VISTA: Histórico (quando cada checklist foi salvo/feito) --&gt;
+      &lt;div id=&quot;vistaHistorico&quot; style=&quot;display:none;&quot;&gt;
+        &lt;div class=&quot;topo&quot;&gt;
+          &lt;div class=&quot;selo-topo&quot;&gt;Painel&lt;/div&gt;
+          &lt;h1&gt;Histórico&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;cartao-historico&quot; id=&quot;listaHistorico&quot;&gt;
+          &lt;div class=&quot;estado-vazio&quot;&gt;Carregando...&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- VISTA: itens de um checklist --&gt;
+      &lt;div id=&quot;vistaItens&quot; style=&quot;display:none;&quot;&gt;
+        &lt;button class=&quot;botao-voltar&quot; onclick=&quot;voltarParaLista()&quot;&gt;&amp;#8592; Voltar para Meus Checklists&lt;/button&gt;
+        &lt;div class=&quot;painel-itens&quot;&gt;
+          &lt;div class=&quot;painel-itens-topo&quot;&gt;
+            &lt;h2 id=&quot;tituloChecklist&quot; class=&quot;titulo-editavel&quot; title=&quot;Clique para renomear&quot; onclick=&quot;iniciarEdicaoTituloChecklist()&quot;&gt;Checklist&lt;/h2&gt;
+            &lt;div class=&quot;topo-direita&quot;&gt;
+              &lt;span class=&quot;icones-titulo&quot; id=&quot;iconesTituloChecklist&quot;&gt;
+                &lt;button class=&quot;icone-config&quot; onclick=&quot;abrirConfigChecklist()&quot; title=&quot;Configurações do checklist&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot;&gt;
+                    &lt;line x1=&quot;4&quot; y1=&quot;6&quot; x2=&quot;20&quot; y2=&quot;6&quot;&gt;&lt;/line&gt;
+                    &lt;circle cx=&quot;9&quot; cy=&quot;6&quot; r=&quot;2.3&quot; fill=&quot;currentColor&quot;&gt;&lt;/circle&gt;
+                    &lt;line x1=&quot;4&quot; y1=&quot;12&quot; x2=&quot;20&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;
+                    &lt;circle cx=&quot;16&quot; cy=&quot;12&quot; r=&quot;2.3&quot; fill=&quot;currentColor&quot;&gt;&lt;/circle&gt;
+                    &lt;line x1=&quot;4&quot; y1=&quot;18&quot; x2=&quot;20&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;
+                    &lt;circle cx=&quot;11&quot; cy=&quot;18&quot; r=&quot;2.3&quot; fill=&quot;currentColor&quot;&gt;&lt;/circle&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-pdf&quot; onclick=&quot;salvarChecklistEmPdf()&quot; title=&quot;Salvar em PDF&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 48 48&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+                    &lt;defs&gt;
+                      &lt;linearGradient id=&quot;faixaIconePdf&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;
+                        &lt;stop offset=&quot;0&quot; style=&quot;stop-color: var(--pdf-faixa-ini);&quot;/&gt;
+                        &lt;stop offset=&quot;1&quot; style=&quot;stop-color: var(--pdf-faixa-fim);&quot;/&gt;
+                      &lt;/linearGradient&gt;
+                    &lt;/defs&gt;
+                    &lt;path d=&quot;M10 4 H30 L38 12 V40 Q38 42 36 42 H10 Q8 42 8 40 V6 Q8 4 10 4 Z&quot; style=&quot;fill: var(--pdf-doc-fundo); stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;2&quot; stroke-linejoin=&quot;round&quot;/&gt;
+                    &lt;path d=&quot;M30 4 V10 Q30 12 32 12 H38 Z&quot; style=&quot;fill: var(--pdf-doc-fundo); stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;2&quot; stroke-linejoin=&quot;round&quot;/&gt;
+                    &lt;line x1=&quot;13&quot; y1=&quot;16&quot; x2=&quot;30&quot; y2=&quot;16&quot; style=&quot;stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/&gt;
+                    &lt;g transform=&quot;rotate(-9 24 33)&quot;&gt;
+                      &lt;rect x=&quot;-6.5&quot; y=&quot;23.5&quot; width=&quot;61&quot; height=&quot;20&quot; rx=&quot;4&quot; fill=&quot;url(#faixaIconePdf)&quot; style=&quot;stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;1&quot;/&gt;
+                      &lt;text x=&quot;24&quot; y=&quot;39&quot; text-anchor=&quot;middle&quot; font-family=&quot;Inter, sans-serif&quot; font-size=&quot;18&quot; font-weight=&quot;800&quot; style=&quot;fill: var(--pdf-faixa-texto);&quot;&gt;PDF&lt;/text&gt;
+                    &lt;/g&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-duplicar&quot; id=&quot;botaoDuplicarChecklist&quot; onclick=&quot;duplicarChecklistAtual()&quot; title=&quot;Duplicar checklist (copia tudo pra uma lista nova)&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+                    &lt;rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;13&quot; height=&quot;13&quot; rx=&quot;2&quot;&gt;&lt;/rect&gt;
+                    &lt;path d=&quot;M4 16V4a2 2 0 0 1 2-2h10&quot;&gt;&lt;/path&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-duplicar&quot; id=&quot;botaoEnviarChecklist&quot; onclick=&quot;abrirEnvioChecklist()&quot; title=&quot;Enviar uma cópia para outro usuário (ele precisa aceitar)&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+                    &lt;line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;&gt;&lt;/line&gt;
+                    &lt;polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;&gt;&lt;/polygon&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-lixeira&quot; onclick=&quot;excluirChecklistAtual()&quot; title=&quot;Excluir checklist&quot;&gt;&amp;#128465;&lt;/button&gt;
+              &lt;/span&gt;
+              &lt;span class=&quot;widget-tag&quot; id=&quot;dataAtual&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;progresso-painel&quot; id=&quot;progressoPainel&quot;&gt;
+            &lt;div class=&quot;progresso-texto&quot;&gt;
+              &lt;span id=&quot;progressoTexto&quot;&gt;0 de 0 concluídos&lt;/span&gt;
+              &lt;span class=&quot;progresso-percentual&quot; id=&quot;progressoPercentual&quot;&gt;0%&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;progresso-trilha&quot;&gt;&lt;span id=&quot;progressoBarra&quot; style=&quot;width:0%&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;acoes-itens&quot; id=&quot;acoesNormais&quot;&gt;
+            &lt;div class=&quot;acoes-itens-esquerda&quot;&gt;
+              &lt;button class=&quot;botao-mini&quot; onclick=&quot;marcarTodos(true)&quot;&gt;Marcar tudo&lt;/button&gt;
+              &lt;button class=&quot;botao-mini&quot; onclick=&quot;marcarTodos(false)&quot;&gt;Limpar tudo&lt;/button&gt;
+              &lt;div class=&quot;bloco-botao-historico&quot;&gt;
+                &lt;button class=&quot;botao-mini botao-historico&quot; id=&quot;botaoSalvarHistorico&quot; onclick=&quot;salvarNoHistorico()&quot;&gt;
+                  &lt;svg class=&quot;icone-salvar-historico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
+                    &lt;path d=&quot;M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z&quot;&gt;&lt;/path&gt;
+                    &lt;path d=&quot;M8 4v5h7V4&quot;&gt;&lt;/path&gt;
+                    &lt;rect x=&quot;7.5&quot; y=&quot;13&quot; width=&quot;9&quot; height=&quot;6&quot;&gt;&lt;/rect&gt;
+                  &lt;/svg&gt;
+                  Salvar no histórico
+                &lt;/button&gt;
+                &lt;span class=&quot;info-ultimo-historico&quot; id=&quot;infoUltimoHistorico&quot;&gt;&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;lista-itens&quot; id=&quot;listaItens&quot;&gt;
+            &lt;div class=&quot;estado-vazio&quot;&gt;Carregando...&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Área só usada para gerar o PDF via window.print(); fica oculta na tela normal. --&gt;
+      &lt;div id=&quot;areaImpressaoPdf&quot;&gt;&lt;/div&gt;
+
+    &lt;/main&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaConfigChecklist&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloConfigChecklist&quot;&gt;Configurações&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot;&gt;Só valem pra este checklist.&lt;/p&gt;
+
+      &lt;div class=&quot;linha-opcao&quot;&gt;
+        &lt;div class=&quot;opcao-texto&quot;&gt;
+          &lt;strong&gt;Registrar no histórico&lt;/strong&gt;
+          &lt;span&gt;Guarda uma linha no Histórico com data, hora e o que estava marcado.&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;interruptor&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; id=&quot;toggleRegistrarHistorico&quot;&gt;
+          &lt;span class=&quot;interruptor-trilho&quot;&gt;&lt;span class=&quot;interruptor-bola&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;linha-opcao&quot;&gt;
+        &lt;div class=&quot;opcao-texto&quot;&gt;
+          &lt;strong&gt;Zerar os itens todo dia&lt;/strong&gt;
+          &lt;span&gt;De madrugada, desmarca tudo sozinho — pra checklists que você refaz todo dia, como o Dia a Dia. Desligado, o item continua marcado nos dias seguintes até você desmarcar ou clicar em &quot;Limpar tudo&quot; — pra checklists como o de Viagem.&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;interruptor&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; id=&quot;toggleZerarDiario&quot;&gt;
+          &lt;span class=&quot;interruptor-trilho&quot;&gt;&lt;span class=&quot;interruptor-bola&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharConfigChecklist()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; onclick=&quot;salvarConfigChecklist()&quot;&gt;Salvar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaReceberChecklist&quot; style=&quot;display:flex;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloReceberChecklist&quot;&gt;Checklist recebido&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot; id=&quot;textoReceberChecklist&quot;&gt;Camila quer te enviar o checklist &quot;Viagem&quot;. Deseja aceitar? Se aceitar, ele entra na sua lista como uma cópia sua, sem marcações.&lt;/p&gt;
+      &lt;p class=&quot;subtitulo&quot; id=&quot;contadorReceber&quot;&gt;&lt;/p&gt;
+      &lt;div class=&quot;mensagem&quot; id=&quot;msgReceber&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; id=&quot;botaoRecusarEnvio&quot; onclick=&quot;responderEnvio(false)&quot;&gt;Recusar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; id=&quot;botaoAceitarEnvio&quot; onclick=&quot;responderEnvio(true)&quot;&gt;Aceitar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaEnvioChecklist&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloEnvioChecklist&quot;&gt;Enviar checklist&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot;&gt;A pessoa vê um aviso e escolhe se aceita. Se aceitar, recebe uma cópia sem marcações e sem fotos. O que ela mudar não altera o seu.&lt;/p&gt;
+      &lt;div class=&quot;campo-login&quot;&gt;
+        &lt;label&gt;E-mail do usuário
+          &lt;input type=&quot;email&quot; id=&quot;campoEmailEnvio&quot; autocomplete=&quot;off&quot; placeholder=&quot;nome@email.com&quot;&gt;
+        &lt;/label&gt;
+        &lt;div class=&quot;mensagem&quot; id=&quot;msgEnvio&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharEnvioChecklist()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; id=&quot;botaoConfirmarEnvio&quot; onclick=&quot;enviarChecklistAtual()&quot;&gt;Enviar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaFotosItem&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config janela-fotos&quot;&gt;
+      &lt;h2 id=&quot;tituloFotosItem&quot;&gt;Fotos do item&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot;&gt;Ficam guardadas com segurança — só quem está logada vê essas fotos.&lt;/p&gt;
+
+      &lt;div class=&quot;grade-fotos-item&quot; id=&quot;gradeFotosItem&quot;&gt;&lt;/div&gt;
+
+      &lt;label class=&quot;botao-add-foto&quot; id=&quot;botaoAddFoto&quot;&gt;
+        &lt;input type=&quot;file&quot; accept=&quot;image/*&quot; id=&quot;inputFotoItem&quot; style=&quot;display:none;&quot; onchange=&quot;onAdicionarFotoSelecionada(event)&quot;&gt;
+        &lt;span id=&quot;textoBotaoAddFoto&quot;&gt;+ Adicionar foto&lt;/span&gt;
+      &lt;/label&gt;
+
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharGaleriaItem()&quot;&gt;Fechar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaCopiarSecao&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloCopiarSecao&quot;&gt;Copiar lista&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot; id=&quot;subtituloCopiarSecao&quot;&gt;Copia os itens desta lista pra outro checklist — a lista original continua aqui do mesmo jeito.&lt;/p&gt;
+
+      &lt;div class=&quot;linha-destino&quot;&gt;
+        &lt;label class=&quot;opcao-radio&quot;&gt;
+          &lt;input type=&quot;radio&quot; name=&quot;destinoCopiarSecao&quot; id=&quot;radioDestinoExistente&quot; checked onchange=&quot;atualizarDestinoCopiarSecao()&quot;&gt;
+          Checklist existente
+        &lt;/label&gt;
+        &lt;select id=&quot;selectChecklistDestino&quot; class=&quot;select-hora&quot;&gt;&lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;linha-destino&quot;&gt;
+        &lt;label class=&quot;opcao-radio&quot;&gt;
+          &lt;input type=&quot;radio&quot; name=&quot;destinoCopiarSecao&quot; id=&quot;radioDestinoNovo&quot; onchange=&quot;atualizarDestinoCopiarSecao()&quot;&gt;
+          Criar um checklist novo
+        &lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;campoNomeNovoChecklistDestino&quot; class=&quot;campo-nova-secao&quot; placeholder=&quot;Nome do novo checklist...&quot; disabled&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;linha-destino&quot;&gt;
+        &lt;label class=&quot;opcao-radio&quot;&gt;
+          &lt;input type=&quot;radio&quot; name=&quot;destinoCopiarSecao&quot; id=&quot;radioDestinoTexto&quot; onchange=&quot;atualizarDestinoCopiarSecao()&quot;&gt;
+          Copiar como texto (pra colar no WhatsApp, bloco de notas...)
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharCopiarSecao()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; id=&quot;botaoConfirmarCopiarSecao&quot; onclick=&quot;confirmarCopiarSecao()&quot;&gt;Copiar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  
+  
+  
+  
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><h3>Tema escuro</h3><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-br&quot; data-theme=&quot;dark&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  
+  &lt;title&gt;Meus Checklists - Checklist Melissa&lt;/title&gt;
+  &lt;link rel=&quot;manifest&quot; href=&quot;manifest.json&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;icons/favicon-32.png&quot;&gt;
+  &lt;link rel=&quot;apple-touch-icon&quot; href=&quot;icons/icon-192.png&quot;&gt;
+  &lt;meta name=&quot;theme-color&quot; content=&quot;#7C8F6E&quot;&gt;
+  
+  
+&lt;style&gt;@import url(&#x27;https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap&#x27;);
+
+/* ===== TOKENS ===== */
+:root {
+  --abismo: #04140F;
+  --floresta: #0A2E23;
+  --esmeralda: #14573F;
+  --salvia: #3F6B54;
+  --nevoa: #C7DBD0;
+
+  --bronze: #8A6A2F;
+  --antigo: #B8923F;
+  --classico: #D4B06A;
+  --brilho: #F0D48A;
+
+  --creme: #FBF7EE;
+  --pergaminho: #F3EAD6;
+  --areia: #E8D9BC;
+
+  --glow: rgba(240,212,138,0.35);
+  --aura: rgba(46,125,91,0.45);
+  --acento: #5FD3A8;
+
+  --fonte-titulo: &#x27;Inter&#x27;, sans-serif;
+  --fonte-base: &#x27;Inter&#x27;, sans-serif;
+}
+
+/* modo claro (padrão) — paleta sálvia + marrom */
+:root[data-theme=&quot;light&quot;] {
+  --sage-escuro: #7C8F6E;
+  --sage-claro: #B9C7A8;
+  --creme-cartao: #F5F1E5;
+  --marrom: #9C6B42;
+  --marrom-claro: #B88257;
+
+  --fundo: linear-gradient(160deg, var(--sage-claro), var(--sage-escuro));
+  --fundo-solido: var(--pergaminho);
+  --nav-ativo-bg: var(--sage-escuro);
+
+  --vidro-card: rgba(243, 234, 214, 0.96);
+  --vidro-icone: rgba(178, 130, 90, 0.9);
+  --vidro-realce: rgba(255, 255, 255, 0.45);
+  --sombra-clara: rgba(255, 252, 244, 0.35);
+  --sombra-escura: rgba(32, 56, 39, 0.3);
+
+  --borda-dourada: rgba(156, 107, 66, 0.5);
+  --texto-principal: #203827;
+  --texto-suave: #43583E;
+  --texto-dourado: var(--marrom);
+  --sombra: 0 12px 28px rgba(20,87,63,0.18);
+  --trilho: rgba(124, 143, 110, 0.3);
+
+  --texto-card: #1F3626;
+  --texto-suave-card: #35543E;
+  --texto-dourado-card: #0F2A1A;
+  --fundo-miolo: var(--pergaminho);
+
+  --cor-particula: #EFDFBB;
+  --glow-particula: rgba(239, 223, 187, 0.4);
+
+  --menu-fundo: var(--vidro-card);
+
+  --cartao-bg: rgba(243, 234, 214, 0.97);
+  --cartao-borda: var(--borda-dourada);
+  --cor-titulo-login: var(--esmeralda);
+
+  --perigo-bg: rgba(192, 57, 43, 0.14);
+  --perigo-borda: rgba(192, 57, 43, 0.4);
+  --perigo-texto: #C0392B;
+
+  --item-fundo: rgba(124, 143, 110, 0.22);
+
+  --botao-mini-bg: var(--sage-escuro);
+  --botao-mini-texto: var(--pergaminho);
+  --progresso-cor1: var(--marrom-claro);
+  --progresso-cor2: var(--marrom);
+
+  --pdf-doc-fundo: #F3EAD6;
+  --pdf-doc-traco: #0F2A1A;
+  --pdf-faixa-ini: #7C8F6E;
+  --pdf-faixa-fim: #0F2A1A;
+  --pdf-faixa-texto: #F3EAD6;
+
+  --interruptor-ligado: #7C8F6E;
+}
+
+/* modo escuro */
+:root[data-theme=&quot;dark&quot;] {
+  --fundo: linear-gradient(160deg, #1C3A2D 0%, #15302A 50%, #0F2620 100%);
+  --fundo-solido: var(--abismo);
+  --nav-ativo-bg: #15302A;
+
+  --classico: #DFC592;
+  --antigo: #C7A368;
+
+  --botao-mini-bg: var(--vidro-icone);
+  --botao-mini-texto: var(--pergaminho);
+  --progresso-cor1: var(--classico);
+  --progresso-cor2: var(--antigo);
+
+  --vidro-card: rgba(4, 20, 15, 0.82);
+  --vidro-icone: #15302A;
+  --vidro-realce: rgba(255, 255, 255, 0.18);
+  --sombra-clara: rgba(240, 212, 138, 0.1);
+  --sombra-escura: rgba(4, 20, 15, 0.35);
+
+  --borda-dourada: rgba(212,176,106,0.4);
+  --texto-principal: var(--creme);
+  --texto-suave: var(--nevoa);
+  --texto-dourado: var(--brilho);
+  --sombra: 0 14px 36px rgba(0,0,0,0.5), 0 0 40px var(--aura);
+  --trilho: rgba(143,181,160,0.22);
+
+  --texto-card: var(--creme);
+  --texto-suave-card: var(--nevoa);
+  --texto-dourado-card: var(--brilho);
+  --fundo-miolo: var(--abismo);
+
+  --cor-particula: var(--brilho);
+  --glow-particula: var(--glow);
+
+  --menu-fundo: linear-gradient(160deg, rgba(10, 46, 35, 0.55), rgba(4, 20, 15, 0.78));
+
+  --perigo-bg: rgba(212, 176, 106, 0.14);
+  --perigo-borda: rgba(212, 176, 106, 0.45);
+  --perigo-texto: var(--brilho);
+
+  --item-fundo: rgba(95, 211, 168, 0.18);
+
+  --cartao-bg: linear-gradient(160deg, #0A2018, #04140F);
+  --cartao-borda: var(--borda-dourada);
+  --cor-titulo-login: var(--brilho);
+
+  --pdf-doc-fundo: #15302A;
+  --pdf-doc-traco: #DFC592;
+  --pdf-faixa-ini: #DFC592;
+  --pdf-faixa-fim: #C7A368;
+  --pdf-faixa-texto: #0F2620;
+
+  --interruptor-ligado: #5FD3A8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--fonte-base);
+  background: var(--fundo);
+  background-attachment: fixed;
+  color: var(--texto-principal);
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ===== Tela de login ===== */
+body.tela-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+#sakura-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.botao-tema-login {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--cartao-borda);
+  background: var(--cartao-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--texto-principal);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linha-saudacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding: 0 8px;
+}
+.linha-saudacao .saudacao-menu {
+  margin-bottom: 0;
+  padding: 0;
+}
+.linha-sair {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.linha-sair .nav-item {
+  flex: 1;
+}
+/* Interruptor de tema (sol/lua), no mesmo padrão do toggle &quot;Avisar na agenda&quot; */
+.interruptor-tema {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.interruptor-tema input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.interruptor-tema-trilho {
+  width: 58px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  border: 1px solid var(--cartao-borda);
+  background: var(--pergaminho);
+  overflow: visible;
+  transition: background 0.25s ease, flex-direction 0.25s ease;
+}
+.interruptor-tema-bola {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sage-escuro);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+.interruptor-tema-icone {
+  font-size: 17px;
+  line-height: 1;
+  color: var(--sage-escuro);
+  flex-shrink: 0;
+}
+.interruptor-tema input:checked + .interruptor-tema-trilho {
+  background: var(--abismo);
+  flex-direction: row-reverse;
+}
+.interruptor-tema input:checked + .interruptor-tema-trilho .interruptor-tema-bola {
+  background: var(--classico);
+}
+.interruptor-tema input:checked + .interruptor-tema-trilho .interruptor-tema-icone {
+  color: var(--classico);
+  font-size: 20px;
+}
+
+.cartao {
+  background: var(--cartao-bg);
+  border: 1px solid var(--cartao-borda);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--sombra);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cartao h1 {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-titulo-login);
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.cartao p {
+  font-size: 14px;
+  color: var(--texto-suave-card);
+  margin-bottom: 24px;
+}
+
+.area-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.area-codigo {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.area-codigo.visivel {
+  display: flex;
+}
+
+.area-codigo input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid var(--areia);
+  font-size: 15px;
+  text-align: center;
+}
+
+.area-codigo input:focus {
+  outline: none;
+  border-color: var(--esmeralda);
+}
+
+.botao-principal {
+  background: var(--esmeralda);
+  color: var(--creme);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao-principal:hover {
+  opacity: 0.9;
+}
+
+.mensagem {
+  font-size: 13px;
+  margin-top: 12px;
+  min-height: 18px;
+}
+
+.mensagem.erro {
+  color: #C0392B;
+}
+
+.mensagem.info {
+  color: #2E7D8C;
+}
+
+/* ===== Estrutura do app (pós-login) ===== */
+.app {
+  display: flex;
+  min-height: 100vh;
+  gap: 18px;
+  padding: 18px;
+  position: relative;
+  align-items: flex-start;
+}
+
+/* ===== brilhinhos ===== */
+.particulas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+.particula {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cor-particula);
+  box-shadow: 0 0 5px 1px var(--glow-particula);
+  animation: flutuar 9s ease-in-out infinite;
+}
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.15; }
+  50% { transform: translateY(-26px) translateX(8px); opacity: 0.5; }
+}
+
+/* ===== SIDEBAR ===== */
+.barra-lateral {
+  position: relative;
+  z-index: 1;
+  width: 232px;
+  flex-shrink: 0;
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 28px;
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+}
+
+.marca-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 0 8px;
+}
+.marca-menu img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.marca-menu span {
+  font-family: var(--fonte-base);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--texto-dourado);
+}
+
+.saudacao-menu {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  margin-bottom: 28px;
+  padding: 0 8px;
+  color: var(--texto-principal);
+}
+
+.nav-lista { display: flex; flex-direction: column; gap: 12px; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  color: var(--texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: all 0.25s ease;
+}
+
+.nav-item .nav-icone {
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--vidro-icone);
+  box-shadow: 3px 3px 8px var(--sombra-escura), -3px -3px 8px var(--sombra-clara);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--pergaminho);
+}
+.nav-item .nav-icone svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.nav-item.ativo {
+  color: var(--pergaminho);
+  background: var(--nav-ativo-bg);
+  box-shadow: 0 6px 16px rgba(20,87,63,0.22);
+  border: 1px solid var(--borda-dourada);
+  border-left: 4px solid var(--classico);
+  padding-left: 12px;
+}
+.nav-item.ativo .nav-icone {
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  color: var(--floresta);
+  box-shadow: none;
+  font-weight: 700;
+}
+.nav-item.ativo .nav-icone svg {
+  stroke-width: 2.6;
+}
+
+/* Tema escuro: ícone do item de menu selecionado na cor verde do fundo
+   dos cards (resto do botão continua igual: fundo dourado, borda). */
+:root[data-theme=&quot;dark&quot;] .nav-item.ativo .nav-icone {
+  color: var(--abismo);
+}
+
+/* Tema claro: fundo do ícone em verde-floresta (escuro) com o ícone
+   bege, e a borda lateral do item na mesma cor do fundo do ícone.
+   Claro bege-sobre-escuro &quot;parece&quot; mais fino que escuro-sobre-dourado
+   com o mesmo peso, então aqui o traço é um pouco mais grosso pra
+   compensar e os dois lerem como igualmente em negrito. */
+:root[data-theme=&quot;light&quot;] .nav-item.ativo .nav-icone {
+  background: var(--floresta);
+  color: var(--pergaminho);
+  font-weight: 900;
+}
+:root[data-theme=&quot;light&quot;] .nav-item.ativo .nav-icone svg {
+  stroke-width: 3.2;
+}
+:root[data-theme=&quot;light&quot;] .nav-item.ativo {
+  border-left-color: var(--floresta);
+}
+
+.nav-rodape { margin-top: auto; padding-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+
+.botao-tema {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bloco-horario {
+  display: flex;
+  gap: 8px;
+}
+.select-hora {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bloco-agenda {
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  padding: 4px 14px 12px;
+}
+.linha-agenda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+  flex-wrap: wrap;
+}
+.linha-agenda-detalhes {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--borda-dourada);
+  margin-top: 4px;
+}
+.campo-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.campo-agenda label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--texto-suave-card);
+}
+.campo-data {
+  padding: 6px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+}
+.campo-repetir {
+  flex: 1;
+  min-width: 140px;
+}
+.linha-agenda-recorrencia {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+.dias-semana-chips {
+  display: flex;
+  gap: 4px;
+}
+.chip-dia {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--borda-dourada);
+  background: transparent;
+  color: var(--texto-suave-card);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chip-dia.ativo {
+  background: var(--nav-ativo-bg);
+  color: var(--pergaminho);
+  border-color: transparent;
+}
+.campo-intervalo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+.campo-intervalo input {
+  width: 42px;
+  padding: 5px 6px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+}
+.rotulo-agenda {
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+  margin-right: auto;
+}
+.status-salvando-agenda {
+  font-family: var(--fonte-base);
+  font-size: 11px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--texto-suave-card);
+  opacity: 0.75;
+  display: none;
+}
+.status-salvando-agenda.visivel {
+  display: inline-block;
+}
+.icone-agenda-link {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease;
+}
+.icone-agenda-link:hover {
+  transform: translateY(-1px);
+}
+.icone-agenda-link svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+:root[data-theme=&quot;light&quot;] .icone-agenda-link {
+  background: var(--pergaminho);
+  color: var(--texto-dourado-card);
+}
+:root[data-theme=&quot;dark&quot;] .icone-agenda-link {
+  background: transparent;
+}
+
+/* Interruptor (toggle) de avisar na agenda, no mesmo tom dourado usado
+   pros itens marcados e pela barra de progresso. */
+.interruptor {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.interruptor input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.interruptor-trilho {
+  width: 38px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--vidro-icone);
+  border: 1px solid var(--borda-dourada);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.interruptor-bola {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--creme);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: transform 0.25s ease;
+}
+.interruptor input:checked + .interruptor-trilho {
+  background: var(--interruptor-ligado);
+  border-color: transparent;
+}
+.interruptor input:checked + .interruptor-trilho .interruptor-bola {
+  transform: translateX(16px);
+}
+.interruptor input:focus-visible + .interruptor-trilho {
+  outline: 2px solid var(--texto-dourado);
+  outline-offset: 2px;
+}
+
+.linha-agenda .select-hora {
+  flex: none;
+  width: auto;
+}
+.linha-agenda .select-hora:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* modo claro: fonte do horário na mesma cor verde do fundo da página;
+   ícones de lápis/lixeira com fundo bege, mantendo a cor do ícone */
+:root[data-theme=&quot;light&quot;] .select-hora {
+  color: var(--pergaminho);
+  background: var(--sage-escuro);
+}
+:root[data-theme=&quot;light&quot;] .linha-agenda .select-hora:disabled {
+  opacity: 1;
+}
+:root[data-theme=&quot;light&quot;] .icone-renomear,
+:root[data-theme=&quot;light&quot;] .icone-lixeira,
+:root[data-theme=&quot;light&quot;] .icone-marcar-secao,
+:root[data-theme=&quot;light&quot;] .icone-limpar-secao,
+:root[data-theme=&quot;light&quot;] .icone-copiar-secao,
+:root[data-theme=&quot;light&quot;] .icone-pdf,
+:root[data-theme=&quot;light&quot;] .icone-duplicar,
+:root[data-theme=&quot;light&quot;] .icone-config {
+  background: var(--pergaminho);
+}
+
+/* Tema escuro: mesmo padrão do tema claro — fundo do ícone igual ao
+   fundo do card por trás dele (só a borda dourada e o ícone aparecem). */
+:root[data-theme=&quot;dark&quot;] .icone-renomear,
+:root[data-theme=&quot;dark&quot;] .icone-lixeira,
+:root[data-theme=&quot;dark&quot;] .icone-marcar-secao,
+:root[data-theme=&quot;dark&quot;] .icone-limpar-secao,
+:root[data-theme=&quot;dark&quot;] .icone-copiar-secao,
+:root[data-theme=&quot;dark&quot;] .icone-pdf,
+:root[data-theme=&quot;dark&quot;] .icone-duplicar,
+:root[data-theme=&quot;dark&quot;] .icone-config {
+  background: transparent;
+}
+
+/* Texto/ícone branco em cima de todo fundo marrom (var(--vidro-icone) no
+   tema claro) — no tema escuro essa mesma variável já é verde escura, não
+   marrom, então fica como estava. */
+:root[data-theme=&quot;light&quot;] .nav-item .nav-icone,
+:root[data-theme=&quot;light&quot;] .botao-tema,
+:root[data-theme=&quot;light&quot;] .icone-widget,
+:root[data-theme=&quot;light&quot;] .icone-menu-item:hover,
+:root[data-theme=&quot;light&quot;] .icone-menu-item.aberto,
+:root[data-theme=&quot;light&quot;] .select-hora,
+:root[data-theme=&quot;light&quot;] .botao-widget,
+:root[data-theme=&quot;light&quot;] .botao-salvar {
+  color: var(--pergaminho);
+}
+
+/* Mesmo padrão no tema escuro: os ícones/textos que saíam esverdeados ou
+   dourados nesses mesmos lugares passam a usar o bege padrão (igual o
+   botão &quot;Meus Checklists&quot; ativo, que já usava essa cor). */
+:root[data-theme=&quot;dark&quot;] .botao-tema,
+:root[data-theme=&quot;dark&quot;] .icone-widget,
+:root[data-theme=&quot;dark&quot;] .icone-menu-item:hover,
+:root[data-theme=&quot;dark&quot;] .icone-menu-item.aberto {
+  color: var(--pergaminho);
+}
+
+/* Ícones do menu lateral (Dashboard, Meus Checklists, Histórico,
+   Configurações, Sair): mesma cor dourada e mesmo tamanho para todos,
+   no tema escuro. O item ativo mantém seu próprio estilo (fundo em
+   degradê dourado), definido logo abaixo. */
+:root[data-theme=&quot;dark&quot;] .nav-item .nav-icone {
+  color: var(--texto-dourado-card);
+}
+
+/* ===== CONTEÚDO ===== */
+.conteudo { position: relative; z-index: 1; flex: 1; min-width: 0; }
+
+.topo { margin-bottom: 22px; }
+.selo-topo {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--texto-dourado);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.topo h1 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 32px;
+  margin: 0;
+  color: var(--texto-principal);
+}
+
+.grade-widgets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 760px) {
+  .app { flex-direction: column; }
+  .barra-lateral { width: 100%; }
+  .grade-widgets { grid-template-columns: 1fr; }
+}
+
+.widget {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+}
+
+.widget-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.widget-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--texto-card);
+}
+.icone-widget {
+  width: 30px; height: 30px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  background: var(--vidro-icone);
+  box-shadow: 3px 3px 8px var(--sombra-escura), -3px -3px 8px var(--sombra-clara);
+  color: var(--texto-dourado-card);
+}
+.icone-widget svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.widget-tag { font-size: 10.5px; color: var(--texto-suave-card); letter-spacing: 1px; font-weight: 600; }
+
+.barras-semana { display: flex; align-items: flex-end; justify-content: space-between; height: 90px; gap: 8px; margin-bottom: 10px; }
+.barra-dia { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.barra-coluna {
+  width: 100%; max-width: 18px; height: 36px;
+  border-radius: 8px;
+  background: var(--trilho);
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.08);
+}
+.barra-dia span { font-size: 10px; color: var(--texto-suave-card); font-weight: 600; }
+
+.widget-rodape { display: flex; gap: 20px; padding-top: 14px; border-top: 1px solid var(--borda-dourada); }
+.widget-rodape .metrica strong { display: block; font-family: var(--fonte-titulo); font-size: 24px; color: var(--texto-dourado-card); font-weight: 700; }
+.widget-rodape .metrica span { font-size: 11px; color: var(--texto-suave-card); font-weight: 600; }
+
+.anel-progresso { display: flex; align-items: center; justify-content: center; margin: 6px 0 16px; }
+.anel {
+  width: 112px; height: 112px; border-radius: 50%;
+  background: conic-gradient(var(--classico) 0deg, var(--trilho) 0deg);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 3px 3px 8px rgba(0,0,0,0.12), 0 0 22px var(--glow);
+}
+.anel-miolo {
+  width: 84px; height: 84px; border-radius: 50%;
+  background: var(--fundo-miolo);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.anel-miolo strong { font-family: var(--fonte-titulo); font-size: 20px; color: var(--texto-dourado-card); font-weight: 700; }
+.anel-miolo span { font-size: 10px; color: var(--texto-suave-card); font-weight: 600; }
+
+.linha-habitos { display: flex; justify-content: space-between; gap: 10px; }
+.habito { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+.mini-anel {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: conic-gradient(var(--classico) 0deg, var(--trilho) 0deg);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 2px 2px 6px rgba(0,0,0,0.12);
+}
+.mini-anel-miolo {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--fundo-miolo);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.habito span { font-size: 10px; color: var(--texto-suave-card); text-align: center; font-weight: 600; }
+
+.widget-acao { display: flex; flex-direction: column; gap: 14px; }
+.widget-acao p { margin: 0; font-size: 13px; color: var(--texto-suave-card); line-height: 1.6; font-weight: 500; }
+.botao-widget {
+  align-self: flex-start;
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  border: 1px solid var(--borda-dourada);
+  padding: 11px 26px;
+  border-radius: 999px;
+  font-family: var(--fonte-titulo);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px var(--sombra-escura), -2px -2px 8px var(--sombra-clara);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.botao-widget:hover {
+  box-shadow: 0 0 0 5px var(--glow);
+  transform: translateY(-1px);
+}
+
+/* ===== MEUS CHECKLISTS ===== */
+.grade-checklists {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.card-checklist {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.card-checklist:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px var(--glow), 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara);
+}
+.card-checklist .widget-titulo { color: var(--texto-card); }
+.card-checklist-progresso {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--trilho);
+  overflow: hidden;
+}
+.card-checklist-progresso span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--classico), var(--antigo));
+  transition: width 0.4s ease;
+}
+.card-checklist-rodape {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+
+.card-novo {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--texto-suave-card);
+  font-weight: 700;
+  font-size: 14px;
+  min-height: 150px;
+  border-style: dashed;
+}
+.card-novo span.simbolo-novo {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--texto-dourado-card);
+}
+
+/* ===== VISTA DE ITENS ===== */
+.botao-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 14px;
+  padding: 0;
+}
+
+.painel-itens {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+  max-width: 560px;
+}
+
+.painel-itens-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.painel-itens-topo h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 24px;
+  margin: 0;
+  color: var(--texto-card);
+}
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.painel-itens-topo h2,
+.titulo-checklist-input {
+  flex: 1;
+  min-width: 0;
+  margin-right: 12px;
+}
+.painel-itens-topo h2.titulo-editavel { cursor: text; }
+.titulo-checklist-input {
+  font-family: var(--fonte-titulo);
+  font-size: 24px;
+  line-height: normal;
+  color: var(--texto-card);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--borda-dourada);
+  border-radius: 0;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.titulo-checklist-input:focus {
+  outline: none;
+}
+.icones-titulo {
+  display: flex;
+  gap: 8px;
+}
+.icones-titulo .icone-renomear {
+  margin-left: 0;
+}
+:root[data-theme=&quot;light&quot;] .icone-renomear.ativo,
+:root[data-theme=&quot;dark&quot;] .icone-renomear.ativo {
+  background: var(--botao-mini-bg);
+  color: var(--botao-mini-texto);
+  border-color: transparent;
+}
+.secao-titulo-editavel {
+  cursor: text;
+}
+.progresso-painel { margin-bottom: 18px; }
+.progresso-texto {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+  margin-bottom: 8px;
+}
+.progresso-percentual { color: var(--texto-dourado-card); font-weight: 700; }
+.progresso-trilha {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--trilho);
+  overflow: hidden;
+}
+.progresso-trilha span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--progresso-cor1), var(--progresso-cor2));
+  transition: width 0.4s ease;
+}
+
+.acoes-itens { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+#acoesNormais { justify-content: space-between; }
+.acoes-itens-esquerda { display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.bloco-botao-historico {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.info-ultimo-historico {
+  font-family: var(--fonte-base);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+  opacity: 0.7;
+  padding-left: 2px;
+}
+.botao-mini {
+  background: var(--botao-mini-bg);
+  color: var(--botao-mini-texto);
+  border: 1px solid var(--borda-dourada);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: var(--fonte-base);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lista-itens { display: flex; flex-direction: column; gap: 2px; margin-bottom: 18px; }
+
+.item-check {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 2px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.caixa-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 2px solid var(--borda-dourada);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--floresta);
+  font-size: 14px;
+  font-weight: 700;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+.item-check.marcado .caixa-check {
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  border-color: transparent;
+}
+.item-check.marcado span.texto-item {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.selo-concluido {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--texto-dourado-card);
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.texto-item {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-card);
+}
+.texto-item-editavel {
+  cursor: text;
+}
+.texto-item-input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-card);
+  background: var(--fundo-solido);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.texto-item-input:focus {
+  outline: none;
+}
+
+.linha-novo-item {
+  display: flex;
+  gap: 10px;
+}
+.linha-novo-item input,
+.linha-novo-item textarea {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+.linha-novo-item input:focus,
+.linha-novo-item textarea:focus { outline: none; }
+.linha-novo-item textarea {
+  resize: none;
+  overflow: hidden;
+  max-height: 120px;
+  line-height: 1.3;
+}
+
+.estado-vazio {
+  font-size: 13px;
+  color: var(--texto-suave-card);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.botao-perigo {
+  background: var(--perigo-bg);
+  border-color: var(--perigo-borda);
+  color: var(--perigo-texto);
+}
+
+.item-check.item-edicao {
+  justify-content: space-between;
+}
+.item-check.selecionado {
+  box-shadow: 0 0 0 2px var(--borda-dourada) inset;
+  opacity: 0.85;
+}
+
+.icone-lixeira,
+.icone-renomear,
+.icone-pdf,
+.icone-duplicar,
+.icone-config {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  border: 1px solid var(--borda-dourada);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: transform 0.15s ease;
+}
+.icone-lixeira:hover,
+.icone-renomear:hover,
+.icone-pdf:hover,
+.icone-duplicar:hover,
+.icone-config:hover {
+  transform: translateY(-1px);
+}
+.icone-duplicar:disabled {
+  opacity: 0.5;
+  cursor: wait;
+  transform: none;
+}
+
+.icone-lixeira {
+  background: var(--perigo-bg);
+  color: var(--perigo-texto);
+}
+
+.icone-renomear {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+  margin-left: auto;
+}
+
+.icone-pdf {
+  background: var(--vidro-icone);
+}
+.icone-pdf svg { display: block; width: 18px; height: 18px; }
+
+.icone-config {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+}
+.icone-config svg { display: block; width: 18px; height: 18px; }
+
+.icone-duplicar {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+}
+.icone-duplicar svg { display: block; width: 18px; height: 18px; }
+
+/* ===== Janela de configurações do checklist (histórico / zerar diário) ===== */
+.janela-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 30, 20, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.janela-config {
+  width: 360px;
+  max-width: calc(100vw - 40px);
+  background: var(--cartao-bg);
+  border: 1px solid var(--cartao-borda);
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.janela-config h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 20px;
+  margin: 0 0 4px;
+  color: var(--texto-card);
+}
+.janela-config .subtitulo {
+  font-size: 12px;
+  color: var(--texto-suave-card);
+  margin: 0 0 20px;
+}
+.linha-opcao {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--borda-dourada);
+}
+.linha-opcao:first-of-type { border-top: none; }
+.linha-destino {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--borda-dourada);
+}
+.linha-destino:first-of-type { border-top: none; }
+.opcao-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--texto-card);
+  cursor: pointer;
+}
+.opcao-radio input[type=&quot;radio&quot;] {
+  accent-color: var(--classico);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.linha-destino select.select-hora {
+  width: 100%;
+}
+.linha-destino input:disabled,
+.linha-destino select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.opcao-texto strong { display: block; font-size: 13.5px; color: var(--texto-card); font-weight: 700; margin-bottom: 3px; }
+.opcao-texto span { display: block; font-size: 11.5px; color: var(--texto-suave-card); line-height: 1.5; }
+.janela-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+.botao-fechar {
+  background: transparent;
+  border: 1px solid var(--borda-dourada);
+  color: var(--texto-suave-card);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.botao-salvar {
+  background: var(--vidro-icone);
+  color: var(--pergaminho);
+  border: 1px solid var(--borda-dourada);
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== Botão &quot;Salvar no histórico&quot; (ação manual, separada de Marcar tudo) ===== */
+.botao-historico {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px dashed var(--borda-dourada);
+  color: var(--texto-dourado-card);
+}
+.icone-salvar-historico {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* ===== Tela de Histórico ===== */
+.cartao-historico {
+  background: var(--vidro-card);
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 24px;
+  padding: 6px 10px 14px 10px;
+  box-shadow: 8px 8px 20px var(--sombra-escura), -6px -6px 16px var(--sombra-clara), inset 0 1px 0 var(--vidro-realce);
+}
+.tabela-historico { width: 100%; border-collapse: collapse; }
+.tabela-historico thead th {
+  text-align: left;
+  font-size: 10.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--texto-suave-card);
+  font-weight: 700;
+  padding: 16px 16px 10px 16px;
+}
+.tabela-historico tbody tr { border-top: 1px solid var(--borda-dourada); }
+.tabela-historico tbody td { padding: 14px 16px; font-size: 13px; color: var(--texto-card); font-weight: 500; vertical-align: middle; }
+.td-nome { font-family: var(--fonte-titulo); font-size: 17px; font-weight: 700; color: var(--texto-dourado-card); }
+.pill-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.pill-concluido { background: var(--item-fundo); color: var(--texto-suave-card); }
+.pill-parcial { background: rgba(184,146,63,0.18); color: #9C6B42; }
+:root[data-theme=&quot;dark&quot;] .pill-parcial { background: rgba(212,176,106,0.18); color: #DFC592; }
+.td-horario { font-weight: 700; color: var(--texto-dourado-card); white-space: nowrap; }
+
+.alca-arrastar {
+  cursor: grab;
+  color: var(--texto-suave-card);
+  font-size: 14px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  padding: 0 2px;
+  touch-action: none;
+}
+.alca-arrastar:active {
+  cursor: grabbing;
+}
+
+.bloco-secao {
+  padding: 10px 0 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-top: 1px solid var(--borda-dourada);
+}
+.bloco-secao.secao-arrastando {
+  opacity: 0.4;
+}
+.bloco-secao.secao-arrasto-sobre {
+  box-shadow: 0 -3px 0 var(--classico) inset;
+}
+.alca-secao {
+  cursor: grab;
+}
+.alca-secao:active {
+  cursor: grabbing;
+}
+.secao-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+.secao-titulo {
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--texto-card);
+}
+.secao-titulo-input {
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--texto-card);
+  background: var(--fundo-solido);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 8px;
+  padding: 2px 8px;
+  min-width: 0;
+  flex: 1;
+}
+.secao-titulo-input:focus {
+  outline: none;
+}
+.secao-contagem {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+.icone-seta-secao {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid var(--borda-dourada);
+  background: transparent;
+  color: var(--texto-dourado-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+}
+.icone-seta-secao:hover {
+  background: var(--vidro-icone);
+}
+.icone-secao {
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  margin-left: 0;
+}
+.icone-marcar-secao,
+.icone-limpar-secao,
+.icone-copiar-secao {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.icone-copiar-secao svg { display: block; width: 13px; height: 13px; }
+.secao-cabecalho .icone-seta-secao {
+  margin-left: auto;
+}
+.secao-progresso-linha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.secao-percentual {
+  font-size: 12px;
+  color: var(--texto-suave-card);
+  flex-shrink: 0;
+}
+.secao-progresso-trilha {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--trilho);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.secao-progresso-trilha span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--progresso-cor1), var(--progresso-cor2));
+  transition: width 0.4s ease;
+}
+.secao-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+.estado-vazio-secao {
+  padding: 8px 0;
+  font-size: 12px;
+}
+.linha-novo-item-secao {
+  margin: 0;
+}
+.botao-nova-secao {
+  width: 100%;
+  text-align: center;
+  margin-top: 4px;
+}
+input.campo-nova-secao {
+  width: 100%;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--nav-ativo-bg);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+input.campo-nova-secao::placeholder {
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+input.campo-nova-secao:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--nav-ativo-bg) inset;
+}
+
+.item-check.arrastando {
+  opacity: 0.4;
+}
+.item-check.arrasto-sobre {
+  box-shadow: 0 -3px 0 var(--classico) inset;
+}
+
+/* Menu de três pontinhos por item (estilo Trello): editar/excluir
+   sempre acessíveis, sem precisar do lápis da seção. */
+.item-check {
+  position: relative;
+}
+.icone-menu-item {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--texto-suave-card);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.icone-menu-item:hover,
+.icone-menu-item.aberto {
+  background: var(--vidro-icone);
+  color: var(--texto-dourado-card);
+}
+
+/* Indicador de fotos anexadas: aparece antes dos três pontinhos só
+   quando o item já tem alguma foto salva. Clicar nele também abre a
+   galeria, sem precisar passar pelo menu. */
+.icone-indicador-fotos {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--texto-dourado-card);
+  font-size: 15px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.icone-indicador-fotos:hover {
+  background: var(--vidro-icone);
+}
+.icone-indicador-fotos .qtd-indicador-fotos {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 2px;
+  border-radius: 7px;
+  background: var(--sage-escuro);
+  color: var(--pergaminho);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+:root[data-theme=&quot;dark&quot;] .icone-indicador-fotos .qtd-indicador-fotos {
+  background: var(--nav-ativo-bg);
+  color: var(--classico);
+}
+.menu-item-dropdown {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  z-index: 20;
+  min-width: 140px;
+  background: var(--fundo-solido);
+  border: 1px solid var(--borda-dourada);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+.menu-item-dropdown.aberto {
+  display: flex;
+}
+.menu-item-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-card);
+  cursor: pointer;
+  text-align: left;
+}
+.menu-item-dropdown button:hover {
+  background: var(--vidro-icone);
+}
+.menu-item-dropdown button.opcao-excluir {
+  color: var(--perigo-texto);
+}
+
+/* ===== Galeria de fotos do item (Google Drive da própria usuária) ===== */
+.janela-fotos {
+  width: 420px;
+}
+.grade-fotos-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.miniatura-foto {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--vidro-icone);
+  border: 1px solid var(--borda-dourada);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.miniatura-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.miniatura-carregando,
+.miniatura-erro {
+  font-size: 10.5px;
+  color: var(--texto-suave-card);
+  text-align: center;
+  padding: 4px;
+}
+.botao-apagar-foto {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.estado-vazio-fotos {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 12px;
+  color: var(--texto-suave-card);
+  padding: 20px 0;
+}
+.botao-add-foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px dashed var(--borda-dourada);
+  border-radius: 12px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--texto-dourado-card);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.botao-add-foto:hover {
+  background: var(--vidro-icone);
+}
+
+/* ===== ÁREA DE IMPRESSÃO / PDF =====
+   Fica fora da tela normal; só aparece quando window.print() é chamado.
+   Cores sempre fixas (claro), nunca usam variáveis de tema, para o PDF
+   sair igual independente do modo claro/escuro ativo no app. */
+#areaImpressaoPdf {
+  display: none;
+}
+
+@media print {
+  html, body {
+    background: #FFFFFF !important;
+  }
+  /* &quot;display: none&quot; de verdade (não só invisível) para o resto do app
+     não ocupar espaço em branco nem gerar páginas extras vazias na
+     hora de paginar a impressão. */
+  .barra-lateral,
+  #vistaLista,
+  #vistaItens,
+  #particulas {
+    display: none !important;
+  }
+  #areaImpressaoPdf {
+    display: block !important;
+    background: #FFFFFF;
+  }
+  /* O cabeçalho fica fixo no topo e se repete em toda página impressa;
+     cada &quot;.pdf-pagina&quot; reserva, com padding-top, o espaço exato da
+     altura dele (calculada em JS) pra o conteúdo nunca ficar escondido
+     atrás dele. */
+  .pdf-cabecalho {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+  }
+}
+
+#areaImpressaoPdf {
+  background: #FFFFFF;
+  font-family: &#x27;Inter&#x27;, sans-serif;
+  color: #203827;
+  padding: 0;
+}
+.pdf-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 2px solid #9C6B42;
+  padding: 0 8px calc(2px + 1mm) 8px;
+}
+.pdf-pagina {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 0 8px;
+  break-after: page;
+  page-break-after: always;
+}
+.pdf-pagina:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+.pdf-rodape-pagina {
+  margin-top: auto;
+  margin-bottom: -86px;
+  margin-right: -17px;
+  padding-top: 6px;
+  text-align: right;
+  font-size: 9px;
+  font-weight: 600;
+  color: #43583E;
+}
+.pdf-logo {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.pdf-titulo {
+  flex: 1;
+  font-family: &#x27;Cormorant Garamond&#x27;, serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.3px;
+  color: #203827;
+}
+.pdf-data {
+  font-size: 10px;
+  font-weight: 600;
+  color: #43583E;
+}
+/* Fluxo &quot;estilo jornal&quot;: cada página tem 3 colunas lado a lado, e as
+   seções preenchem a coluna 1 de cima a baixo antes de continuar na
+   coluna 2 e depois na coluna 3 — a altura de cada seção é medida em
+   JS, então a divisão entre colunas e páginas nunca corta uma seção
+   ao meio. */
+.pdf-colunas {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+.pdf-coluna {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+.pdf-secao-titulo {
+  font-family: &#x27;Inter&#x27;, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9C6B42;
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(156,107,66,0.35);
+}
+.pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 2px;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(156,107,66,0.15);
+}
+.pdf-caixa {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #7C8F6E;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #203827;
+}
+.pdf-item.marcado .pdf-caixa {
+  background: #7C8F6E;
+  color: #FFFFFF;
+  border-color: #7C8F6E;
+}
+.pdf-item.marcado .pdf-texto {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+.pdf-resto {
+  margin-top: 24px;
+}
+.pdf-rodape {
+  margin-top: 28px;
+  font-size: 9px;
+  color: #43583E;
+  text-align: center;
+}
+@page {
+  size: A4 portrait;
+  margin: 6mm 6mm 2mm 6mm;
+}
+
+
+/* ===== Formularios com e-mail e senha (login, configuracoes) ===== */
+.campo-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+}
+.campo-login label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave-card);
+}
+.campo-login input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--borda-dourada);
+  background: var(--fundo-solido);
+  color: var(--texto-principal);
+  font-family: var(--fonte-base);
+  font-size: 15px;
+}
+.campo-login input:focus {
+  outline: none;
+  border-color: var(--esmeralda);
+}
+.botao-link {
+  background: none;
+  border: none;
+  color: var(--texto-suave-card);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px;
+  align-self: center;
+}
+.widget-acao .campo-login {
+  gap: 10px;
+}
+
+/* Configuracoes: botoes menores e faixa de assinatura */
+.widget-acao .botao-widget {
+  padding: 7px 18px;
+  font-size: 13px;
+}
+.widget-acao .campo-login input {
+  padding: 9px 14px;
+  font-size: 14px;
+}
+.status-assinatura {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 4px 14px 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--texto-card);
+  background: var(--vidro-card);
+  border: 1px solid var(--borda-dourada);
+  border-left: 4px solid var(--classico);
+  box-shadow: 0 4px 12px rgba(20, 87, 63, 0.16);
+}
+.status-icone {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  color: var(--abismo);
+}
+:root[data-theme=&quot;light&quot;] .status-assinatura { border-left-color: var(--floresta); }
+:root[data-theme=&quot;light&quot;] .status-icone { background: var(--floresta); color: var(--pergaminho); }
+:root[data-theme=&quot;dark&quot;] .status-assinatura { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;div class=&quot;particulas&quot; id=&quot;particulas&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;app&quot;&gt;
+    &lt;aside class=&quot;barra-lateral&quot;&gt;
+      &lt;div class=&quot;marca-menu&quot;&gt;
+        &lt;img src=&quot;https://camilashi.github.io/melist/icons/icon-192.png&quot; alt=&quot;&quot;&gt;
+        &lt;span&gt;ME-LIST&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;saudacao-menu&quot; id=&quot;saudacaoMenu&quot;&gt;Oi, Camila!&lt;/div&gt;
+
+      &lt;nav class=&quot;nav-lista&quot;&gt;
+        &lt;button class=&quot;nav-item ativo&quot; id=&quot;navMeusChecklists&quot; onclick=&quot;mostrarListaPrincipal()&quot;&gt;
+          &lt;span class=&quot;nav-icone&quot;&gt;&amp;#10003;&lt;/span&gt; Meus Checklists
+        &lt;/button&gt;
+        &lt;button class=&quot;nav-item&quot; id=&quot;navHistorico&quot; onclick=&quot;abrirHistorico()&quot;&gt;
+          &lt;span class=&quot;nav-icone&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;8.5&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M12 7.5v5l3.5 2&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/span&gt; Histórico
+        &lt;/button&gt;
+        &lt;button class=&quot;nav-item&quot; onclick=&quot;irPara(&#x27;configuracoes.html&#x27;)&quot;&gt;
+          &lt;span class=&quot;nav-icone&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/span&gt; Configurações
+        &lt;/button&gt;
+      &lt;/nav&gt;
+
+      &lt;div class=&quot;nav-rodape&quot;&gt;
+        &lt;div class=&quot;linha-sair&quot;&gt;
+          &lt;button class=&quot;nav-item&quot; onclick=&quot;sair()&quot;&gt;
+            &lt;span class=&quot;nav-icone&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4&quot;&gt;&lt;/path&gt;&lt;polyline points=&quot;16 17 21 12 16 7&quot;&gt;&lt;/polyline&gt;&lt;line x1=&quot;21&quot; y1=&quot;12&quot; x2=&quot;9&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;&lt;/svg&gt;&lt;/span&gt; Sair
+          &lt;/button&gt;
+          &lt;label class=&quot;interruptor-tema&quot; aria-label=&quot;Alternar tema&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;toggleTemaRodape&quot; onchange=&quot;alternarTema()&quot;&gt;
+            &lt;span class=&quot;interruptor-tema-trilho&quot;&gt;
+              &lt;span class=&quot;interruptor-tema-bola&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;interruptor-tema-icone&quot; id=&quot;iconeTemaRodape&quot;&gt;&amp;#9790;&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+
+    &lt;main class=&quot;conteudo&quot;&gt;
+
+      &lt;!-- VISTA: lista de checklists --&gt;
+      &lt;div id=&quot;vistaLista&quot;&gt;
+        &lt;div class=&quot;topo&quot;&gt;
+          &lt;div class=&quot;selo-topo&quot;&gt;Painel&lt;/div&gt;
+          &lt;h1&gt;Meus Checklists&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;grade-checklists&quot; id=&quot;gradeChecklists&quot;&gt;
+          &lt;div class=&quot;estado-vazio&quot;&gt;Carregando...&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- VISTA: Histórico (quando cada checklist foi salvo/feito) --&gt;
+      &lt;div id=&quot;vistaHistorico&quot; style=&quot;display:none;&quot;&gt;
+        &lt;div class=&quot;topo&quot;&gt;
+          &lt;div class=&quot;selo-topo&quot;&gt;Painel&lt;/div&gt;
+          &lt;h1&gt;Histórico&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;cartao-historico&quot; id=&quot;listaHistorico&quot;&gt;
+          &lt;div class=&quot;estado-vazio&quot;&gt;Carregando...&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- VISTA: itens de um checklist --&gt;
+      &lt;div id=&quot;vistaItens&quot; style=&quot;display:none;&quot;&gt;
+        &lt;button class=&quot;botao-voltar&quot; onclick=&quot;voltarParaLista()&quot;&gt;&amp;#8592; Voltar para Meus Checklists&lt;/button&gt;
+        &lt;div class=&quot;painel-itens&quot;&gt;
+          &lt;div class=&quot;painel-itens-topo&quot;&gt;
+            &lt;h2 id=&quot;tituloChecklist&quot; class=&quot;titulo-editavel&quot; title=&quot;Clique para renomear&quot; onclick=&quot;iniciarEdicaoTituloChecklist()&quot;&gt;Checklist&lt;/h2&gt;
+            &lt;div class=&quot;topo-direita&quot;&gt;
+              &lt;span class=&quot;icones-titulo&quot; id=&quot;iconesTituloChecklist&quot;&gt;
+                &lt;button class=&quot;icone-config&quot; onclick=&quot;abrirConfigChecklist()&quot; title=&quot;Configurações do checklist&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot;&gt;
+                    &lt;line x1=&quot;4&quot; y1=&quot;6&quot; x2=&quot;20&quot; y2=&quot;6&quot;&gt;&lt;/line&gt;
+                    &lt;circle cx=&quot;9&quot; cy=&quot;6&quot; r=&quot;2.3&quot; fill=&quot;currentColor&quot;&gt;&lt;/circle&gt;
+                    &lt;line x1=&quot;4&quot; y1=&quot;12&quot; x2=&quot;20&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;
+                    &lt;circle cx=&quot;16&quot; cy=&quot;12&quot; r=&quot;2.3&quot; fill=&quot;currentColor&quot;&gt;&lt;/circle&gt;
+                    &lt;line x1=&quot;4&quot; y1=&quot;18&quot; x2=&quot;20&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;
+                    &lt;circle cx=&quot;11&quot; cy=&quot;18&quot; r=&quot;2.3&quot; fill=&quot;currentColor&quot;&gt;&lt;/circle&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-pdf&quot; onclick=&quot;salvarChecklistEmPdf()&quot; title=&quot;Salvar em PDF&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 48 48&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+                    &lt;defs&gt;
+                      &lt;linearGradient id=&quot;faixaIconePdf&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;
+                        &lt;stop offset=&quot;0&quot; style=&quot;stop-color: var(--pdf-faixa-ini);&quot;/&gt;
+                        &lt;stop offset=&quot;1&quot; style=&quot;stop-color: var(--pdf-faixa-fim);&quot;/&gt;
+                      &lt;/linearGradient&gt;
+                    &lt;/defs&gt;
+                    &lt;path d=&quot;M10 4 H30 L38 12 V40 Q38 42 36 42 H10 Q8 42 8 40 V6 Q8 4 10 4 Z&quot; style=&quot;fill: var(--pdf-doc-fundo); stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;2&quot; stroke-linejoin=&quot;round&quot;/&gt;
+                    &lt;path d=&quot;M30 4 V10 Q30 12 32 12 H38 Z&quot; style=&quot;fill: var(--pdf-doc-fundo); stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;2&quot; stroke-linejoin=&quot;round&quot;/&gt;
+                    &lt;line x1=&quot;13&quot; y1=&quot;16&quot; x2=&quot;30&quot; y2=&quot;16&quot; style=&quot;stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/&gt;
+                    &lt;g transform=&quot;rotate(-9 24 33)&quot;&gt;
+                      &lt;rect x=&quot;-6.5&quot; y=&quot;23.5&quot; width=&quot;61&quot; height=&quot;20&quot; rx=&quot;4&quot; fill=&quot;url(#faixaIconePdf)&quot; style=&quot;stroke: var(--pdf-doc-traco);&quot; stroke-width=&quot;1&quot;/&gt;
+                      &lt;text x=&quot;24&quot; y=&quot;39&quot; text-anchor=&quot;middle&quot; font-family=&quot;Inter, sans-serif&quot; font-size=&quot;18&quot; font-weight=&quot;800&quot; style=&quot;fill: var(--pdf-faixa-texto);&quot;&gt;PDF&lt;/text&gt;
+                    &lt;/g&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-duplicar&quot; id=&quot;botaoDuplicarChecklist&quot; onclick=&quot;duplicarChecklistAtual()&quot; title=&quot;Duplicar checklist (copia tudo pra uma lista nova)&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+                    &lt;rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;13&quot; height=&quot;13&quot; rx=&quot;2&quot;&gt;&lt;/rect&gt;
+                    &lt;path d=&quot;M4 16V4a2 2 0 0 1 2-2h10&quot;&gt;&lt;/path&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-duplicar&quot; id=&quot;botaoEnviarChecklist&quot; onclick=&quot;abrirEnvioChecklist()&quot; title=&quot;Enviar uma cópia para outro usuário (ele precisa aceitar)&quot;&gt;
+                  &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+                    &lt;line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;&gt;&lt;/line&gt;
+                    &lt;polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;&gt;&lt;/polygon&gt;
+                  &lt;/svg&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;icone-lixeira&quot; onclick=&quot;excluirChecklistAtual()&quot; title=&quot;Excluir checklist&quot;&gt;&amp;#128465;&lt;/button&gt;
+              &lt;/span&gt;
+              &lt;span class=&quot;widget-tag&quot; id=&quot;dataAtual&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;progresso-painel&quot; id=&quot;progressoPainel&quot;&gt;
+            &lt;div class=&quot;progresso-texto&quot;&gt;
+              &lt;span id=&quot;progressoTexto&quot;&gt;0 de 0 concluídos&lt;/span&gt;
+              &lt;span class=&quot;progresso-percentual&quot; id=&quot;progressoPercentual&quot;&gt;0%&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;progresso-trilha&quot;&gt;&lt;span id=&quot;progressoBarra&quot; style=&quot;width:0%&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;acoes-itens&quot; id=&quot;acoesNormais&quot;&gt;
+            &lt;div class=&quot;acoes-itens-esquerda&quot;&gt;
+              &lt;button class=&quot;botao-mini&quot; onclick=&quot;marcarTodos(true)&quot;&gt;Marcar tudo&lt;/button&gt;
+              &lt;button class=&quot;botao-mini&quot; onclick=&quot;marcarTodos(false)&quot;&gt;Limpar tudo&lt;/button&gt;
+              &lt;div class=&quot;bloco-botao-historico&quot;&gt;
+                &lt;button class=&quot;botao-mini botao-historico&quot; id=&quot;botaoSalvarHistorico&quot; onclick=&quot;salvarNoHistorico()&quot;&gt;
+                  &lt;svg class=&quot;icone-salvar-historico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
+                    &lt;path d=&quot;M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z&quot;&gt;&lt;/path&gt;
+                    &lt;path d=&quot;M8 4v5h7V4&quot;&gt;&lt;/path&gt;
+                    &lt;rect x=&quot;7.5&quot; y=&quot;13&quot; width=&quot;9&quot; height=&quot;6&quot;&gt;&lt;/rect&gt;
+                  &lt;/svg&gt;
+                  Salvar no histórico
+                &lt;/button&gt;
+                &lt;span class=&quot;info-ultimo-historico&quot; id=&quot;infoUltimoHistorico&quot;&gt;&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;lista-itens&quot; id=&quot;listaItens&quot;&gt;
+            &lt;div class=&quot;estado-vazio&quot;&gt;Carregando...&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Área só usada para gerar o PDF via window.print(); fica oculta na tela normal. --&gt;
+      &lt;div id=&quot;areaImpressaoPdf&quot;&gt;&lt;/div&gt;
+
+    &lt;/main&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaConfigChecklist&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloConfigChecklist&quot;&gt;Configurações&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot;&gt;Só valem pra este checklist.&lt;/p&gt;
+
+      &lt;div class=&quot;linha-opcao&quot;&gt;
+        &lt;div class=&quot;opcao-texto&quot;&gt;
+          &lt;strong&gt;Registrar no histórico&lt;/strong&gt;
+          &lt;span&gt;Guarda uma linha no Histórico com data, hora e o que estava marcado.&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;interruptor&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; id=&quot;toggleRegistrarHistorico&quot;&gt;
+          &lt;span class=&quot;interruptor-trilho&quot;&gt;&lt;span class=&quot;interruptor-bola&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;linha-opcao&quot;&gt;
+        &lt;div class=&quot;opcao-texto&quot;&gt;
+          &lt;strong&gt;Zerar os itens todo dia&lt;/strong&gt;
+          &lt;span&gt;De madrugada, desmarca tudo sozinho — pra checklists que você refaz todo dia, como o Dia a Dia. Desligado, o item continua marcado nos dias seguintes até você desmarcar ou clicar em &quot;Limpar tudo&quot; — pra checklists como o de Viagem.&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;interruptor&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; id=&quot;toggleZerarDiario&quot;&gt;
+          &lt;span class=&quot;interruptor-trilho&quot;&gt;&lt;span class=&quot;interruptor-bola&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharConfigChecklist()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; onclick=&quot;salvarConfigChecklist()&quot;&gt;Salvar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaReceberChecklist&quot; style=&quot;display:flex;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloReceberChecklist&quot;&gt;Checklist recebido&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot; id=&quot;textoReceberChecklist&quot;&gt;Camila quer te enviar o checklist &quot;Viagem&quot;. Deseja aceitar? Se aceitar, ele entra na sua lista como uma cópia sua, sem marcações.&lt;/p&gt;
+      &lt;p class=&quot;subtitulo&quot; id=&quot;contadorReceber&quot;&gt;&lt;/p&gt;
+      &lt;div class=&quot;mensagem&quot; id=&quot;msgReceber&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; id=&quot;botaoRecusarEnvio&quot; onclick=&quot;responderEnvio(false)&quot;&gt;Recusar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; id=&quot;botaoAceitarEnvio&quot; onclick=&quot;responderEnvio(true)&quot;&gt;Aceitar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaEnvioChecklist&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloEnvioChecklist&quot;&gt;Enviar checklist&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot;&gt;A pessoa vê um aviso e escolhe se aceita. Se aceitar, recebe uma cópia sem marcações e sem fotos. O que ela mudar não altera o seu.&lt;/p&gt;
+      &lt;div class=&quot;campo-login&quot;&gt;
+        &lt;label&gt;E-mail do usuário
+          &lt;input type=&quot;email&quot; id=&quot;campoEmailEnvio&quot; autocomplete=&quot;off&quot; placeholder=&quot;nome@email.com&quot;&gt;
+        &lt;/label&gt;
+        &lt;div class=&quot;mensagem&quot; id=&quot;msgEnvio&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharEnvioChecklist()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; id=&quot;botaoConfirmarEnvio&quot; onclick=&quot;enviarChecklistAtual()&quot;&gt;Enviar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaFotosItem&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config janela-fotos&quot;&gt;
+      &lt;h2 id=&quot;tituloFotosItem&quot;&gt;Fotos do item&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot;&gt;Ficam guardadas com segurança — só quem está logada vê essas fotos.&lt;/p&gt;
+
+      &lt;div class=&quot;grade-fotos-item&quot; id=&quot;gradeFotosItem&quot;&gt;&lt;/div&gt;
+
+      &lt;label class=&quot;botao-add-foto&quot; id=&quot;botaoAddFoto&quot;&gt;
+        &lt;input type=&quot;file&quot; accept=&quot;image/*&quot; id=&quot;inputFotoItem&quot; style=&quot;display:none;&quot; onchange=&quot;onAdicionarFotoSelecionada(event)&quot;&gt;
+        &lt;span id=&quot;textoBotaoAddFoto&quot;&gt;+ Adicionar foto&lt;/span&gt;
+      &lt;/label&gt;
+
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharGaleriaItem()&quot;&gt;Fechar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;janela-overlay&quot; id=&quot;janelaCopiarSecao&quot; style=&quot;display:none;&quot;&gt;
+    &lt;div class=&quot;janela-config&quot;&gt;
+      &lt;h2 id=&quot;tituloCopiarSecao&quot;&gt;Copiar lista&lt;/h2&gt;
+      &lt;p class=&quot;subtitulo&quot; id=&quot;subtituloCopiarSecao&quot;&gt;Copia os itens desta lista pra outro checklist — a lista original continua aqui do mesmo jeito.&lt;/p&gt;
+
+      &lt;div class=&quot;linha-destino&quot;&gt;
+        &lt;label class=&quot;opcao-radio&quot;&gt;
+          &lt;input type=&quot;radio&quot; name=&quot;destinoCopiarSecao&quot; id=&quot;radioDestinoExistente&quot; checked onchange=&quot;atualizarDestinoCopiarSecao()&quot;&gt;
+          Checklist existente
+        &lt;/label&gt;
+        &lt;select id=&quot;selectChecklistDestino&quot; class=&quot;select-hora&quot;&gt;&lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;linha-destino&quot;&gt;
+        &lt;label class=&quot;opcao-radio&quot;&gt;
+          &lt;input type=&quot;radio&quot; name=&quot;destinoCopiarSecao&quot; id=&quot;radioDestinoNovo&quot; onchange=&quot;atualizarDestinoCopiarSecao()&quot;&gt;
+          Criar um checklist novo
+        &lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;campoNomeNovoChecklistDestino&quot; class=&quot;campo-nova-secao&quot; placeholder=&quot;Nome do novo checklist...&quot; disabled&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;linha-destino&quot;&gt;
+        &lt;label class=&quot;opcao-radio&quot;&gt;
+          &lt;input type=&quot;radio&quot; name=&quot;destinoCopiarSecao&quot; id=&quot;radioDestinoTexto&quot; onchange=&quot;atualizarDestinoCopiarSecao()&quot;&gt;
+          Copiar como texto (pra colar no WhatsApp, bloco de notas...)
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;janela-botoes&quot;&gt;
+        &lt;button class=&quot;botao-fechar&quot; onclick=&quot;fecharCopiarSecao()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class=&quot;botao-salvar&quot; id=&quot;botaoConfirmarCopiarSecao&quot; onclick=&quot;confirmarCopiarSecao()&quot;&gt;Copiar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  
+  
+  
+  
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></body></html>

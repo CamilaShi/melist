@@ -258,6 +258,23 @@ const acoes = {
     return {};
   },
 
+  async listarEnvios() {
+    const linhas = conferir(
+      await db.from('envios_checklist').select('id, nome_remetente, nome_checklist').order('criado_em')
+    );
+    return { envios: linhas };
+  },
+
+  async aceitarEnvio(d) {
+    conferir(await db.rpc('aceitar_checklist', { p_envio_id: d.idEnvio }));
+    return {};
+  },
+
+  async recusarEnvio(d) {
+    conferir(await db.from('envios_checklist').delete().eq('id', d.idEnvio));
+    return {};
+  },
+
   async definirConfigChecklist(d) {
     conferir(await db.from('checklists')
       .update({ registrar_historico: !!d.registrarHistorico, zerar_diario: !!d.zerarDiario })

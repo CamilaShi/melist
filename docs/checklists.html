@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=22">
+  <link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 
@@ -125,7 +125,7 @@
                     <path d="M4 16V4a2 2 0 0 1 2-2h10"></path>
                   </svg>
                 </button>
-                <button class="icone-duplicar" id="botaoEnviarChecklist" onclick="abrirEnvioChecklist()" title="Enviar uma cópia para outro usuário">
+                <button class="icone-duplicar" id="botaoEnviarChecklist" onclick="abrirEnvioChecklist()" title="Enviar uma cópia para outro usuário (ele precisa aceitar)">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -207,10 +207,23 @@
     </div>
   </div>
 
+  <div class="janela-overlay" id="janelaReceberChecklist" style="display:none;">
+    <div class="janela-config">
+      <h2 id="tituloReceberChecklist">Checklist recebido</h2>
+      <p class="subtitulo" id="textoReceberChecklist"></p>
+      <p class="subtitulo" id="contadorReceber"></p>
+      <div class="mensagem" id="msgReceber"></div>
+      <div class="janela-botoes">
+        <button class="botao-fechar" id="botaoRecusarEnvio" onclick="responderEnvio(false)">Recusar</button>
+        <button class="botao-salvar" id="botaoAceitarEnvio" onclick="responderEnvio(true)">Aceitar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="janela-overlay" id="janelaEnvioChecklist" style="display:none;">
     <div class="janela-config">
       <h2 id="tituloEnvioChecklist">Enviar checklist</h2>
-      <p class="subtitulo">A pessoa recebe uma cópia na lista dela, sem marcações e sem fotos. O que ela mudar não altera o seu.</p>
+      <p class="subtitulo">A pessoa vê um aviso e escolhe se aceita. Se aceitar, recebe uma cópia sem marcações e sem fotos. O que ela mudar não altera o seu.</p>
       <div class="campo-login">
         <label>E-mail do usuário
           <input type="email" id="campoEmailEnvio" autocomplete="off" placeholder="nome@email.com">
@@ -333,8 +346,48 @@
       criarParticulas();
       await carregarChecklists();
       if (window.location.hash === '#historico') abrirHistorico();
+      verificarEnviosRecebidos();
     };
 
+
+    let enviosPendentes = [];
+
+    async function verificarEnviosRecebidos() {
+      const resposta = await chamarBackend('listarEnvios');
+      if (!resposta.ok || !resposta.envios.length) return;
+      enviosPendentes = resposta.envios;
+      mostrarProximoEnvio();
+    }
+
+    function mostrarProximoEnvio() {
+      const envio = enviosPendentes[0];
+      if (!envio) {
+        document.getElementById('janelaReceberChecklist').style.display = 'none';
+        return;
+      }
+      document.getElementById('textoReceberChecklist').textContent =
+        envio.nome_remetente + ' quer te enviar o checklist "' + envio.nome_checklist + '". Deseja aceitar? Se aceitar, ele entra na sua lista como uma cópia sua, sem marcações.';
+      document.getElementById('contadorReceber').textContent =
+        enviosPendentes.length > 1 ? enviosPendentes.length + ' envios aguardando resposta.' : '';
+      document.getElementById('msgReceber').textContent = '';
+      document.getElementById('janelaReceberChecklist').style.display = 'flex';
+    }
+
+    async function responderEnvio(aceitar) {
+      const envio = enviosPendentes[0];
+      if (!envio) return;
+      const botoes = [document.getElementById('botaoAceitarEnvio'), document.getElementById('botaoRecusarEnvio')];
+      botoes.forEach(function (b) { b.disabled = true; });
+      const resposta = await chamarBackend(aceitar ? 'aceitarEnvio' : 'recusarEnvio', { idEnvio: envio.id });
+      botoes.forEach(function (b) { b.disabled = false; });
+      if (!resposta.ok) {
+        document.getElementById('msgReceber').textContent = resposta.erro || 'Não foi possível concluir agora. Tente de novo.';
+        return;
+      }
+      enviosPendentes.shift();
+      if (aceitar) await carregarChecklists();
+      mostrarProximoEnvio();
+    }
 
     function irPara(pagina) {
       window.location.href = pagina;
@@ -1816,7 +1869,7 @@ const LOGO_PDF_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4C
         msg.textContent = resposta.erro || 'Não foi possível enviar agora.';
         return;
       }
-      msg.textContent = 'Checklist enviado para ' + email + '.';
+      msg.textContent = 'Envio feito. A pessoa verá um aviso para aceitar quando abrir o sistema.';
     }
 
     // Cria uma cópia completa do checklist atual (itens, seções e ordem),
