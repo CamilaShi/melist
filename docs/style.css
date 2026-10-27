@@ -2073,25 +2073,30 @@ input.campo-nova-secao:focus {
 .status-assinatura {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  margin-top: 8px;
-  padding: 4px 12px;
-  border-radius: 999px;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 4px 14px 4px 8px;
+  border-radius: 12px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.4px;
-  color: #FFFFFF;
-  background: #2E6B45;
-  box-shadow: 0 0 0 3px rgba(46, 107, 69, 0.18);
+  color: var(--texto-card);
+  background: var(--vidro-card);
+  border: 1px solid var(--borda-dourada);
+  border-left: 4px solid var(--classico);
+  box-shadow: 0 4px 12px rgba(20, 87, 63, 0.16);
 }
-.status-assinatura::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #9BE3B3;
+.status-icone {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--classico), var(--antigo));
+  color: var(--abismo);
 }
-:root[data-theme="dark"] .status-assinatura {
-  background: #3E9A5F;
-  box-shadow: 0 0 0 3px rgba(62, 154, 95, 0.25);
-}
+:root[data-theme="light"] .status-assinatura { border-left-color: var(--floresta); }
+:root[data-theme="light"] .status-icone { background: var(--floresta); color: var(--pergaminho); }
+:root[data-theme="dark"] .status-assinatura { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }

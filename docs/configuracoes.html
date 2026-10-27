@@ -18,7 +18,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=21">
 </head>
 <body>
 
@@ -124,7 +124,8 @@
       const faixa = document.getElementById('statusAssinatura');
       if (ass.data && ass.data.status === 'ativa') {
         const validade = ass.data.valido_ate ? ' \u00B7 at\u00E9 ' + new Date(ass.data.valido_ate).toLocaleDateString('pt-BR') : '';
-        faixa.textContent = 'Assinatura ativa' + validade;
+        faixa.innerHTML = '<span class="status-icone">&#10003;</span>';
+        faixa.appendChild(document.createTextNode('Assinatura ativa' + validade));
         faixa.style.display = 'inline-flex';
       }
     };
