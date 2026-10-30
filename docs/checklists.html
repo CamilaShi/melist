@@ -152,7 +152,7 @@
           </div>
 
           <div class="leitor-voz" id="leitorVoz" style="display:none;">
-            <div class="leitor-texto"><span id="leitorItem"></span><small id="leitorDetalhe"></small><small id="leitorAviso"></small></div>
+            <div class="leitor-texto"><span id="leitorItem"></span><small id="leitorDetalhe"></small><small id="leitorAviso"></small><small id="leitorAvisoSilencioso" style="display:none;">&#128263; Sem som? Confira se o iPhone não está no modo silencioso (botão na lateral) e se o volume está alto.</small></div>
             <button class="botao-mini" id="leitorBotaoVoz" onclick="alternarMarcarPorVoz()" title="Diga ok, feito, pronto ou peguei para marcar o item lido">Marcar por voz: desligado</button>
             <select id="leitorPausa" title="Tempo de espera entre os itens" onchange="salvarPausaLeitura()">
               <option value="3">Pausa 3 s</option>
@@ -415,6 +415,11 @@
 
     const leitor = { fila: [], posicao: 0, lidos: 0, ativo: false, pausado: false, temporizador: null, ultimaSecao: null, secaoId: null };
 
+    // iPhone/iPad: o botao fisico de silencioso muda a voz do navegador, sem aviso nenhum.
+    function ehAppleMovel() {
+      return /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
     function leituraDisponivel() {
       return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
     }
@@ -482,6 +487,7 @@
         ? 'Depois de cada item, diga: ok, feito, pronto ou peguei.'
         : '';
       atualizarBotaoVoz();
+      document.getElementById('leitorAvisoSilencioso').style.display = ehAppleMovel() ? 'block' : 'none';
       document.getElementById('leitorVoz').style.display = 'flex';
       if (secaoId && secoesRecolhidas.has(secaoId)) {
         secoesRecolhidas.delete(secaoId);
